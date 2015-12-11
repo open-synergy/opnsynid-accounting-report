@@ -19,11 +19,11 @@
 #
 ##############################################################################
 {
-    'name': 'KOI Accounting - Accounting Report Based Using Aeroo Report',
+    'name': 'KOI Accounting - Report Trial Balance',
     'version': '1.1',
     'author': 'Kawula OpenERP Indonesia; Andhitia Rama & Michael Viriyananda',
     'category': 'Accounting',
-    'summary': 'Accounting Report Based Using Aeroo Report for KOI Accounting Application',
+    'summary': 'Report Trial Balance',
     'description': """
 
     """,
@@ -31,7 +31,7 @@
     'images': [],
     'depends': [
         'account_accountant',
-        # 'report_aeroo_ooo'
+        'report_aeroo_ooo'
     ],
     'data': [
         'security/ir.model.access.csv',

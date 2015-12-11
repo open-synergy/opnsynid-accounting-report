@@ -22,12 +22,12 @@
 
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
-from datetime import datetime
+
 
 class wizard_report_trial_balance(osv.osv_memory):
     _name = 'account.wizard_report_trial_balance'
     _description = 'Wizard Report Trial Balance'
-    
+
     def default_company_id(self, cr, uid, context=None):
         obj_user = self.pool.get('res.users')
 
@@ -39,7 +39,7 @@ class wizard_report_trial_balance(osv.osv_memory):
         obj_fiscalyear = self.pool.get('account.fiscalyear')
 
         fiscalyear_id = obj_fiscalyear.find(cr, uid)
-        
+
         return fiscalyear_id or False
 
     def default_period_id(self, cr, uid, context=None):
@@ -52,7 +52,7 @@ class wizard_report_trial_balance(osv.osv_memory):
     def default_state(self, cr, uid, context=None):
         return 'posted'
 
-    _columns =  {
+    _columns = {
         'company_id': fields.many2one(
             string='Company',
             obj='res.company',
@@ -76,9 +76,9 @@ class wizard_report_trial_balance(osv.osv_memory):
         'state': fields.selection(
             string='State',
             selection=[
-                ('all','All'),
-                ('draft','Draft'),
-                ('posted','Posted')
+                ('all', 'All'),
+                ('draft', 'Draft'),
+                ('posted', 'Posted')
             ],
             required=True),
     }
@@ -89,7 +89,7 @@ class wizard_report_trial_balance(osv.osv_memory):
         'period_id': default_period_id,
         'state': default_state
     }
-    
+
     def button_print_report(self, cr, uid, ids, data, context=None):
         datas = {}
         output_format = ''
