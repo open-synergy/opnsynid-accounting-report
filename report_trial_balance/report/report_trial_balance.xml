@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+        <record id="report_account_trialBalanceXLS" model="ir.actions.report.xml">
+            <field name="name">Trial Balance XLS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_trial_balance_xls</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo_ooo.report_mimetypes_xls_odt"/>
+            <field name="parser_loc">koi_account_aeroo_report/report/report_trial_balance.py</field>
+            <field name="report_rml">koi_account_aeroo_report/report/report_trial_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record> 
+        
+        <record id="report_account_trialBalancePDF" model="ir.actions.report.xml">
+            <field name="name">Trial Balance PDF</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_trial_balance_pdf</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo_ooo.report_mimetypes_pdf_ods"/>
+            <field name="parser_loc">koi_account_aeroo_report/report/report_trial_balance.py</field>
+            <field name="report_rml">koi_account_aeroo_report/report/report_trial_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    
+        <record id="report_account_trialBalanceODS" model="ir.actions.report.xml">
+            <field name="name">Trial Balance ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_trial_balance_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">koi_account_aeroo_report/report/report_trial_balance.py</field>
+            <field name="report_rml">koi_account_aeroo_report/report/report_trial_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>    
+
+
+    </data>
+</openerp>
+
