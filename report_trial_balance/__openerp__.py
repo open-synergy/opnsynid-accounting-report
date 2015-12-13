@@ -31,7 +31,7 @@
     'images': [],
     'depends': [
         'account_accountant',
-        'report_aeroo_ooo'
+        'report_aeroo'
     ],
     'data': [
         'security/ir.model.access.csv',
