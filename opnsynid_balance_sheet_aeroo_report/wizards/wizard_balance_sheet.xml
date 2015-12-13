@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+
+        <record id="form_account_wizardBalanceSheet" model="ir.ui.view">
+            <field name="name">Print Balance Sheet</field>
+            <field name="model">account.wizard_balance_sheet</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml" >
+                <form string="Query Balance Sheet">
+                    <group col="2" colspan="2">
+                        <field name="company_id"/>
+                        <field name="fiscalyear_id"/>
+                        <field name="period_id" 
+                            domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"/>
+                        <field name="state"/>
+                        <field name="output_format"/>
+                    </group>
+                    <footer>
+                        <button name="button_print_report" string="Print" colspan="1" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="_Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="waction_account_wizardBalanceSheet" model="ir.actions.act_window">
+            <field name="name">Print Balance Sheet</field>
+            <field name="res_model">account.wizard_balance_sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="form_account_wizardBalanceSheet"/>
+            <field name="target">new</field>
+        </record>          
+        
+        <menuitem
+            id="menu_account_reportBalanceSheet"
+            name="Balance Sheet"
+            parent="account.menu_finance_reports"
+            action="waction_account_wizardBalanceSheet"
+            sequence="1000"
+        />
+    </data>
+</openerp>
