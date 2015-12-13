@@ -135,7 +135,8 @@ class Parser(report_sxw.rml_parse):
 
     def get_balance_sheet_line(self, account_id):
         def _process_child(accounts, parent, level):
-            account_rec = [acct for acct in accounts if acct['id'] == parent][0]
+            account_rec = \
+                [acct for acct in accounts if acct['id'] == parent][0]
 
             previous_period = self.get_previous_period(account_rec['id'])
             current_period = self.get_current_period(account_rec['id'])

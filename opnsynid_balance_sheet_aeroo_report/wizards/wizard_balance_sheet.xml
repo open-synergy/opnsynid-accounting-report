@@ -14,11 +14,10 @@
                         <field name="period_id" 
                             domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"/>
                         <field name="state"/>
+                        <field name="output_format"/>
                     </group>
                     <footer>
-                        <button name="button_print_ods" string="Print as ODS" colspan="1" type="object" class="oe_highlight"/>
-                        or
-                        <button name="button_print_xls" string="Print as ODS" colspan="1" type="object" class="oe_highlight"/>
+                        <button name="button_print_report" string="Print" colspan="1" type="object" class="oe_highlight"/>
                         or
                         <button special="cancel" string="_Cancel" class="oe_link"/>
                     </footer>
@@ -34,5 +33,12 @@
             <field name="target">new</field>
         </record>          
         
+        <menuitem
+            id="menu_account_reportBalanceSheet"
+            name="Balance Sheet"
+            parent="account.menu_finance_reports"
+            action="waction_account_wizardBalanceSheet"
+            sequence="1000"
+        />
     </data>
 </openerp>

@@ -18,7 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields, api, osv
+from openerp.tools.translate import _
 
 
 class WizardBalanceSheet(models.Model):
@@ -64,6 +65,14 @@ class WizardBalanceSheet(models.Model):
         required=True,
         default=_default_period_id,
         )
+    output_format = fields.Selection(
+        string='Output Format',
+        required=True,
+        default='ods',
+        selection=[
+            ('xls', 'XLS'),
+            ('ods', 'ODS')
+        ])
     state = fields.Selection(
         string='State',
         selection=[
@@ -74,3 +83,26 @@ class WizardBalanceSheet(models.Model):
         required=True,
         default='posted',
         )
+
+    def button_print_report(self, cr, uid, ids, data, context=None):
+        datas = {}
+        output_format = ''
+
+        if context is None:
+            context = {}
+
+        datas['form'] = self.read(cr, uid, ids)[0]
+
+        if datas['form']['output_format'] == 'xls':
+            output_format = 'report_trial_balance_xls'
+        elif datas['form']['output_format'] == 'ods':
+            output_format = 'report_trial_balance_ods'
+        else:
+            err = 'Output Format cannot be empty'
+            raise osv.except_osv(_('Warning'), _(err))
+
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': output_format,
+            'datas': datas,
+        }

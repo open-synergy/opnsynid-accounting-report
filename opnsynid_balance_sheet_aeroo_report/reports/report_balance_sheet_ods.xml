@@ -14,8 +14,6 @@
             <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>
-
-
     </data>
 </openerp>
 
