@@ -32,19 +32,12 @@ class WizardBalanceSheet(models.Model):
 
     @api.model
     def _default_fiscalyear_id(self):
-        fiscalyear_id = self.env['account.fiscalyear'].find(
-            self.env.cr,
-            self.env.uid
-            )
-
+        fiscalyear_id = self.env['account.fiscalyear'].find()
         return fiscalyear_id or False
 
     @api.model
     def _default_period_id(self):
-        period_ids = self.env['account.period'].find(
-            self.env.cr,
-            self.env.uid)
-
+        period_ids = self.env['account.period'].find()
         return period_ids and period_ids[0] or False
 
     company_id = fields.Many2one(
