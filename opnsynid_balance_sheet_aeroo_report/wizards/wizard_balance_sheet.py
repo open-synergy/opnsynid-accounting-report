@@ -31,7 +31,7 @@ class WizardBalanceSheet(models.Model):
         return self.env.user.company_id.id
 
     @api.model
-    def _default_fiscalyear_id(self, cr, uid, context={}):
+    def _default_fiscalyear_id(self):
         fiscalyear_id = self.env['account.fiscalyear'].find(
             self.env.cr,
             self.env.uid
