@@ -29,8 +29,8 @@
     'website': 'https://opensynergy-indonesia.com',
     'images': [],
     'depends': [
-        'account',
-        'aeroo_report',
+        'account_accountant',
+        'report_aeroo',
         ],
     'data': [
         'wizards/wizard_balance_sheet.xml',
