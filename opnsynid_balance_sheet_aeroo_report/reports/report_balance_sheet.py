@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import time
-from report import report_sxw
+from openerp.report import report_sxw
 
 
 class Parser(report_sxw.rml_parse):
