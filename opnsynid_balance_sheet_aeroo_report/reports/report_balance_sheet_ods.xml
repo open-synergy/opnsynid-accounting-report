@@ -11,7 +11,7 @@
             <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
             <field name="parser_loc">opnsynid_balance_sheet_aeroo_report/reports/report_balance_sheet.py</field>
             <field name="report_rml">opnsynid_balance_sheet_aeroo_report/reports/report_balance_sheet.ods</field>
-            <field name="parser_state">file</field>
+            <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>
 
