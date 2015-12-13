@@ -87,10 +87,10 @@ class Parser(report_sxw.rml_parse):
 
         data = self.localcontext['data']['form']
 
-        start_period_id = data['start_period']\
-            and data['start_period'][0] or False
-        end_period_id = data['end_period']\
-            and data['end_period'][0] or False
+        start_period_id = data['start_period_id']\
+            and data['start_period_id'][0] or False
+        end_period_id = data['end_period_id']\
+            and data['end_period_id'][0] or False
 
         fiscalyear_id = data['fiscalyear_id']\
             and data['fiscalyear_id'][0] or False
@@ -174,10 +174,10 @@ class Parser(report_sxw.rml_parse):
 
         account_id = data['account_id'][0]\
             and data['account_id'][0] or False
-        start_period_id = data['start_period']\
-            and data['start_period'][0] or False
-        end_period_id = data['end_period'][0]\
-            and data['end_period'][0] or False
+        start_period_id = data['start_period_id']\
+            and data['start_period_id'][0] or False
+        end_period_id = data['end_period_id'][0]\
+            and data['end_period_id'][0] or False
         state = data['state']
 
         debit = 0.0
@@ -255,9 +255,9 @@ class Parser(report_sxw.rml_parse):
 
     def get_period(self):
         data = self.localcontext['data']['form']
-        start_period_name = data['start_period']\
-            and data['start_period'][1] or False
-        end_period_name = data['end_period'][1]
+        start_period_name = data['start_period_id']\
+            and data['start_period_id'][1] or False
+        end_period_name = data['end_period_id'][1]
         nama_bulan = '-'
 
         if start_period_name and end_period_name:

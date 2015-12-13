@@ -100,7 +100,7 @@ class wizard_report_general_ledger(osv.osv_memory):
     _defaults = {
         'company_id': default_company_id,
         'fiscalyear_id': default_fiscalyear_id,
-        'end_period': default_end_period_id,
+        'end_period_id': default_end_period_id,
         'state': default_state
     }
 

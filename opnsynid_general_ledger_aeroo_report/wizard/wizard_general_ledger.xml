@@ -11,8 +11,8 @@
                     <group col="2" colspan="2">
                     	<field name="company_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
                     	<field name="fiscalyear_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="start_period" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="end_period" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                    	<field name="start_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                    	<field name="end_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
                     	<field name="account_id" domain="[('company_id','=',company_id),('type','in',['liquidity','receivable','payable','other'])]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
                         <field name="state"/>
                         <field name="output_format"/>
