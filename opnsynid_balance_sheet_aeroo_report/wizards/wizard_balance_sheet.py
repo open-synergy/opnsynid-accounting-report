@@ -87,9 +87,9 @@ class WizardBalanceSheet(models.Model):
         datas['form'] = self.read(cr, uid, ids)[0]
 
         if datas['form']['output_format'] == 'xls':
-            output_format = 'report_trial_balance_xls'
+            output_format = 'report_balance_sheet_xls'
         elif datas['form']['output_format'] == 'ods':
-            output_format = 'report_trial_balance_ods'
+            output_format = 'report_balance_sheet_ods'
         else:
             err = 'Output Format cannot be empty'
             raise osv.except_osv(_('Warning'), _(err))
