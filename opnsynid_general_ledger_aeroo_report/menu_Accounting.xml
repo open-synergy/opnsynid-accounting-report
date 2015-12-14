@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem
+            id="menu_account_reportGeneralLedger"
+            name="General Ledger"
+            parent="account.menu_finance_reports"
+            action="waction_account_wizardReportGeneralLedger"
+            sequence="1000"
+        />
+    </data>
+</openerp>
+
