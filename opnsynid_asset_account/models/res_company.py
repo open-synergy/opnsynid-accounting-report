@@ -34,4 +34,3 @@ class res_company(models.Model):
         column1='company_id',
         column2='account_id',
         )
-

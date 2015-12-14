@@ -29,7 +29,7 @@
     'website': 'https://opensynergy-indonesia.com',
     'images': [],
     'depends': [
-        'opnsynid_accounting_report_configuration',
+        'opnsynid_accounting_report_configuration_page',
         ],
     'data': [
         'views/res_company_view.xml',
