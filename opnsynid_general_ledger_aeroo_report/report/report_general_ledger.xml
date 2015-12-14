@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+        <record id="report_account_generalLedgerXLS" model="ir.actions.report.xml">
+            <field name="name">General Ledger XLS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_general_ledger_xls</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
+            <field name="parser_loc">opnsynid_general_ledger_aeroo_report/report/report_trial_balance.py</field>
+            <field name="report_rml">opnsynid_general_ledger_aeroo_report/report/report_trial_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record> 
+        
+        <record id="report_account_generalLedgerPDF" model="ir.actions.report.xml">
+            <field name="name">General Ledger PDF</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_general_ledger_pdf</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo.report_mimetypes_pdf_ods"/>
+            <field name="parser_loc">opnsynid_general_ledger_aeroo_report/report/report_trial_balance.py</field>
+            <field name="report_rml">opnsynid_general_ledger_aeroo_report/report/report_trial_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    
+        <record id="report_account_generalLedgerODS" model="ir.actions.report.xml">
+            <field name="name">General Ledger ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_general_ledger_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+		    <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_general_ledger_aeroo_report/report/report_general_ledger.py</field>
+            <field name="report_rml">opnsynid_general_ledger_aeroo_report/report/report_general_ledger.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>    
+
+
+    </data>
+</openerp>
+
