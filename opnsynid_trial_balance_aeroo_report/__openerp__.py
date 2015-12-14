@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': 'KOI Accounting - Report Trial Balance',
+    'name': 'Trial Balance Report',
     'version': '8.0.1.0.0',
     'author': 'Kawula OpenERP Indonesia; Andhitia Rama & Michael Viriyananda',
     'category': 'Accounting',
