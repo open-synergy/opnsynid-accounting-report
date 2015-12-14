@@ -52,6 +52,9 @@ class wizard_report_trial_balance(osv.osv_memory):
     def default_state(self, cr, uid, context=None):
         return 'posted'
 
+    def default_output(self, cr, uid, context=None):
+        return 'ods'
+
     _columns = {
         'company_id': fields.many2one(
             string='Company',
@@ -87,6 +90,7 @@ class wizard_report_trial_balance(osv.osv_memory):
         'company_id': default_company_id,
         'fiscalyear_id': default_fiscalyear_id,
         'period_id': default_period_id,
+        'output_format': default_output,
         'state': default_state
     }
 
