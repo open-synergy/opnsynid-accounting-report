@@ -21,7 +21,7 @@
 {
     'name': 'Asset account',
     'version': '8.0.1.0.0',
-    'author': 'OpenSynergy Indonesia,Andhitia Rama,Michael Viriyananda',
+    'author': 'OpenSynergy Indonesia,Andhitia Rama',
     'category': 'Accounting',
     'summary': 'Asset view helper',
     'description': """
@@ -29,9 +29,10 @@
     'website': 'https://opensynergy-indonesia.com',
     'images': [],
     'depends': [
-        'account_accountant',
+        'opnsynid_accounting_report_configuration',
         ],
     'data': [
+        'views/res_company_view.xml',
         ],
     'installable': True,
     'auto_install': False,
