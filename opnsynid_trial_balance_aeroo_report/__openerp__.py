@@ -36,7 +36,7 @@
     'data': [
         'security/ir.model.access.csv',
         'report/report_trial_balance.xml',
-        'wizard/wizard_trial_balance.xml',
+        'wizards/wizard_trial_balance.xml',
         'menu_Accounting.xml'
     ],
     'installable': True,
