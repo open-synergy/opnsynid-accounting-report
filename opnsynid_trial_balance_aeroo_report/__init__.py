@@ -19,5 +19,5 @@
 #
 ##############################################################################
 
-from . import wizard
+from . import wizards
 from . import report
