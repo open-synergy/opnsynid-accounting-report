@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': 'KOI Accounting - Report General Ledger',
+    'name': 'General Ledger Report',
     'version': '8.0.1.0.0',
     'author': 'Kawula OpenERP Indonesia; Andhitia Rama & Michael Viriyananda',
     'category': 'Accounting',

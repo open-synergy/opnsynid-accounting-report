@@ -51,6 +51,9 @@ class wizard_report_general_ledger(osv.osv_memory):
 
     def default_state(self, cr, uid, context=None):
         return 'posted'
+        
+    def default_output(self, cr, uid, context=None):
+        return 'ods'
 
     _columns = {
         'company_id': fields.many2one(
@@ -101,7 +104,8 @@ class wizard_report_general_ledger(osv.osv_memory):
         'company_id': default_company_id,
         'fiscalyear_id': default_fiscalyear_id,
         'end_period_id': default_end_period_id,
-        'state': default_state
+        'state': default_state,
+        'output_format': default_output
     }
 
     def button_print_report(self, cr, uid, ids, data, context=None):
