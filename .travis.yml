@@ -55,7 +55,7 @@ install:
   # - if [[ ${TESTS} == "1" ]]; then ln -s ${PWD}/aeroo-docs /etc/init.d/aeroo-docs; fi
   # - if [[ ${TESTS} == "1" ]]; then sudo update-rc.d aeroo-docs defaults; fi
   # - if [[ ${TESTS} == "1" ]]; then sudo service aeroo-docs start; fi
-  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 https://github.com/open-synergy/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
