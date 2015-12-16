@@ -27,7 +27,7 @@ class res_company(models.Model):
     _inherit = 'res.company'
     _name = 'res.company'
 
-    liablity_ids = fields.Many2many(
+    liability_ids = fields.Many2many(
         string='Liabilities',
         comodel_name='account.account',
         relation='rel_company_2_liablity_acc',
