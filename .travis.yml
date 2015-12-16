@@ -1,5 +1,5 @@
 language: python
-sudo: flase
+sudo: true
 cache: pip
 
 python:
