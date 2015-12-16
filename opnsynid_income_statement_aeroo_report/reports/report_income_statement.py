@@ -94,7 +94,7 @@ class Parser(report_sxw.rml_parse):
 
         period_id = form['period_id'][0]
         fiscalyear_id = form['fiscalyear_id'][0]
-        state = form['form']['state']
+        state = form['state']
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
