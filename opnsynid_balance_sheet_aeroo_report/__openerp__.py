@@ -30,7 +30,7 @@
     'images': [],
     'depends': [
         'opnsynid_asset_account',
-        'opnsynid_liability_account',
+        'opnsynid_liablity_account',
         'report_aeroo',
         ],
     'data': [
