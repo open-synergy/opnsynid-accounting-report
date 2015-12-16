@@ -29,7 +29,8 @@
     'website': 'https://opensynergy-indonesia.com',
     'images': [],
     'depends': [
-        'account_accountant',
+        'opnsynid_asset_account',
+        'opnsynid_liability_account',
         'report_aeroo',
         ],
     'data': [
