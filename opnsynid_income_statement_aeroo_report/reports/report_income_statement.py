@@ -47,7 +47,7 @@ class Parser(report_sxw.rml_parse):
         obj_user = self.pool.get('res.users')
         user = obj_user.browse(self.cr, self.uid, [self.uid])[0]
 
-        return user.company_id.income_statement_configuration_ids
+        return user.company_id.income_statement_ids
 
     def get_previous_period(self, account_id):
         previous_period = 0.0
