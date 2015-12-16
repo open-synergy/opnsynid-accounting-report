@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="report_account_incomeStatementODS" model="ir.actions.report.xml">
+            <field name="name">Income Statement ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.wizard_income_statement</field>
+            <field name="report_name">report_income_statement_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_income_statement_aeroo_report/reports/report_income_statement.py</field>
+            <field name="report_rml">opnsynid_income_statement_aeroo_report/reports/report_income_statement.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    </data>
+</openerp>
+
