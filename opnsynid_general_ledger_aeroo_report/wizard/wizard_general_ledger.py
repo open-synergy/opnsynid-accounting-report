@@ -51,7 +51,7 @@ class wizard_report_general_ledger(osv.osv_memory):
 
     def default_state(self, cr, uid, context=None):
         return 'posted'
-        
+
     def default_output(self, cr, uid, context=None):
         return 'ods'
 
