@@ -1,5 +1,6 @@
 language: python
-sudo: true
+sudo: flase
+cache: pip
 
 python:
   - "2.7"
@@ -27,20 +28,20 @@ virtualenv:
   system_site_packages: true
 
 before_install:
-  - if [[ ${TESTS} == "1" ]]; then sudo add-apt-repository -y ppa:libreoffice/ppa; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy update; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo add-apt-repository -y ppa:libreoffice/ppa; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy update; fi
 
 install:
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-genshi; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cairo; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-uno; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cups; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-openoffice; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice-script-provider-python; fi
-  - if [[ ${TESTS} == "1" ]]; then git clone https://github.com/aeroo/aeroolib.git; fi
-  - if [[ ${TESTS} == "1" ]]; then cd aeroolib; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo python ./setup.py install; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-genshi; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cairo; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-uno; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cups; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-openoffice; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice-script-provider-python; fi
+  # - if [[ ${TESTS} == "1" ]]; then git clone https://github.com/aeroo/aeroolib.git; fi
+  # - if [[ ${TESTS} == "1" ]]; then cd aeroolib; fi
+  # - if [[ ${TESTS} == "1" ]]; then sudo python ./setup.py install; fi
   # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python3-setuptools; fi
   # - if [[ ${TESTS} == "1" ]]; then sudo easy_install3 pip; fi
   # - if [[ ${TESTS} == "1" ]]; then sudo pip3 install jsonrpc2 daemonize; fi
