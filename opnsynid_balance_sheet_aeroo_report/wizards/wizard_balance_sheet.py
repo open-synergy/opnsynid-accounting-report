@@ -22,7 +22,7 @@ from openerp import models, fields, api, osv
 from openerp.tools.translate import _
 
 
-class WizardBalanceSheet(models.Model):
+class WizardBalanceSheet(models.TransientModel):
     _name = 'account.wizard_balance_sheet'
     _description = 'Print Balance Sheet'
 

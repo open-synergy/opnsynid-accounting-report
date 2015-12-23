@@ -22,7 +22,7 @@ from openerp import models, fields, api, osv
 from openerp.tools.translate import _
 
 
-class WizardIncomeStatement(models.Model):
+class WizardIncomeStatement(models.TransientModel):
     _name = 'account.wizard_income_statement'
     _description = 'Print Income Statement'
 
