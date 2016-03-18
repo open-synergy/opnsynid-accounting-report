@@ -63,7 +63,7 @@ Contributors
 Maintainer
 ----------
 
-.. image:: https://opensynergy-indonesia/logo.png
+.. image:: https://opensynergy-indonesia.com/logo.png
    :alt: OpenSynergy Indonesia
    :target: https://opensynergy-indonesia.com
 
