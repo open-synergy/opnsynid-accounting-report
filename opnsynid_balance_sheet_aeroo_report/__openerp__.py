@@ -24,10 +24,7 @@
     'author': 'OpenSynergy Indonesia,Andhitia Rama,Michael Viriyananda',
     'category': 'Accounting',
     'summary': 'Balance sheet report',
-    'description': """
-    """,
     'website': 'https://opensynergy-indonesia.com',
-    'images': [],
     'depends': [
         'opnsynid_asset_account',
         'opnsynid_liablity_account',
