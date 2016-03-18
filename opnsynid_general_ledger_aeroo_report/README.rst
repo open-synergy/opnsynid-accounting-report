@@ -65,6 +65,6 @@ Maintainer
 
 .. image:: https://opensynergy-indonesia/logo.png
    :alt: OpenSynergy Indonesia
-   :target: https://opensynergy-indonesia.org
+   :target: https://opensynergy-indonesia.com
 
 This module is maintained by the OpenSynergy Indonesia
