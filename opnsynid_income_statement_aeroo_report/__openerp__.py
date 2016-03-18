@@ -4,7 +4,7 @@
 {
     'name': 'Income statement report',
     'version': '8.0.1.0.0',
-    'author': 'OpenSynergy Indonesia,Andhitia Rama,Michael Viriyananda',
+    'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Income statement report',
     'website': 'https://opensynergy-indonesia.com',
