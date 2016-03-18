@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- © 2015 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
     <data>  
-
         <record id="form_account_wizardIncomeStatement" model="ir.ui.view">
             <field name="name">Print Income Statement</field>
             <field name="model">account.wizard_income_statement</field>
