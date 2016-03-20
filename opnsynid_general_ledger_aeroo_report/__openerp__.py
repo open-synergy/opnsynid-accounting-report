@@ -14,7 +14,6 @@
         'report_aeroo'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'report/report_general_ledger.xml',
         'wizard/wizard_general_ledger.xml',
         'menu_Accounting.xml'
