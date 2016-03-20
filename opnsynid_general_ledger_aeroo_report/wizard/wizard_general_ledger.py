@@ -3,102 +3,116 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from openerp.osv import osv, fields
-from openerp.tools.translate import _
+from openerp import api, models, fields
 
 
-class wizard_report_general_ledger(osv.osv_memory):
+class wizard_report_general_ledger(models.TransientModel):
     _name = 'account.wizard_report_general_ledger'
     _description = 'Wizard Report General Ledger'
 
-    def default_company_id(self, cr, uid, context=None):
-        obj_user = self.pool.get('res.users')
+    @api.model
+    def _default_company_id(self):
+        return self.env.user.company_id.id
 
-        user = obj_user.browse(cr, uid, [uid])[0]
+    @api.model
+    def _default_fiscalyear_id(self):
+        obj_fiscalyear = self.env['account.fiscalyear']
 
-        return user.company_id and user.company_id.id or False
-
-    def default_fiscalyear_id(self, cr, uid, context=None):
-        obj_fiscalyear = self.pool.get('account.fiscalyear')
-
-        fiscalyear_id = obj_fiscalyear.find(cr, uid)
+        fiscalyear_id = obj_fiscalyear.find()
 
         return fiscalyear_id or False
 
-    def default_end_period_id(self, cr, uid, context=None):
-        obj_period = self.pool.get('account.period')
+    @api.model
+    def _default_end_period_id(self):
+        obj_period = self.env['account.period']
 
-        period_ids = obj_period.find(cr, uid)
+        period_ids = obj_period.find()
 
         return period_ids and period_ids[0] or False
 
-    def default_state(self, cr, uid, context=None):
-        return 'posted'
+    company_id = fields.Many2one(
+        string='Company',
+        comodel_name='res.company',
+        required=True,
+        default=_default_company_id,
+        )
 
-    def default_output(self, cr, uid, context=None):
-        return 'ods'
+    fiscalyear_id = fields.Many2one(
+        string='Fiscal Year',
+        comodel_name='account.fiscalyear',
+        required=True,
+        default=_default_fiscalyear_id,
+        )
 
-    _columns = {
-        'company_id': fields.many2one(
-            string='Company',
-            obj='res.company',
-            required=True),
-        'fiscalyear_id': fields.many2one(
-            string='Fiscal Year',
-            obj='account.fiscalyear',
-            required=True),
-        'start_period_id': fields.many2one(
-            string='Start Period',
-            obj='account.period',
-            required=True),
-        'end_period_id': fields.many2one(
-            string='Start Period',
-            obj='account.period',
-            required=True),
-        'account_id': fields.many2one(
-            string='Account',
-            obj='account.account',
-            required=True,
-            domain=[
-                ('type', '!=', 'view'),
-                ('type', '!=', 'consollidation'),
-                ('type', '!=', 'closed')
-            ]),
-        'in_foreign': fields.boolean(string='In Foreign'),
-        'output_format': fields.selection(
-            string='Output Format',
-            required=True,
-            selection=[
-                ('pdf', 'PDF'),
-                ('xls', 'XLS'),
-                ('ods', 'ODS')
-            ]),
-        'state': fields.selection(
-            string='State',
-            selection=[
-                ('all', 'All'),
-                ('draft', 'Draft'),
-                ('posted', 'Posted')
-            ],
-            required=True),
-    }
+    start_period_id = fields.Many2one(
+        string='Start Period',
+        comodel_name='account.period',
+        required=True,
+        )
 
-    _defaults = {
-        'company_id': default_company_id,
-        'fiscalyear_id': default_fiscalyear_id,
-        'end_period_id': default_end_period_id,
-        'state': default_state,
-        'output_format': default_output
-    }
+    end_period_id = fields.Many2one(
+        string='End Period',
+        comodel_name='account.period',
+        required=True,
+        default=_default_end_period_id,
+        )
 
-    def button_print_report(self, cr, uid, ids, data, context=None):
-        datas = {}
-        output_format = ''
+    account_id = fields.Many2one(
+        string='Account',
+        comodel_name='account.account',
+        required=False,
+        domain=[
+            ('type', '!=', 'view'),
+            ('type', '!=', 'consollidation'),
+            ('type', '!=', 'closed')
+        ])
 
+    account_ids = fields.Many2many(
+        string='Accounts',
+        comodel_name='account.account',
+        rel='rel_wzd_general_ledger_2_acc',
+        column1='wizard_id',
+        column2='account_id',
+        domain=[
+            ('type', '!=', 'view'),
+            ('type', '!=', 'consollidation'),
+            ('type', '!=', 'closed')
+        ])
+
+    in_foreign = fields.Boolean(
+        string='In Foreign')
+
+    output_format = fields.Selection(
+        string='Output Format',
+        required=True,
+        selection=[
+            ('pdf', 'PDF'),
+            ('xls', 'XLS'),
+            ('ods', 'ODS')
+        ],
+        default='ods',
+        )
+
+    state = fields.Selection(
+        string='State',
+        selection=[
+            ('all', 'All'),
+            ('draft', 'Draft'),
+            ('posted', 'Posted')
+        ],
+        required=True,
+        default='posted',
+        )
+
+    def button_print_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
 
-        datas['form'] = self.read(cr, uid, ids)[0]
+        datas = {}
+        output_format = ''
+
+        datas['form'] = self.read(
+            cr, uid, ids)[0]
 
         if datas['form']['output_format'] == 'xls':
             output_format = 'report_general_ledger_xls'
@@ -106,9 +120,6 @@ class wizard_report_general_ledger(osv.osv_memory):
             output_format = 'report_general_ledger_ods'
         elif datas['form']['output_format'] == 'pdf':
             output_format = 'report_general_ledger_pdf'
-        else:
-            err = 'Output Format cannot be empty'
-            raise osv.except_osv(_('Warning'), _(err))
 
         return {
             'type': 'ir.actions.report.xml',
