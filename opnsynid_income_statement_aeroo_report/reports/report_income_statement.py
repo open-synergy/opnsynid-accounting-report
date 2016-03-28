@@ -72,11 +72,12 @@ class Parser(report_sxw.rml_parse):
             if period_id == current_period_id:
                 previous_period_id = period_ids[list_index-1]
 
-        first_period_id = period_ids[0]
+        # first_period_id = period_ids[0]
 
         ctx = {}
         ctx['period_to'] = previous_period_id
-        ctx['period_from'] = first_period_id
+        # ctx['period_from'] = first_period_id
+        ctx['period_from'] = previous_period_id
         ctx['state'] = state
 
         account = obj_account_account.browse(
@@ -102,14 +103,15 @@ class Parser(report_sxw.rml_parse):
             ('fiscalyear_id', '=', fiscalyear_id)
             ]
 
-        period_ids = obj_account_period.search(
-            self.cr, self.uid, criteria, order='date_start')
+        # period_ids = obj_account_period.search(
+        #     self.cr, self.uid, criteria, order='date_start')
 
-        first_period_id = period_ids[0]
+        # first_period_id = period_ids[0]
 
         ctx = {}
         ctx['period_to'] = period_id
-        ctx['period_from'] = first_period_id
+        ctx['period_from'] = period_id
+        # ctx['period_from'] = first_period_id
         ctx['state'] = state
 
         account = obj_account_account.browse(
