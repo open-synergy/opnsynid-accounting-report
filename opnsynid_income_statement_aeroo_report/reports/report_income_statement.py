@@ -126,6 +126,7 @@ class Parser(report_sxw.rml_parse):
         year_to_date = 0.0
         obj_account_account = self.pool.get('account.account')
         obj_account_fiscalyear = self.pool.get('account.fiscalyear')
+        obj_account_period = self.pool.get('account.period')
 
         form = self.localcontext['data']['form']
         fiscalyear_id = form['fiscalyear_id'][0]
@@ -133,12 +134,24 @@ class Parser(report_sxw.rml_parse):
 
         fiscalyear = obj_account_fiscalyear.browse(
             self.cr, self.uid, [fiscalyear_id])[0]
-        year_date_start = fiscalyear.date_start
-        date_now = datetime.now().strftime('%Y-%m-%d')
+
+        criteria = [
+            ('fiscalyear_id', '=', fiscalyear_id)
+            ]
+
+        period_ids = obj_account_period.search(
+            self.cr, self.uid, criteria, order='date_start')
+
+        period_id = form['period_id'][0]
+        first_period_id = period_ids[0]
+        # year_date_start = fiscalyear.date_start
+        # date_now = datetime.now().strftime('%Y-%m-%d')
 
         ctx = {}
-        ctx['date_to'] = date_now
-        ctx['date_from'] = year_date_start
+        ctx['period_to'] = period_id
+        ctx['period_from'] = first_period_id
+        # ctx['date_to'] = date_now
+        # ctx['date_from'] = year_date_start
         ctx['state'] = state
 
         account = obj_account_account.browse(
