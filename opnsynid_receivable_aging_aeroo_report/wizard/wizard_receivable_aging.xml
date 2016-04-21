@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2015 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+    <data>  
+    
+        <record id="form_account_wizardReportReceivableAging" model="ir.ui.view">
+            <field name="name">Report Receivable Aging</field>
+            <field name="model">account.wizard_report_receivable_aging</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml" >
+                <form string="Report Receivable Aging">
+                    <group col="2" colspan="2">
+                    	<field name="company_id" widget="selection"/>
+                    	<field name="fiscalyear_id" widget="selection"/>
+                    	<field name="journal_ids"/>
+                    	<field name="date_from"/>
+                    	<field name="date_to"/>
+                        <field name="date_as_of"/>
+                        <field name="period_length"/>
+                        <field name="output_format"/>
+                    </group>
+                    <footer>
+                        <button name="button_print_report" string="Print Receivable Aging" colspan="1" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="_Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="waction_account_wizardReportReceivableAging" model="ir.actions.act_window">
+            <field name="name">Report Receivable Aging</field>
+            <field name="res_model">account.wizard_report_receivable_aging</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="form_account_wizardReportReceivableAging"/>
+            <field name="target">new</field>
+        </record>        
+        
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- © 2015 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+    <data>
+        <record id="report_account_receivableAgingODS" model="ir.actions.report.xml">
+            <field name="name">Receivable Aging ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.account</field>
+            <field name="report_name">report_receivable_aging_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_receivable_aging_aeroo_report/report/report_receivable_aging.py</field>
+            <field name="report_rml">opnsynid_receivable_aging_aeroo_report/report/report_receivable_aging.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>   
+    </data>
+</openerp>
+
