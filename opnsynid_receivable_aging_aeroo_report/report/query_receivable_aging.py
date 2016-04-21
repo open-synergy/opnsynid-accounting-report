@@ -7,7 +7,7 @@ from openerp.tools import drop_view_if_exists
 from datetime import datetime
 
 
-class query_receivable_aging(models.Model):
+class QueryReceivableAging(models.Model):
 
     _name = 'account.query_receivable_aging'
     _description = 'Query Receivable Aging'

@@ -8,7 +8,7 @@ from openerp.exceptions import except_orm
 from datetime import datetime
 
 
-class wizard_report_receivable_aging(models.TransientModel):
+class WizardReportReceivableAging(models.TransientModel):
     _name = 'account.wizard_report_receivable_aging'
     _description = 'Wizard Report Receivable Aging'
 
