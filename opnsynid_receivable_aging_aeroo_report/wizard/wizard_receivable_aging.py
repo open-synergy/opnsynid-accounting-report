@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# © 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
@@ -13,20 +13,12 @@ class WizardReportReceivableAging(models.TransientModel):
     _description = 'Wizard Report Receivable Aging'
 
     @api.model
-    def _default_company_id(self):
-        return self.env.user.company_id.id
-
-    @api.model
     def _default_fiscalyear_id(self):
         obj_fiscalyear = self.env['account.fiscalyear']
 
         fiscalyear_id = obj_fiscalyear.find()
 
         return fiscalyear_id or False
-
-    @api.model
-    def _default_period_length(self):
-        return 30
 
     @api.model
     def _default_date_as_of(self):
@@ -46,7 +38,7 @@ class WizardReportReceivableAging(models.TransientModel):
         string='Company',
         comodel_name='res.company',
         required=True,
-        default=_default_company_id,
+        default=lambda self: self.env.user.company_id.id,
         )
 
     fiscalyear_id = fields.Many2one(
@@ -85,7 +77,7 @@ class WizardReportReceivableAging(models.TransientModel):
     period_length = fields.Integer(
         string='Period Legth(days)',
         required=True,
-        default=_default_period_length,
+        default=30,
         )
 
     output_format = fields.Selection(

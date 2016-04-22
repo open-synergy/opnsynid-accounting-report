@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# © 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
@@ -82,7 +82,6 @@ class QueryReceivableAging(models.Model):
         else:
             self.direction = 'future'
 
-    id = fields.Integer(string='ID')
     name = fields.Char(string='Description', size=64)
 
     move_id = fields.Many2one(

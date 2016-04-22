@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# © 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -22,6 +22,6 @@
     ],
     'installable': True,
     'auto_install': False,
-    'application': True,
+    'application': False,
     'license': 'AGPL-3'
 }

@@ -1,6 +1,4 @@
 <?xml version="1.0"?>
-<!-- © 2015 OpenSynergy Indonesia>
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
     <data>
         <record id="report_account_receivableAgingXLS" model="ir.actions.report.xml">
