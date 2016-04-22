@@ -7,6 +7,7 @@ from openerp.report import report_sxw
 
 
 class Parser(report_sxw.rml_parse):
+
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
@@ -20,7 +21,7 @@ class Parser(report_sxw.rml_parse):
             'total_current': self.get_total_current,
             'sub_total_account_current': self.get_sub_total_account_current,
             'total_account_current': self.get_total_account_current,
-            })
+        })
 
     def get_company(self):
         company_name = self.localcontext['data']['form']['company_id'] \
@@ -33,7 +34,6 @@ class Parser(report_sxw.rml_parse):
         user = obj_user.browse(self.cr, self.uid, [self.uid])[0]
 
         return user.company_id.income_statement_ids
-
 
     def get_current_period(self, account_id):
         current_period = 0.0
@@ -58,7 +58,6 @@ class Parser(report_sxw.rml_parse):
 
         return current_period
 
-
     def get_income_statement_line(self, account_id):
         def _process_child(accounts, parent, level):
             account_rec = \
@@ -69,18 +68,18 @@ class Parser(report_sxw.rml_parse):
             if account_rec['id'] != account_id:
                 if account_rec['type'] == 'view':
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'current_period': False,
-                        }
+                    }
 
                     self.lines.append(res)
 
                 else:
                     self.total_current += current_period
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'current_period': current_period,
-                        }
+                    }
 
                     self.lines.append(res)
 
@@ -115,7 +114,7 @@ class Parser(report_sxw.rml_parse):
         account_fields = [
             'type', 'code', 'name', 'debit', 'credit',
             'balance', 'parent_id', 'child_id',
-            ]
+        ]
         accounts = obj_account_account.read(
             self.cr, self.uid, ids, account_fields, ctx)
 
