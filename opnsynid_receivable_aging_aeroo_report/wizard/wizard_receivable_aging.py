@@ -71,7 +71,7 @@ class WizardReportReceivableAging(models.TransientModel):
     date_as_of = fields.Date(
         string='Date As Of',
         required=True,
-        default=_default_date_as_of,
+        default=datetime.now(),
         )
 
     period_length = fields.Integer(
@@ -92,6 +92,7 @@ class WizardReportReceivableAging(models.TransientModel):
 
     @api.multi
     def button_print_report(self):
+        self.ensure_one()
         context = self._context
 
         if context is None:

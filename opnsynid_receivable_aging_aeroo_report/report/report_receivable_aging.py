@@ -77,9 +77,9 @@ class Parser(report_sxw.rml_parse):
 
     def get_journals(self):
         obj_journal = self.pool.get('account.journal')
-        data = self.localcontext['data']['form']
-        journal_ids = data['journal_ids']
-        period_length = data['period_length']
+        data_form = self.localcontext['data']['form']
+        journal_ids = data_form['journal_ids']
+        period_length = data_form['period_length']
 
         if journal_ids:
             for journal in obj_journal.browse(self.cr, self.uid, journal_ids):

@@ -6,9 +6,9 @@ from openerp.tests.common import TransactionCase
 from datetime import datetime
 
 
-class TestReceivableAging(TransactionCase):
+class TestWizardReceivableAging(TransactionCase):
     def setUp(self, *args, **kwargs):
-        super(TestReceivableAging, self).setUp(*args, **kwargs)
+        super(TestWizardReceivableAging, self).setUp(*args, **kwargs)
 
         self.obj_wiz = self.env['account.wizard_report_receivable_aging']
 
