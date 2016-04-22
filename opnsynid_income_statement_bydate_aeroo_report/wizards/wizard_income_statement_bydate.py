@@ -19,15 +19,15 @@ class WizardIncomeStatementBydate(models.TransientModel):
         comodel_name='res.company',
         required=True,
         default=_default_company_id,
-        )
+    )
     date_start = fields.Date(
         string='Date Start',
         required=True,
-        )
+    )
     date_end = fields.Date(
         string='Date End',
         required=True,
-        )
+    )
     output_format = fields.Selection(
         string='Output Format',
         required=True,
@@ -42,10 +42,10 @@ class WizardIncomeStatementBydate(models.TransientModel):
             ('all', 'All'),
             ('draft', 'Draft'),
             ('posted', 'Posted')
-            ],
+        ],
         required=True,
         default='posted',
-        )
+    )
 
     def button_print_report(self, cr, uid, ids, data, context=None):
         datas = {}
