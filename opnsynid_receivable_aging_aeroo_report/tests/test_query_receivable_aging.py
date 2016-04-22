@@ -16,13 +16,15 @@ class TestQueryReceivableAging(TransactionCase):
 
         self.journal_1 = self.env.ref('account.sales_journal')
         self.partner_1 = self.env.ref('base.res_partner_2')
-        self.currency_1 = self.env.ref('base.IDR')
+        self.currency_1 = self.env.ref('base.EUR')
         self.company = self.env.user.company_id.id
         self.account = self.env.ref('account.a_recv')
         self.product_1 = self.env.ref('product.product_product_3')
         self.product_2 = self.env.ref('product.product_product_5')
 
-        self.date_now = datetime.now().strftime('%Y-%m-%d')
+        self.period = self.env.ref('account.period_2')
+        self.date_now = self.period.date_start
+
         self.date_due = date.fromordinal(
             datetime.strptime(
                 self.date_now, '%Y-%m-%d').toordinal() + 7)
@@ -85,7 +87,7 @@ class TestQueryReceivableAging(TransactionCase):
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_1)
         ).browse(query_id.id)[0]
-        self.assertNotEqual(query.aging1, 0.0)
+        self.assertEqual(query.aging1, 510.0)
         self.assertEqual(query.aging2, 0.0)
         self.assertEqual(query.aging3, 0.0)
         self.assertEqual(query.aging4, 0.0)
@@ -99,7 +101,7 @@ class TestQueryReceivableAging(TransactionCase):
             period_length=30, date_as_of=str(date_as_of_2)
         ).browse(query_id.id)[0]
         self.assertEqual(query.aging1, 0.0)
-        self.assertNotEqual(query.aging2, 0.0)
+        self.assertEqual(query.aging2, 510.0)
         self.assertEqual(query.aging3, 0.0)
         self.assertEqual(query.aging4, 0.0)
         self.assertEqual(query.aging5, 0.0)
@@ -113,7 +115,7 @@ class TestQueryReceivableAging(TransactionCase):
         ).browse(query_id.id)[0]
         self.assertEqual(query.aging1, 0.0)
         self.assertEqual(query.aging2, 0.0)
-        self.assertNotEqual(query.aging3, 0.0)
+        self.assertEqual(query.aging3, 510.0)
         self.assertEqual(query.aging4, 0.0)
         self.assertEqual(query.aging5, 0.0)
 
@@ -127,7 +129,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging1, 0.0)
         self.assertEqual(query.aging2, 0.0)
         self.assertEqual(query.aging3, 0.0)
-        self.assertNotEqual(query.aging4, 0.0)
+        self.assertEqual(query.aging4, 510.0)
         self.assertEqual(query.aging5, 0.0)
 
         # Aging5 +120
@@ -141,4 +143,4 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging2, 0.0)
         self.assertEqual(query.aging3, 0.0)
         self.assertEqual(query.aging4, 0.0)
-        self.assertNotEqual(query.aging5, 0.0)
+        self.assertEqual(query.aging5, 510.0)
