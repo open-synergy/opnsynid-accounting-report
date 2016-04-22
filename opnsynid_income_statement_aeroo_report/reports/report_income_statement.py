@@ -2,7 +2,7 @@
 # © 2015 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, time
+from datetime import time
 from openerp.report import report_sxw
 
 
@@ -91,27 +91,15 @@ class Parser(report_sxw.rml_parse):
     def get_current_period(self, account_id):
         current_period = 0.0
         obj_account_account = self.pool.get('account.account')
-        obj_account_period = self.pool.get('account.period')
 
         form = self.localcontext['data']['form']
 
         period_id = form['period_id'][0]
-        fiscalyear_id = form['fiscalyear_id'][0]
         state = form['state']
-
-        criteria = [
-            ('fiscalyear_id', '=', fiscalyear_id)
-            ]
-
-        # period_ids = obj_account_period.search(
-        #     self.cr, self.uid, criteria, order='date_start')
-
-        # first_period_id = period_ids[0]
 
         ctx = {}
         ctx['period_to'] = period_id
         ctx['period_from'] = period_id
-        # ctx['period_from'] = first_period_id
         ctx['state'] = state
 
         account = obj_account_account.browse(
@@ -125,15 +113,11 @@ class Parser(report_sxw.rml_parse):
     def get_ytd(self, account_id):
         year_to_date = 0.0
         obj_account_account = self.pool.get('account.account')
-        obj_account_fiscalyear = self.pool.get('account.fiscalyear')
         obj_account_period = self.pool.get('account.period')
 
         form = self.localcontext['data']['form']
         fiscalyear_id = form['fiscalyear_id'][0]
         state = form['state']
-
-        fiscalyear = obj_account_fiscalyear.browse(
-            self.cr, self.uid, [fiscalyear_id])[0]
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
