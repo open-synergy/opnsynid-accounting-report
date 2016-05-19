@@ -51,7 +51,7 @@ class WizardReportPayableAging(models.TransientModel):
     journal_ids = fields.Many2many(
         string='Journals',
         comodel_name='account.journal',
-        relation='wizard_receivable_aging_rel',
+        relation='wizard_payable_aging_rel',
         column1='wizard_id',
         column2='journal_id',
         domain="[('type','=','purchase'), ('company_id', '=', [company_id])]",
