@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_query_payable_aging,Query Report Payable Aging,model_account_query_payable_aging,,1,1,1,1
+access_account_wizard_report_payable_aging,Wizard Report Payable Aging,model_account_wizard_report_payable_aging,,1,1,1,1
