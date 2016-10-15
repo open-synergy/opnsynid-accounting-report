@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- © 2016 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+    <data>
+        <record id="payment_order_summary_ods_report" model="ir.actions.report.xml">
+            <field name="name">Payment Order Summary ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.print_payment_order_summary</field>
+            <field name="report_name">payment_order_summary_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_payment_order_summary_aeroo_report/reports/payment_order_summary.py</field>
+            <field name="report_rml">opnsynid_payment_order_summary_aeroo_report/reports/payment_order_summary.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    </data>
+</openerp>
+
