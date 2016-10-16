@@ -16,6 +16,19 @@
             <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>
+        <record id="payment_order_summary_xls_report" model="ir.actions.report.xml">
+            <field name="name">Payment Order Summary XLS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.print_payment_order_summary</field>
+            <field name="report_name">payment_order_summary_xls</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
+            <field name="parser_loc">opnsynid_payment_order_summary_aeroo_report/reports/payment_order_summary.py</field>
+            <field name="report_rml">opnsynid_payment_order_summary_aeroo_report/reports/payment_order_summary.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
     </data>
 </openerp>
 
