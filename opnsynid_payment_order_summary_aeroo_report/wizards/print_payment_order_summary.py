@@ -30,6 +30,18 @@ class PrintPaymentOrderSummary(models.TransientModel):
         comodel_name="payment.mode",
         required=True,
     )
+    state_draft = fields.Boolean(
+        string="Draft",
+    )
+    state_open = fields.Boolean(
+        string="Confirmed",
+    )
+    state_done = fields.Boolean(
+        string="Done",
+    )
+    state_cancel = fields.Boolean(
+        string="Cancelled",
+    )
     output_format = fields.Selection(
         string='Output Format',
         required=True,
