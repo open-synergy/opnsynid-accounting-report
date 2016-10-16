@@ -15,6 +15,10 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="mode_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]"/>
+                <field name="state_draft"/>
+                <field name="state_open"/>
+                <field name="state_done"/>
+                <field name="state_cancel"/>
                 <field name="output_format"/>
             </group>
             <footer>

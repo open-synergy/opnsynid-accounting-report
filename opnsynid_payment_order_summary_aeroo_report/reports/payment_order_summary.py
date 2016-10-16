@@ -64,9 +64,24 @@ class Parser(report_sxw.rml_parse):
         obj_line = self.pool.get("payment.line")
         date_start = data["date_start"]
         date_end = data["date_end"]
+        state = []
         criteria = [
             ("order_id.mode", "=", mode_id),
         ]
+
+        if data["state_draft"]:
+            state.append("draft")
+        if data["state_open"]:
+            state.append("open")
+        if data["state_done"]:
+            state.append("done")
+        if data["state_cancel"]:
+            state.append("cancel")
+
+        if len(state) > 0:
+            criteria = [
+                ("order_id.state", "in", state),
+            ] + criteria
 
         if date_start:
             criteria = [
