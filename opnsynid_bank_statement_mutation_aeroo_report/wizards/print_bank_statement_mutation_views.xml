@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+<record id="print_bank_statement_mutation_view_form" model="ir.ui.view">
+    <field name="name">account.print_bank_statement_mutation form</field>
+    <field name="model">account.print_bank_statement_mutation</field>
+    <field name="arch" type="xml">
+        <form string="Print Bank Statement Mutation">
+            <group name="group_1" colspan="4" col="2">
+                <field name="company_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="journal_ids" widget="many2many_tags" domain="[('company_id','=',company_id),('type','=','bank')]"/>
+                <field name="state_draft"/>
+                <field name="state_open"/>
+                <field name="state_confirm"/>
+                <field name="output_format"/>
+            </group>
+            <footer>
+                <button name="action_print"
+                        type="object"
+                        string="Print"
+                        class="oe_highlight"/>
+                or
+                <button special="cancel"
+                        string="Cancel"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="print_bank_statement_mutation_action" model="ir.actions.act_window">
+    <field name="name">Print Bank Statement Mutation</field>
+    <field name="res_model">account.print_bank_statement_mutation</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+<menuitem
+    id="print_bank_statement_mutation_menu"
+    name="Bank Statement Mutation"
+    parent="account.menu_finance_reports"
+    action="print_bank_statement_mutation_action"
+    sequence="1000"
+/>
+
+</data>
+</openerp>
