@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_payment_instruction_helper,Payment Instruction Helper,model_account_payment_instruction_helper,,1,1,1,1
+access_account_payment_instruction_lines,Payment Instruction Lines,model_account_payment_instruction_lines,,1,1,1,1

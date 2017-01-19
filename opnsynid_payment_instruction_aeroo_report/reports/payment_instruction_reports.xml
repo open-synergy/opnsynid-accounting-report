@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- © 2017 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+    <data>
+        <record id="payment_instruction_ods_report" model="ir.actions.report.xml">
+            <field name="name">Payment Instruction ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.print_payment_instruction</field>
+            <field name="report_name">payment_instruction_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_payment_instruction_aeroo_report/reports/payment_instruction.py</field>
+            <field name="report_rml">opnsynid_payment_instruction_aeroo_report/reports/payment_instruction.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+        <record id="payment_instruction_xls_report" model="ir.actions.report.xml">
+            <field name="name">Payment Instruction XLS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">account.print_payment_instruction</field>
+            <field name="report_name">payment_instruction_xls</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
+            <field name="parser_loc">opnsynid_payment_instruction_aeroo_report/reports/payment_instruction.py</field>
+            <field name="report_rml">opnsynid_payment_instruction_aeroo_report/reports/payment_instruction.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    </data>
+</openerp>
+
