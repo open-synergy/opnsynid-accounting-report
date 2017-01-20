@@ -4,8 +4,6 @@
 
 from datetime import datetime
 from openerp import api, models, fields
-from openerp.tools.translate import _
-from openerp.exceptions import Warning as UserError
 
 
 class PrintPaymentInstruction(models.TransientModel):

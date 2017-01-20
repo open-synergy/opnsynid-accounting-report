@@ -2,9 +2,8 @@
 # © 2017 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from openerp import models, fields
 from openerp.tools import drop_view_if_exists
-from datetime import datetime
 
 
 class AccountPaymentInstructionLines(models.Model):
@@ -32,8 +31,7 @@ class AccountPaymentInstructionLines(models.Model):
     )
 
     amount_currency = fields.Float(
-        string="Amount in Partner Currency",
-        digits=(16, 2)
+        string="Amount in Partner Currency"
     )
 
     def init(self, cr):

@@ -4,7 +4,6 @@
 
 from openerp import models, fields, api
 from openerp.tools import drop_view_if_exists
-from datetime import datetime
 
 
 class AccountPaymentInstructionHelper(models.Model):
@@ -31,32 +30,13 @@ class AccountPaymentInstructionHelper(models.Model):
                 else:
                     record.date = order.date_created
 
-    @api.multi
-    def _get_date_test(self):
-        for record in self:
-            payment_line = record.line_id
-
-            order = payment_line.order_id
-            if order.date_prefered == 'fixed':
-                record.date_test = payment_line.date
-            elif order.date_prefered == 'now':
-                record.date_test = order.date_created
-            else:
-                if payment_line.ml_maturity_date:
-                    record.date_test = payment_line.ml_maturity_date
-                elif payment_line.ml_date_created:
-                    record.date_test = payment_line.ml_date_created
-                else:
-                    record.date_test = order.date_created
-
     line_id = fields.Many2one(
         string='Payment Lines',
         comodel_name='payment.line'
     )
 
     date = fields.Date(
-        string="Date",
-        store=True
+        string="Date"
     )
 
     def init(self, cr):
@@ -66,16 +46,16 @@ class AccountPaymentInstructionHelper(models.Model):
                 SELECT
                     row_number() OVER() as id,
                     A.id AS line_id,
-                    CASE 
+                    CASE
                         WHEN B.date_prefered = 'fixed'
                             THEN B.date_scheduled
                         WHEN B.date_prefered = 'now'
                             THEN B.date_created
                         ELSE
                             CASE
-                            WHEN C.date_maturity NOTNULL 
+                            WHEN C.date_maturity IS NOT NULL
                                 THEN C.date_maturity
-                            WHEN C.date NOTNULL
+                            WHEN C.date IS NOT NULL
                                 THEN C.date
                             ELSE
                                 B.date_created
@@ -83,7 +63,7 @@ class AccountPaymentInstructionHelper(models.Model):
                     END AS date
                     FROM payment_line AS A
                     JOIN payment_order AS B ON A.order_id = B.id
-                    LEFT JOIN account_move_line AS C 
+                    LEFT JOIN account_move_line AS C
                         ON A.move_line_id = C.id
             )
         """

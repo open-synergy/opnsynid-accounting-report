@@ -56,8 +56,7 @@ class Parser(report_sxw.rml_parse):
         line_ids = obj_line.search(self.cr, self.uid, criteria)
 
         no = 1
-        for line in obj_line.browse(
-            self.cr, self.uid, line_ids):
+        for line in obj_line.browse(self.cr, self.uid, line_ids):
             res = {
                 "no": no,
                 "date": line.date,
