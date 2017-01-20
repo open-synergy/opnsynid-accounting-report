@@ -4,7 +4,7 @@
 
 {
     'name': 'Receivable Aging Report',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Report Receivable Aging',
