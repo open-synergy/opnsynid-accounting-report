@@ -4,7 +4,7 @@
 
 {
     'name': 'General Ledger Report',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.0.1',
     'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Report General Ledger',

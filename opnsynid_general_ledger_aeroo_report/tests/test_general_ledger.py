@@ -6,6 +6,7 @@ from openerp.tests.common import TransactionCase
 
 
 class GeneralLedgerTest(TransactionCase):
+
     def setUp(self, *args, **kwargs):
         super(GeneralLedgerTest, self).setUp(*args, **kwargs)
 
@@ -25,14 +26,14 @@ class GeneralLedgerTest(TransactionCase):
             'end_period_id': self.end_period.id,
             'account_ids': [(6, 0, [self.account_1.id])],
             'state': 'posted',
-            }
+        }
         return data
 
     def test_wizard_ods(self):
         data = self._prepare_wizard()
         data.update({
             'output_format': 'ods',
-            })
+        })
 
         wiz = self.obj_wiz.create(data)
         result = wiz.button_print_report()
@@ -42,7 +43,7 @@ class GeneralLedgerTest(TransactionCase):
         data = self._prepare_wizard()
         data.update({
             'output_format': 'xls',
-            })
+        })
 
         wiz = self.obj_wiz.create(data)
         result = wiz.button_print_report()
@@ -52,7 +53,7 @@ class GeneralLedgerTest(TransactionCase):
         data = self._prepare_wizard()
         data.update({
             'output_format': 'pdf',
-            })
+        })
 
         wiz = self.obj_wiz.create(data)
         result = wiz.button_print_report()

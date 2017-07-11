@@ -44,9 +44,10 @@ class Parser(report_sxw.rml_parse):
 
         kriteria = [
             ('account_id', '=', account_id),
-            ('move_id.state', '=', state),
             ('period_id', '=', period.id)
         ]
+        if state != "all":
+            kriteria.append(('move_id.state', '=', state))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -109,10 +110,11 @@ class Parser(report_sxw.rml_parse):
 
             kriteria = [
                 ('account_id', '=', account_id),
-                ('move_id.state', '=', state),
                 ('date', '>=', fiscalyear.date_start),
                 ('date', '<=', str(tanggal_awal))
             ]
+            if state != "all":
+                kriteria.append(('move_id.state', '=', state))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -166,15 +168,15 @@ class Parser(report_sxw.rml_parse):
                 kriteria = [
                     ('account_id', '=', account_id),
                     ('period_id', '=', start_period_id),
-                    ('move_id.state', '=', state)
                 ]
             else:
                 kriteria = [
                     ('account_id', '=', account_id),
                     ('period_id', '>=', start_period_id),
                     ('period_id', '<=', end_period_id),
-                    ('move_id.state', '=', state)
                 ]
+        if state != "all":
+            kriteria.append(('move_id.state', '=', state))
 
         if not start_period_id and end_period_id:
             period = obj_account_period.browse(
@@ -191,8 +193,9 @@ class Parser(report_sxw.rml_parse):
                 ('account_id', '=', account_id),
                 ('period_id', '>=', int(period_kriteria[0])),
                 ('period_id', '<=', end_period_id),
-                ('move_id.state', '=', state)
             ]
+        if state != "all":
+            kriteria.append(('move_id.state', '=', state))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria, order='date')
