@@ -35,27 +35,27 @@ class wizard_report_general_ledger(models.TransientModel):
         comodel_name='res.company',
         required=True,
         default=_default_company_id,
-        )
+    )
 
     fiscalyear_id = fields.Many2one(
         string='Fiscal Year',
         comodel_name='account.fiscalyear',
         required=True,
         default=_default_fiscalyear_id,
-        )
+    )
 
     start_period_id = fields.Many2one(
         string='Start Period',
         comodel_name='account.period',
         required=True,
-        )
+    )
 
     end_period_id = fields.Many2one(
         string='End Period',
         comodel_name='account.period',
         required=True,
         default=_default_end_period_id,
-        )
+    )
 
     account_id = fields.Many2one(
         string='Account',
@@ -91,7 +91,7 @@ class wizard_report_general_ledger(models.TransientModel):
             ('ods', 'ODS')
         ],
         default='ods',
-        )
+    )
 
     state = fields.Selection(
         string='State',
@@ -102,7 +102,7 @@ class wizard_report_general_ledger(models.TransientModel):
         ],
         required=True,
         default='posted',
-        )
+    )
 
     def button_print_report(self, cr, uid, ids, context=None):
         if context is None:
