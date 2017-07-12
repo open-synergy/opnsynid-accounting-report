@@ -158,7 +158,7 @@ class Parser(report_sxw.rml_parse):
                 acct for acct in accounts if acct['id'] == parent
             ][0]
 
-            if account_rec['type'] != 'view':
+            if account_rec['type'] not in ['view', 'consolidation']:
 
                 beginning = self.get_balance('beginning', account_rec['id'])
                 now = self.get_balance('now', account_rec['id'])
@@ -205,7 +205,7 @@ class Parser(report_sxw.rml_parse):
 
         obj_account_account = self.pool.get('account.account')
 
-        kriteria = [('type', '<>', 'view')]
+        kriteria = [('type', 'not in', ['view', 'consolidation'])]
 
         account_ids = obj_account_account.search(self.cr, self.uid, kriteria)
 
