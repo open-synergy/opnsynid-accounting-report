@@ -29,19 +29,19 @@ class WizardBalanceSheet(models.TransientModel):
         comodel_name='res.company',
         required=True,
         default=_default_company_id,
-        )
+    )
     fiscalyear_id = fields.Many2one(
         string='Fiscal Year',
         comodel_name='account.fiscalyear',
         required=True,
         default=_default_fiscalyear_id,
-        )
+    )
     period_id = fields.Many2one(
         string='Period',
         comodel_name='account.period',
         required=True,
         default=_default_period_id,
-        )
+    )
     output_format = fields.Selection(
         string='Output Format',
         required=True,
@@ -56,10 +56,10 @@ class WizardBalanceSheet(models.TransientModel):
             ('all', 'All'),
             ('draft', 'Draft'),
             ('posted', 'Posted')
-            ],
+        ],
         required=True,
         default='posted',
-        )
+    )
 
     def button_print_report(self, cr, uid, ids, data, context=None):
         datas = {}

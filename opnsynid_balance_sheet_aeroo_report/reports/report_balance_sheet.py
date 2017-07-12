@@ -67,25 +67,26 @@ class Parser(report_sxw.rml_parse):
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
-            ]
+        ]
 
         period_ids = obj_account_period.search(
             self.cr,
             self.uid,
             criteria,
             order='date_start'
-            )
+        )
 
         for list_index, period_id in enumerate(period_ids):
             if period_id == current_period_id:
-                previous_period_id = period_ids[list_index-1]
+                previous_period_id = period_ids[list_index - 1]
 
         first_period_id = period_ids[0]
 
         ctx = {}
         ctx['period_to'] = previous_period_id
         ctx['period_from'] = first_period_id
-        ctx['state'] = state
+        if state != "all":
+            ctx['state'] = state
 
         account = obj_account_account.browse(
             self.cr,
@@ -109,21 +110,22 @@ class Parser(report_sxw.rml_parse):
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
-            ]
+        ]
 
         period_ids = obj_account_period.search(
             self.cr,
             self.uid,
             criteria,
             order='date_start'
-            )
+        )
 
         first_period_id = period_ids[0]
 
         ctx = {}
         ctx['period_to'] = period_id
         ctx['period_from'] = first_period_id
-        ctx['state'] = state
+        if state != "all":
+            ctx['state'] = state
 
         account = obj_account_account.browse(
             self.cr,
@@ -148,10 +150,10 @@ class Parser(report_sxw.rml_parse):
 
                 if account_rec['type'] == 'view':
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'previous_period': False,
                         'current_period': False,
-                        }
+                    }
 
                     self.lines.append(res)
 
@@ -159,10 +161,10 @@ class Parser(report_sxw.rml_parse):
                     self.total_previous += previous_period
                     self.total_current += current_period
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'previous_period': previous_period,
                         'current_period': current_period,
-                        }
+                    }
 
                     self.lines.append(res)
 
@@ -193,7 +195,7 @@ class Parser(report_sxw.rml_parse):
             self.uid,
             ids,
             ctx
-            )
+        )
 
         if child_ids:
             ids = child_ids
