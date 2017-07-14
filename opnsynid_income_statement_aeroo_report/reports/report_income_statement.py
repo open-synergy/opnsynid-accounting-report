@@ -7,6 +7,7 @@ from openerp.report import report_sxw
 
 
 class Parser(report_sxw.rml_parse):
+
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
@@ -31,7 +32,7 @@ class Parser(report_sxw.rml_parse):
             'total_account_previous': self.get_total_account_previous,
             'sub_total_account_ytd': self.get_sub_total_account_ytd,
             'total_account_ytd': self.get_total_account_ytd,
-            })
+        })
 
     def get_company(self):
         company_name = self.localcontext['data']['form']['company_id'] \
@@ -63,14 +64,14 @@ class Parser(report_sxw.rml_parse):
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
-            ]
+        ]
 
         period_ids = obj_account_period.search(
             self.cr, self.uid, criteria, order='date_start')
 
         for list_index, period_id in enumerate(period_ids):
             if period_id == current_period_id:
-                previous_period_id = period_ids[list_index-1]
+                previous_period_id = period_ids[list_index - 1]
 
         # first_period_id = period_ids[0]
 
@@ -78,7 +79,8 @@ class Parser(report_sxw.rml_parse):
         ctx['period_to'] = previous_period_id
         # ctx['period_from'] = first_period_id
         ctx['period_from'] = previous_period_id
-        ctx['state'] = state
+        if state != "all":
+            ctx['state'] = state
 
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
@@ -100,7 +102,8 @@ class Parser(report_sxw.rml_parse):
         ctx = {}
         ctx['period_to'] = period_id
         ctx['period_from'] = period_id
-        ctx['state'] = state
+        if state != "all":
+            ctx['state'] = state
 
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
@@ -121,7 +124,7 @@ class Parser(report_sxw.rml_parse):
 
         criteria = [
             ('fiscalyear_id', '=', fiscalyear_id)
-            ]
+        ]
 
         period_ids = obj_account_period.search(
             self.cr, self.uid, criteria, order='date_start')
@@ -136,7 +139,8 @@ class Parser(report_sxw.rml_parse):
         ctx['period_from'] = first_period_id
         # ctx['date_to'] = date_now
         # ctx['date_from'] = year_date_start
-        ctx['state'] = state
+        if state != "all":
+            ctx['state'] = state
 
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
@@ -158,11 +162,11 @@ class Parser(report_sxw.rml_parse):
             if account_rec['id'] != account_id:
                 if account_rec['type'] == 'view':
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'previous_period': False,
                         'current_period': False,
                         'ytd_period': False,
-                        }
+                    }
 
                     self.lines.append(res)
 
@@ -171,11 +175,11 @@ class Parser(report_sxw.rml_parse):
                     self.total_current += current_period
                     self.total_ytd += ytd_period
                     res = {
-                        'name': ('  '*level) + account_rec['name'],
+                        'name': ('  ' * level) + account_rec['name'],
                         'previous_period': previous_period,
                         'current_period': current_period,
                         'ytd_period': ytd_period,
-                        }
+                    }
 
                     self.lines.append(res)
 
@@ -210,7 +214,7 @@ class Parser(report_sxw.rml_parse):
         account_fields = [
             'type', 'code', 'name', 'debit', 'credit',
             'balance', 'parent_id', 'child_id',
-            ]
+        ]
         accounts = obj_account_account.read(
             self.cr, self.uid, ids, account_fields, ctx)
 
