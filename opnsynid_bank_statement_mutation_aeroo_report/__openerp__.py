@@ -8,7 +8,7 @@
     "website": "https://opensynergy-indonesia.com/",
     "author": "Andhitia Rama, OpenSynergy Indonesia",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "depends": [
         "report_aeroo",
         "account_accountant",

@@ -19,7 +19,7 @@
         'reports/report_balance_sheet_ods.xml',
         'reports/report_balance_sheet_xls.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
     'license': 'AGPL-3',

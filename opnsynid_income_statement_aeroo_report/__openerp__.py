@@ -17,7 +17,7 @@
         'reports/report_income_statement_ods.xml',
         'reports/report_income_statement_xls.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
     'license': 'AGPL-3',

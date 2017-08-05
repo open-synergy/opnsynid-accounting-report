@@ -19,7 +19,7 @@
         'wizard/wizard_trial_balance.xml',
         'menu_Accounting.xml'
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': True,
     'license': 'AGPL-3'

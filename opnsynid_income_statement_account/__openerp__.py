@@ -15,7 +15,7 @@
     'data': [
         'views/res_company_view.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
     'license': 'AGPL-3',
