@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2017 OpenSynergy Indonesia
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Asset Accounts Configurator Helper',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Asset view helper',
@@ -15,8 +14,7 @@
     'data': [
         'views/res_company_view.xml',
         ],
-    'installable': False,
-    'auto_install': False,
+    'installable': True,
     'application': False,
     'license': 'AGPL-3',
 }
