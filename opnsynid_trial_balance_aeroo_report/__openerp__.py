@@ -4,7 +4,7 @@
 
 {
     'name': 'Trial Balance Report',
-    'version': '8.0.1.0.1',
+    'version': '8.0.1.1.0',
     'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Report Trial Balance',
@@ -14,7 +14,6 @@
         'report_aeroo'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'report/report_trial_balance.xml',
         'wizard/wizard_trial_balance.xml',
         'menu_Accounting.xml'
