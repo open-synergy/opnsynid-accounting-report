@@ -18,6 +18,7 @@ class Parser(report_sxw.rml_parse):
         self.total_beginning_credit = 0.0
         self.total_ending_debit = 0.0
         self.total_ending_credit = 0.0
+        self.total_ending_balance = 0.0
         self.localcontext.update({
             "time": time,
             "get_period": self.get_period,
@@ -28,6 +29,7 @@ class Parser(report_sxw.rml_parse):
             "total_beginning_credit": self.get_total_beginning_credit,
             "total_ending_debit": self.get_total_ending_debit,
             "total_ending_credit": self.get_total_ending_credit,
+            "total_ending_balance": self.get_total_ending_balance,
             "lines": self.get_trial_balance_line,
         })
 
@@ -66,7 +68,7 @@ class Parser(report_sxw.rml_parse):
 
             for list_index, opening_period_id in enumerate(period_ids):
                 if opening_period_id == period_id:
-                    previous_period_id = period_ids[list_index-1]
+                    previous_period_id = period_ids[list_index - 1]
 
             first_period_id = period_ids[0]
 
@@ -152,6 +154,9 @@ class Parser(report_sxw.rml_parse):
     def get_total_ending_credit(self):
         return self.total_ending_credit
 
+    def get_total_ending_balance(self):
+        return self.total_ending_balance
+
     def get_trial_balance_line(self):
         def _process_child(accounts, parent, level):
             account_rec = [
@@ -173,6 +178,8 @@ class Parser(report_sxw.rml_parse):
 
                 self.total_ending_debit += ending_debit["ending_debit"]
                 self.total_ending_credit += abs(ending_debit["ending_credit"])
+                self.total_ending_balance += self.total_ending_debit - \
+                    self.total_ending_credit
 
                 res = {
                     "id": account_rec["id"],
@@ -193,6 +200,9 @@ class Parser(report_sxw.rml_parse):
                         abs(ending_debit["ending_credit"])
                     ),
                     "balance": Decimal(abs(account_rec["balance"])),
+                    "ending_balance":
+                    Decimal(abs(ending_debit["ending_debit"])) -
+                    Decimal(abs(ending_debit["ending_credit"])),
                     "parent_id": account_rec["parent_id"],
                 }
 

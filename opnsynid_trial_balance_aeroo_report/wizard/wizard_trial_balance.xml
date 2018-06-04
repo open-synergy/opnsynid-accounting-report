@@ -11,14 +11,25 @@
     <field name="arch" type="xml" >
         <form string="Report Trial Balance">
             <group col="2" colspan="2">
-                <field name="company_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                <field name="fiscalyear_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                <field name="period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                <field name="company_id" 
+                    options="{'create':false, 'create_edit':false, 'm2o_dialog':false, 'no_open':true}"
+                    groups="base.group_multi_company"/>
+                <field name="fiscalyear_id" 
+                    options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"
+                    />
+                <field name="period_id" 
+                    options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"
+                    domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" 
+                    />
                 <field name="state"/>
                 <field name="output_format"/>
             </group>
             <footer>
-                <button name="button_print_report" string="Print Trial Balance" colspan="1" type="object" class="oe_highlight"/>
+                <button name="button_print_report" 
+                    string="Print" 
+                    type="object" 
+                    class="oe_highlight"
+                    icon="gtk-print"/>
                 or
                 <button special="cancel" string="_Cancel" class="oe_link"/>
             </footer>
@@ -27,7 +38,7 @@
 </record>
 
 <record id="waction_account_wizardReportTrialBalance" model="ir.actions.act_window">
-    <field name="name">Report Trial Balance</field>
+    <field name="name">Trial Balance Report</field>
     <field name="res_model">account.wizard_report_trial_balance</field>
     <field name="view_type">form</field>
     <field name="view_id" ref="form_account_wizardReportTrialBalance"/>
