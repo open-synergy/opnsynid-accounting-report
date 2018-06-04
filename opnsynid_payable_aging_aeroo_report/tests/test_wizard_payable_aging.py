@@ -7,6 +7,7 @@ from datetime import datetime
 
 
 class TestWizardPayableAging(TransactionCase):
+
     def setUp(self, *args, **kwargs):
         super(TestWizardPayableAging, self).setUp(*args, **kwargs)
 
@@ -22,14 +23,14 @@ class TestWizardPayableAging(TransactionCase):
             'fiscalyear_id': self.fiscal.id,
             'date_as_of': datetime.now().strftime('%Y-%m-%d'),
             'journal_ids': [(6, 0, [self.journal_1.id])]
-            }
+        }
         return data
 
     def test_wizard_ods(self):
         data = self._prepare_wizard()
         data.update({
             'output_format': 'ods',
-            })
+        })
 
         wiz = self.obj_wiz.create(data)
         result = wiz.button_print_report()
@@ -39,7 +40,7 @@ class TestWizardPayableAging(TransactionCase):
         data = self._prepare_wizard()
         data.update({
             'output_format': 'xls',
-            })
+        })
 
         wiz = self.obj_wiz.create(data)
         result = wiz.button_print_report()
