@@ -9,35 +9,35 @@ from datetime import datetime
 
 class QueryReceivableAging(models.Model):
 
-    _name = 'account.query_receivable_aging'
-    _description = 'Query Receivable Aging'
+    _name = "account.query_receivable_aging"
+    _description = "Query Receivable Aging"
     _auto = False
 
     @api.one
     def function_aging(self):
         res = {}
         residual = 0.0
-        obj_move_line = self.env['account.move.line']
-        period_length = self._context.get('period_length', False)
-        date_as_of = self._context.get('date_as_of', False)
+        obj_move_line = self.env["account.move.line"]
+        period_length = self._context.get("period_length", False)
+        date_as_of = self._context.get("date_as_of", False)
 
         if date_as_of:
             ord_date_as_of = datetime.strptime(
-                date_as_of, '%Y-%m-%d').toordinal()
+                date_as_of, "%Y-%m-%d").toordinal()
 
         res = {
-            'aging1': 0.0,
-            'aging2': 0.0,
-            'aging3': 0.0,
-            'aging4': 0.0,
-            'aging5': 0.0,
-            'amount_residual': 0.0,
-            'amount_residual_currency': 0.0,
+            "aging1": 0.0,
+            "aging2": 0.0,
+            "aging3": 0.0,
+            "aging4": 0.0,
+            "aging5": 0.0,
+            "amount_residual": 0.0,
+            "amount_residual_currency": 0.0,
         }
 
         if self.date_due:
             ord_date_due = datetime.strptime(
-                self.date_due, '%Y-%m-%d').toordinal()
+                self.date_due, "%Y-%m-%d").toordinal()
 
             direction = (ord_date_due - ord_date_as_of)
             move_line = obj_move_line.browse(self.ids)[0]
@@ -53,142 +53,142 @@ class QueryReceivableAging(models.Model):
                 else:
                     residual = move_line.amount_residual
 
-                res['amount_residual'] = residual
+                res["amount_residual"] = residual
 
                 for interval in range(1, 6):
                     st_if_1 = period_length * (interval - 1)
                     st_if_2 = period_length * (interval)
                     if (st_if_1) <= abs(direction) < (st_if_2):
-                        res['aging%s' % (interval)] = residual
+                        res["aging%s" % (interval)] = residual
 
                     if interval == 5:
                         if abs(direction) >= (period_length * 4):
-                            res['aging5'] = residual
+                            res["aging5"] = residual
 
             if move_line.amount_residual_currency:
                 residual_currency = move_line.amount_residual_currency
-                res['amount_residual_currency'] = residual_currency
+                res["amount_residual_currency"] = residual_currency
 
-        self.aging1 = res['aging1']
-        self.aging2 = res['aging2']
-        self.aging3 = res['aging3']
-        self.aging4 = res['aging4']
-        self.aging5 = res['aging5']
-        self.amount_residual = res['amount_residual']
-        self.amount_residual_currency = res['amount_residual_currency']
+        self.aging1 = res["aging1"]
+        self.aging2 = res["aging2"]
+        self.aging3 = res["aging3"]
+        self.aging4 = res["aging4"]
+        self.aging5 = res["aging5"]
+        self.amount_residual = res["amount_residual"]
+        self.amount_residual_currency = res["amount_residual_currency"]
 
         if direction < 0:
-            self.direction = 'past'
+            self.direction = "past"
         else:
-            self.direction = 'future'
+            self.direction = "future"
 
-    name = fields.Char(string='Description', size=64)
+    name = fields.Char(string="Description", size=64)
 
     move_id = fields.Many2one(
-        string='# Move',
-        comodel_name='account.move'
+        string="# Move",
+        comodel_name="account.move"
     )
 
     account_id = fields.Many2one(
-        string='Account',
-        comodel_name='account.account'
+        string="Account",
+        comodel_name="account.account"
     )
 
     company_id = fields.Many2one(
-        string='Company',
-        comodel_name='res.company'
+        string="Company",
+        comodel_name="res.company"
     )
 
-    date = fields.Date(string='Date')
-    date_due = fields.Date(string='Date Due')
+    date = fields.Date(string="Date")
+    date_due = fields.Date(string="Date Due")
 
     journal_id = fields.Many2one(
-        string='Journal',
-        comodel_name='account.journal'
+        string="Journal",
+        comodel_name="account.journal"
     )
 
     partner_id = fields.Many2one(
-        string='Partner',
-        comodel_name='res.partner'
+        string="Partner",
+        comodel_name="res.partner"
     )
 
     period_id = fields.Many2one(
-        string='Period',
-        comodel_name='account.period'
+        string="Period",
+        comodel_name="account.period"
     )
 
     respective_currency_id = fields.Many2one(
-        string='Respective Currency',
-        comodel_name='res.currency'
+        string="Respective Currency",
+        comodel_name="res.currency"
     )
 
     base_currency_id = fields.Many2one(
-        string='Base Currency',
-        comodel_name='res.currency'
+        string="Base Currency",
+        comodel_name="res.currency"
     )
 
     reconcile_id = fields.Many2one(
-        string='Reconcile',
-        comodel_name='account.move.reconcile'
+        string="Reconcile",
+        comodel_name="account.move.reconcile"
     )
 
     reconcile_partial_id = fields.Many2one(
-        string='Partial Reconcile',
-        comodel_name='account.move.reconcile'
+        string="Partial Reconcile",
+        comodel_name="account.move.reconcile"
     )
 
-    debit = fields.Float(string='Debit')
-    credit = fields.Float(string='Credit')
-    amount_currency = fields.Float(string='Amount Currency')
+    debit = fields.Float(string="Debit")
+    credit = fields.Float(string="Credit")
+    amount_currency = fields.Float(string="Amount Currency")
 
     amount_residual = fields.Float(
-        string='Amount Residual',
+        string="Amount Residual",
         compute=function_aging
     )
 
     amount_residual_currency = fields.Float(
-        string='Amount Residual Currency',
+        string="Amount Residual Currency",
         compute=function_aging
     )
 
     aging1 = fields.Float(
-        string='Aging1',
+        string="Aging1",
         compute=function_aging
     )
 
     aging2 = fields.Float(
-        string='Aging2',
+        string="Aging2",
         compute=function_aging
     )
 
     aging3 = fields.Float(
-        string='Aging3',
+        string="Aging3",
         compute=function_aging
     )
 
     aging4 = fields.Float(
-        string='Aging4',
+        string="Aging4",
         compute=function_aging
     )
 
     aging5 = fields.Float(
-        string='Aging5',
+        string="Aging5",
         compute=function_aging
     )
 
     direction = fields.Selection(
-        string='Direction',
-        selection=[('past', 'Past'), ('future', 'Future')],
+        string="Direction",
+        selection=[("past", "Past"), ("future", "Future")],
         compute=function_aging
     )
 
     state = fields.Selection(
-        string='State',
-        selection=[('draft', 'Unposted'), ('posted', 'Posted')]
+        string="State",
+        selection=[("draft", "Unposted"), ("posted", "Posted")]
     )
 
     def init(self, cr):
-        drop_view_if_exists(cr, 'account_query_receivable_aging')
+        drop_view_if_exists(cr, "account_query_receivable_aging")
         strSQL = """
                     CREATE OR REPLACE VIEW account_query_receivable_aging AS (
                         SELECT

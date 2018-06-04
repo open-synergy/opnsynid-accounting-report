@@ -7,6 +7,7 @@ from datetime import datetime, date
 
 
 class TestQueryReceivableAging(TransactionCase):
+
     def setUp(self, *args, **kwargs):
         super(TestQueryReceivableAging, self).setUp(*args, **kwargs)
 
