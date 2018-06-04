@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
+<data>
 
-        <menuitem
-            id="menu_account_reportReceivableAging"
-            name="Receivable Aging"
-            parent="account.menu_finance_reports"
-            action="waction_account_wizardReportReceivableAging"
-            sequence="1000"
-        />
-    </data>
+<menuitem
+    id="menu_account_reportReceivableAging"
+    name="Receivable Aging"
+    parent="account.menu_finance_reports"
+    action="waction_account_wizardReportReceivableAging"
+    sequence="1000"
+/>
+
+</data>
 </openerp>
 
