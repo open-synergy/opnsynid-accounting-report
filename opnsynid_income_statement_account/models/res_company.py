@@ -5,15 +5,15 @@
 from openerp import models, fields
 
 
-class res_company(models.Model):
+class ResCompany(models.Model):
     """override company to add income statement account"""
-    _inherit = 'res.company'
-    _name = 'res.company'
+    _inherit = "res.company"
+    _name = "res.company"
 
     income_statement_ids = fields.Many2many(
-        string='Income Statement',
-        comodel_name='account.account',
-        relation='rel_company_2_is_acc',
-        column1='company_id',
-        column2='account_id',
+        string="Income Statement",
+        comodel_name="account.account",
+        relation="rel_company_2_is_acc",
+        column1="company_id",
+        column2="account_id",
         )
