@@ -16,24 +16,24 @@ class Parser(report_sxw.rml_parse):
         self.total_debit = 0.0
         self.total_credit = 0.0
         self.localcontext.update({
-            'time': time,
-            'get_account': self.get_account,
-            'line': self.get_general_ledger_line,
-            'get_period': self.get_period,
-            'get_company': self.get_company,
-            'total_debit': self.get_total_debit,
-            'total_credit': self.get_total_credit,
-            'beginning_balance': self.get_beginning_balance,
+            "time": time,
+            "get_account": self.get_account,
+            "line": self.get_general_ledger_line,
+            "get_period": self.get_period,
+            "get_company": self.get_company,
+            "total_debit": self.get_total_debit,
+            "total_credit": self.get_total_credit,
+            "beginning_balance": self.get_beginning_balance,
         })
 
     def get_opening_balance(self, account_id, state, date_start_period):
         opening_balance = 0.00
-        obj_account_period = self.pool.get('account.period')
-        obj_account_move_line = self.pool.get('account.move.line')
+        obj_account_period = self.pool.get("account.period")
+        obj_account_move_line = self.pool.get("account.move.line")
 
         kriteria_opening_balance = [
-            ('date_start', '=', date_start_period),
-            ('special', '=', 1)
+            ("date_start", "=", date_start_period),
+            ("special", "=", 1)
         ]
 
         period_ids = obj_account_period.search(
@@ -43,11 +43,11 @@ class Parser(report_sxw.rml_parse):
             self.cr, self.uid, period_ids)[0]
 
         kriteria = [
-            ('account_id', '=', account_id),
-            ('period_id', '=', period.id)
+            ("account_id", "=", account_id),
+            ("period_id", "=", period.id)
         ]
         if state != "all":
-            kriteria.append(('move_id.state', '=', state))
+            kriteria.append(("move_id.state", "=", state))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -65,21 +65,21 @@ class Parser(report_sxw.rml_parse):
 
     def beginning_balance(self, account_id):
         beginning_balance = 0.00
-        obj_account_move_line = self.pool.get('account.move.line')
-        obj_account_period = self.pool.get('account.period')
-        obj_account_fiscalyear = self.pool.get('account.fiscalyear')
+        obj_account_move_line = self.pool.get("account.move.line")
+        obj_account_period = self.pool.get("account.period")
+        obj_account_fiscalyear = self.pool.get("account.fiscalyear")
 
-        data = self.localcontext['data']['form']
+        data = self.localcontext["data"]["form"]
 
-        start_period_id = data['start_period_id']\
-            and data['start_period_id'][0] or False
-        end_period_id = data['end_period_id']\
-            and data['end_period_id'][0] or False
+        start_period_id = data["start_period_id"]\
+            and data["start_period_id"][0] or False
+        end_period_id = data["end_period_id"]\
+            and data["end_period_id"][0] or False
 
-        fiscalyear_id = data['fiscalyear_id']\
-            and data['fiscalyear_id'][0] or False
+        fiscalyear_id = data["fiscalyear_id"]\
+            and data["fiscalyear_id"][0] or False
 
-        state = data['state']
+        state = data["state"]
 
         if start_period_id:
             period_id = start_period_id
@@ -109,12 +109,12 @@ class Parser(report_sxw.rml_parse):
             tanggal_awal = date.fromordinal(ord_tanggal_awal)
 
             kriteria = [
-                ('account_id', '=', account_id),
-                ('date', '>=', fiscalyear.date_start),
-                ('date', '<=', str(tanggal_awal))
+                ("account_id", "=", account_id),
+                ("date", ">=", fiscalyear.date_start),
+                ("date", "<=", str(tanggal_awal))
             ]
             if state != "all":
-                kriteria.append(('move_id.state', '=', state))
+                kriteria.append(("move_id.state", "=", state))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -135,7 +135,7 @@ class Parser(report_sxw.rml_parse):
         return Decimal(beginning_balance)
 
     def get_account(self, account_id):
-        obj_account = self.pool.get('account.account')
+        obj_account = self.pool.get("account.account")
 
         account = obj_account.browse(
             self.cr, self.uid, account_id)
@@ -145,18 +145,18 @@ class Parser(report_sxw.rml_parse):
     def get_general_ledger_line(self, account_id):
         running_balance = 0.00
         running_balance = self.beginning_balance(account_id)
-        obj_account_move_line = self.pool.get('account.move.line')
-        obj_account_period = self.pool.get('account.period')
-        obj_account_fiscalyear = self.pool.get('account.fiscalyear')
+        obj_account_move_line = self.pool.get("account.move.line")
+        obj_account_period = self.pool.get("account.period")
+        obj_account_fiscalyear = self.pool.get("account.fiscalyear")
         self.lines = []
 
-        data = self.localcontext['data']['form']
+        data = self.localcontext["data"]["form"]
 
-        start_period_id = data['start_period_id']\
-            and data['start_period_id'][0] or False
-        end_period_id = data['end_period_id'][0]\
-            and data['end_period_id'][0] or False
-        state = data['state']
+        start_period_id = data["start_period_id"]\
+            and data["start_period_id"][0] or False
+        end_period_id = data["end_period_id"][0]\
+            and data["end_period_id"][0] or False
+        state = data["state"]
 
         debit = 0.0
         credit = 0.0
@@ -166,17 +166,17 @@ class Parser(report_sxw.rml_parse):
         if start_period_id and end_period_id:
             if start_period_id == end_period_id:
                 kriteria = [
-                    ('account_id', '=', account_id),
-                    ('period_id', '=', start_period_id),
+                    ("account_id", "=", account_id),
+                    ("period_id", "=", start_period_id),
                 ]
             else:
                 kriteria = [
-                    ('account_id', '=', account_id),
-                    ('period_id', '>=', start_period_id),
-                    ('period_id', '<=', end_period_id),
+                    ("account_id", "=", account_id),
+                    ("period_id", ">=", start_period_id),
+                    ("period_id", "<=", end_period_id),
                 ]
         if state != "all":
-            kriteria.append(('move_id.state', '=', state))
+            kriteria.append(("move_id.state", "=", state))
 
         if not start_period_id and end_period_id:
             period = obj_account_period.browse(
@@ -186,19 +186,19 @@ class Parser(report_sxw.rml_parse):
 
             period_kriteria = obj_account_period.find(
                 self.cr, self.uid, fiscalyear.date_start, {
-                    'account_period_prefer_normal': True
+                    "account_period_prefer_normal": True
                 })
 
             kriteria = [
-                ('account_id', '=', account_id),
-                ('period_id', '>=', int(period_kriteria[0])),
-                ('period_id', '<=', end_period_id),
+                ("account_id", "=", account_id),
+                ("period_id", ">=", int(period_kriteria[0])),
+                ("period_id", "<=", end_period_id),
             ]
         if state != "all":
-            kriteria.append(('move_id.state', '=', state))
+            kriteria.append(("move_id.state", "=", state))
 
         account_move_line_ids = obj_account_move_line.search(
-            self.cr, self.uid, kriteria, order='date')
+            self.cr, self.uid, kriteria, order="date")
 
         if account_move_line_ids:
             account_move_line_id = obj_account_move_line.browse(
@@ -216,13 +216,13 @@ class Parser(report_sxw.rml_parse):
                 tanggal = account_move_line.date[2:4]
 
                 val = {
-                    'date': tahun + '-' + bulan + '-' + tanggal,
-                    'ref': account_move_line.ref,
-                    'doc': account_move_line.move_id.name,
-                    'description': account_move_line.name,
-                    'debit': debit,
-                    'credit': credit,
-                    'running_balance': Decimal(running_balance)
+                    "date": tahun + "-" + bulan + "-" + tanggal,
+                    "ref": account_move_line.ref,
+                    "doc": account_move_line.move_id.name,
+                    "description": account_move_line.name,
+                    "debit": debit,
+                    "credit": credit,
+                    "running_balance": Decimal(running_balance)
                 }
                 self.lines.append(val)
 
@@ -235,18 +235,18 @@ class Parser(report_sxw.rml_parse):
         return self.total_credit
 
     def get_period(self):
-        data = self.localcontext['data']['form']
-        start_period_name = data['start_period_id']\
-            and data['start_period_id'][1] or False
-        end_period_name = data['end_period_id'][1]
-        nama_bulan = '-'
+        data = self.localcontext["data"]["form"]
+        start_period_name = data["start_period_id"]\
+            and data["start_period_id"][1] or False
+        end_period_name = data["end_period_id"][1]
+        nama_bulan = "-"
 
         if start_period_name and end_period_name:
 
-            nama_bulan = start_period_name + ' - ' + end_period_name
+            nama_bulan = start_period_name + " - " + end_period_name
 
         if not start_period_name and end_period_name:
-            nama_bulan = 'S/D ' + end_period_name
+            nama_bulan = "S/D " + end_period_name
 
         if start_period_name == end_period_name:
             nama_bulan = start_period_name
@@ -254,7 +254,7 @@ class Parser(report_sxw.rml_parse):
         return nama_bulan
 
     def get_company(self):
-        data = self.localcontext['data']['form']
-        company_name = data['company_id'] and data['company_id'][1] or False
+        data = self.localcontext["data"]["form"]
+        company_name = data["company_id"] and data["company_id"][1] or False
 
         return company_name

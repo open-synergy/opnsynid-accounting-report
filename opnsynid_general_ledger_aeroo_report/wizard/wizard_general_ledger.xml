@@ -2,39 +2,39 @@
 <!-- © 2015 OpenSynergy Indonesia>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-    <data>  
+<data>  
     
-        <record id="form_account_wizardReportGeneralLedger" model="ir.ui.view">
-            <field name="name">Report General Ledger</field>
-            <field name="model">account.wizard_report_general_ledger</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml" >
-                <form string="Report General Ledger">
-                    <group col="2" colspan="2">
-                    	<field name="company_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="fiscalyear_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="start_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="end_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                    	<field name="account_ids" domain="[('company_id','=',company_id),('type','in',['liquidity','receivable','payable','other'])]"/>
-                        <field name="state"/>
-                        <field name="output_format"/>
-                    </group>
-                    <footer>
-                        <button name="button_print_report" string="Print General Ledger" colspan="1" type="object" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="_Cancel" class="oe_link"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
+<record id="form_account_wizardReportGeneralLedger" model="ir.ui.view">
+    <field name="name">Report General Ledger</field>
+    <field name="model">account.wizard_report_general_ledger</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml" >
+        <form string="Report General Ledger">
+            <group col="2" colspan="2">
+                <field name="company_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                <field name="fiscalyear_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                <field name="start_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                <field name="end_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
+                <field name="account_ids" domain="[('company_id','=',company_id),('type','in',['liquidity','receivable','payable','other'])]"/>
+                <field name="state"/>
+                <field name="output_format"/>
+            </group>
+            <footer>
+                <button name="button_print_report" string="Print General Ledger" colspan="1" type="object" class="oe_highlight"/>
+                or
+                <button special="cancel" string="_Cancel" class="oe_link"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="waction_account_wizardReportGeneralLedger" model="ir.actions.act_window">
+    <field name="name">Report General Ledger</field>
+    <field name="res_model">account.wizard_report_general_ledger</field>
+    <field name="view_type">form</field>
+    <field name="view_id" ref="form_account_wizardReportGeneralLedger"/>
+    <field name="target">new</field>
+</record>        
         
-        <record id="waction_account_wizardReportGeneralLedger" model="ir.actions.act_window">
-            <field name="name">Report General Ledger</field>
-            <field name="res_model">account.wizard_report_general_ledger</field>
-            <field name="view_type">form</field>
-            <field name="view_id" ref="form_account_wizardReportGeneralLedger"/>
-            <field name="target">new</field>
-        </record>        
-        
-    </data>
+</data>
 </openerp>
