@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================
+===============================
 Income Statement - Aeroo Report
-=============================
+===============================
 
 This module add income statement report created using aeroo report
 
