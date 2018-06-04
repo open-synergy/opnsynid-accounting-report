@@ -4,14 +4,15 @@
 
 {
     "name": "Trial Balance Report",
-    "version": "8.0.1.1.0",
+    "version": "8.0.2.0.0",
     "author": "OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report Trial Balance",
     "website": "https://opensynergy-indonesia.com",
     "depends": [
         "account_accountant",
-        "report_aeroo"
+        "report_aeroo",
+        "web_m2x_options",
     ],
     "data": [
         "report/report_trial_balance.xml",
