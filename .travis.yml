@@ -14,6 +14,8 @@ addons:
       - python-serial
       - python-yaml
       - python-cairo
+      - cups
+      - libcups2-dev      
 
 env:
   global:
@@ -27,35 +29,16 @@ env:
 virtualenv:
   system_site_packages: true
 
-before_install:
-  # - if [[ ${TESTS} == "1" ]]; then sudo add-apt-repository -y ppa:libreoffice/ppa; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy update; fi
-
 install:
   - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice; fi
   - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-genshi; fi
   - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cairo; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-uno; fi
   - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-cups; fi
-  - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python-openoffice; fi
-  - if [[ ${TESTS} == "1" ]]; then pip install git+https://github.com/aeroo/aeroolib.git@master; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install libreoffice-script-provider-python; fi
-  # - if [[ ${TESTS} == "1" ]]; then git clone https://github.com/aeroo/aeroolib.git; fi
-  # - if [[ ${TESTS} == "1" ]]; then cd aeroolib; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo python ./setup.py install; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo apt-get -qy install python3-setuptools; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo easy_install3 pip; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo pip3 install jsonrpc2 daemonize; fi
-  # - if [[ ${TESTS} == "1" ]]; then cd ..; fi
-  # - if [[ ${TESTS} == "1" ]]; then git clone https://github.com/aeroo/aeroo_docs.git; fi
-  # - if [[ ${TESTS} == "1" ]]; then cd aeroo_docs; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo python3 aeroo-docs start -c /etc/aeroo-docs.conf; fi
-  # - if [[ ${TESTS} == "1" ]]; then ln -s ${PWD}/aeroo-docs /etc/init.d/aeroo-docs; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo update-rc.d aeroo-docs defaults; fi
-  # - if [[ ${TESTS} == "1" ]]; then sudo service aeroo-docs start; fi
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  - git clone https://github.com/aeroo/aeroolib.git ${HOME}/aeroolib
+  - pushd ${HOME}/aeroolib; git checkout b591d23c98990fc358b02b3b78d46290eadb7277; sudo python ./setup.py install; popd
 
 script:
   - travis_run_tests
