@@ -3,23 +3,23 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Trial Balance Report',
-    'version': '8.0.1.1.0',
-    'author': 'OpenSynergy Indonesia',
-    'category': 'Accounting',
-    'summary': 'Report Trial Balance',
-    'website': 'https://opensynergy-indonesia.com',
-    'depends': [
-        'account_accountant',
-        'report_aeroo'
+    "name": "Trial Balance Report",
+    "version": "8.0.1.1.0",
+    "author": "OpenSynergy Indonesia",
+    "category": "Accounting",
+    "summary": "Report Trial Balance",
+    "website": "https://opensynergy-indonesia.com",
+    "depends": [
+        "account_accountant",
+        "report_aeroo"
     ],
-    'data': [
-        'report/report_trial_balance.xml',
-        'wizard/wizard_trial_balance.xml',
-        'menu_Accounting.xml'
+    "data": [
+        "report/report_trial_balance.xml",
+        "wizard/wizard_trial_balance.xml",
+        "menu_Accounting.xml"
     ],
-    'installable': True,
-    'auto_install': False,
-    'application': True,
-    'license': 'AGPL-3'
+    "installable": True,
+    "auto_install": False,
+    "application": True,
+    "license": "AGPL-3"
 }

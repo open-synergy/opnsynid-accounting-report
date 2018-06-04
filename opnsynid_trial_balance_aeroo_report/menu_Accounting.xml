@@ -2,15 +2,16 @@
 <!-- © 2015 OpenSynergy Indonesia>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-    <data>
+<data>
 
-        <menuitem
-            id="menu_account_reportTrialBalance"
-            name="Trial Balance"
-            parent="account.menu_finance_reports"
-            action="waction_account_wizardReportTrialBalance"
-            sequence="1000"
-        />
-    </data>
+<menuitem
+    id="menu_account_reportTrialBalance"
+    name="Trial Balance"
+    parent="account.menu_finance_reports"
+    action="waction_account_wizardReportTrialBalance"
+    sequence="1000"
+/>
+
+</data>
 </openerp>
 
