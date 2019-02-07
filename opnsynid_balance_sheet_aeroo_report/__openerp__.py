@@ -4,7 +4,7 @@
 
 {
     'name': 'Balance sheet report',
-    'version': '8.0.1.0.1',
+    'version': '8.0.1.0.2',
     'author': 'OpenSynergy Indonesia',
     'category': 'Accounting',
     'summary': 'Balance sheet report',

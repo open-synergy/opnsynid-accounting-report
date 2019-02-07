@@ -66,21 +66,30 @@ class Parser(report_sxw.rml_parse):
         state = self.localcontext['data']['form']['state']
 
         criteria = [
-            ('fiscalyear_id', '=', fiscalyear_id)
+            ('fiscalyear_id', '=', fiscalyear_id),
         ]
 
         period_ids = obj_account_period.search(
             self.cr,
             self.uid,
-            criteria,
-            order='date_start'
+            criteria
         )
 
         for list_index, period_id in enumerate(period_ids):
             if period_id == current_period_id:
                 previous_period_id = period_ids[list_index - 1]
 
-        first_period_id = period_ids[0]
+        criteria = [
+            ('fiscalyear_id', '=', fiscalyear_id),
+            ('special', '=', True)
+        ]
+
+        first_period_ids = obj_account_period.search(
+            self.cr,
+            self.uid,
+            criteria,
+        )
+        first_period_id = first_period_ids[0]
 
         ctx = {}
         ctx['period_to'] = previous_period_id
@@ -109,14 +118,14 @@ class Parser(report_sxw.rml_parse):
         state = self.localcontext['data']['form']['state']
 
         criteria = [
-            ('fiscalyear_id', '=', fiscalyear_id)
+            ('fiscalyear_id', '=', fiscalyear_id),
+            ('special', '=', True),
         ]
 
         period_ids = obj_account_period.search(
             self.cr,
             self.uid,
             criteria,
-            order='date_start'
         )
 
         first_period_id = period_ids[0]
