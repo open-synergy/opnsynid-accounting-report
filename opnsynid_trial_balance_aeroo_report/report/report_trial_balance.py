@@ -185,24 +185,24 @@ class Parser(report_sxw.rml_parse):
                     "id": account_rec["id"],
                     "code": account_rec["code"],
                     "name": account_rec["name"],
-                    "beginning_debit": Decimal(
-                        abs(beginning["beginning_debit"])
+                    "beginning_debit": float(Decimal(
+                        abs(beginning["beginning_debit"]))
                     ),
-                    "beginning_credit": Decimal(
-                        abs(beginning["beginning_credit"])
+                    "beginning_credit": float(Decimal(
+                        abs(beginning["beginning_credit"]))
                     ),
-                    "debit": Decimal(abs(now["debit"])),
-                    "credit": Decimal(abs(now["credit"])),
-                    "ending_debit": Decimal(
-                        abs(ending_debit["ending_debit"])
+                    "debit": float(Decimal(abs(now["debit"]))),
+                    "credit": float(Decimal(abs(now["credit"]))),
+                    "ending_debit": float(Decimal(
+                        abs(ending_debit["ending_debit"]))
                     ),
-                    "ending_credit": Decimal(
-                        abs(ending_debit["ending_credit"])
+                    "ending_credit": float(Decimal(
+                        abs(ending_debit["ending_credit"]))
                     ),
-                    "balance": Decimal(abs(account_rec["balance"])),
+                    "balance": float(Decimal(abs(account_rec["balance"]))),
                     "ending_balance":
-                    Decimal(abs(ending_debit["ending_debit"])) -
-                    Decimal(abs(ending_debit["ending_credit"])),
+                    float(Decimal(abs(ending_debit["ending_debit"])) -
+                    Decimal(abs(ending_debit["ending_credit"]))),
                     "parent_id": account_rec["parent_id"],
                 }
 
