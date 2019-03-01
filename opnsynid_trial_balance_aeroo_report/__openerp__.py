@@ -4,7 +4,7 @@
 
 {
     "name": "Trial Balance Report",
-    "version": "8.0.2.0.1",
+    "version": "8.0.2.1.0",
     "author": "OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report Trial Balance",
