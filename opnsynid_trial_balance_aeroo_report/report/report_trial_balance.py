@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# Copyright 2015-2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import time
@@ -185,24 +185,24 @@ class Parser(report_sxw.rml_parse):
                     "id": account_rec["id"],
                     "code": account_rec["code"],
                     "name": account_rec["name"],
-                    "beginning_debit": float(Decimal(
-                        abs(beginning["beginning_debit"]))
+                    "beginning_debit": Decimal(
+                        abs(beginning["beginning_debit"])
                     ),
-                    "beginning_credit": float(Decimal(
-                        abs(beginning["beginning_credit"]))
+                    "beginning_credit": Decimal(
+                        abs(beginning["beginning_credit"])
                     ),
-                    "debit": float(Decimal(abs(now["debit"]))),
-                    "credit": float(Decimal(abs(now["credit"]))),
-                    "ending_debit": float(Decimal(
-                        abs(ending_debit["ending_debit"]))
+                    "debit": Decimal(abs(now["debit"])),
+                    "credit": Decimal(abs(now["credit"])),
+                    "ending_debit": Decimal(
+                        abs(ending_debit["ending_debit"])
                     ),
-                    "ending_credit": float(Decimal(
-                        abs(ending_debit["ending_credit"]))
+                    "ending_credit": Decimal(
+                        abs(ending_debit["ending_credit"])
                     ),
-                    "balance": float(Decimal(abs(account_rec["balance"]))),
+                    "balance": Decimal(abs(account_rec["balance"])),
                     "ending_balance":
-                    float(Decimal(abs(ending_debit["ending_debit"])) -
-                    Decimal(abs(ending_debit["ending_credit"]))),
+                    Decimal(abs(ending_debit["ending_debit"])) -
+                    Decimal(abs(ending_debit["ending_credit"])),
                     "parent_id": account_rec["parent_id"],
                 }
 

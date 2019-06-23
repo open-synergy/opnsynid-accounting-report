@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# Copyright 2015-2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Trial Balance Report",
-    "version": "8.0.2.0.1",
+    "version": "8.0.2.0.2",
     "author": "OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report Trial Balance",
