@@ -4,13 +4,14 @@
 
 {
     "name": "General Ledger Report",
-    "version": "8.0.1.0.2",
+    "version": "8.0.1.1.0",
     "author": "OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report General Ledger",
     "website": "https://opensynergy-indonesia.com",
     "depends": [
         "account_accountant",
+        "account_operating_unit",
         "report_aeroo"
     ],
     "data": [

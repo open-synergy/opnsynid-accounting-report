@@ -26,7 +26,7 @@ class Parser(report_sxw.rml_parse):
             "beginning_balance": self.get_beginning_balance,
         })
 
-    def get_opening_balance(self, account_id, state, date_start_period):
+    def get_opening_balance(self, account_id, state, date_start_period, operating_unit_ids):
         opening_balance = 0.00
         obj_account_period = self.pool.get("account.period")
         obj_account_move_line = self.pool.get("account.move.line")
@@ -48,6 +48,9 @@ class Parser(report_sxw.rml_parse):
         ]
         if state != "all":
             kriteria.append(("move_id.state", "=", state))
+
+        if operating_unit_ids:
+            kriteria.append(("operating_unit_id", "in", operating_unit_ids))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -81,6 +84,9 @@ class Parser(report_sxw.rml_parse):
 
         state = data["state"]
 
+        operating_unit_ids =\
+            data["operating_unit_ids"] or False
+
         if start_period_id:
             period_id = start_period_id
         else:
@@ -96,7 +102,7 @@ class Parser(report_sxw.rml_parse):
 
         if period.date_start == fiscalyear.date_start or not start_period_id:
             opening_balance = self.get_opening_balance(
-                account_id, state, fiscalyear.date_start)
+                account_id, state, fiscalyear.date_start, operating_unit_ids)
             return opening_balance
         else:
             tahun = int(period.date_start[0:4])
@@ -115,6 +121,8 @@ class Parser(report_sxw.rml_parse):
             ]
             if state != "all":
                 kriteria.append(("move_id.state", "=", state))
+            if operating_unit_ids:
+                kriteria.append(("operating_unit_id", "in", operating_unit_ids))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -157,6 +165,8 @@ class Parser(report_sxw.rml_parse):
         end_period_id = data["end_period_id"][0]\
             and data["end_period_id"][0] or False
         state = data["state"]
+        operating_unit_ids =\
+            data["operating_unit_ids"] or False
 
         debit = 0.0
         credit = 0.0
@@ -196,6 +206,9 @@ class Parser(report_sxw.rml_parse):
             ]
         if state != "all":
             kriteria.append(("move_id.state", "=", state))
+
+        if operating_unit_ids:
+            kriteria.append(("operating_unit_id", "in", operating_unit_ids))
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria, order="date")

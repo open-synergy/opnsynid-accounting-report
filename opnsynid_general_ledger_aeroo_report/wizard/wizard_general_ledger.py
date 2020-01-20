@@ -79,6 +79,14 @@ class WizardReportGeneralLedger(models.TransientModel):
             ("type", "!=", "closed")
         ])
 
+    operating_unit_ids = fields.Many2many(
+        string="Operating Unit(s)",
+        comodel_name="operating.unit",
+        rel="rel_wzd_general_ledger_2_ou",
+        column1="wizard_id",
+        column2="operating_unit_id",
+    )
+
     in_foreign = fields.Boolean(
         string="In Foreign")
 
