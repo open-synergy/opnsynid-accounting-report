@@ -15,3 +15,4 @@
 # sale-workflow https://github.com/OCA/sale-workflow branchname
 aeroo_reports https://github.com/aeroo/aeroo_reports 8.0
 web https://github.com/OCA/web 8.0
+operating-unit https://github.com/open-synergy/operating-unit.git 8.0-dev
