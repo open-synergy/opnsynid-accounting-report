@@ -26,10 +26,14 @@ class Parser(report_sxw.rml_parse):
             "beginning_balance": self.get_beginning_balance,
         })
 
-    def get_opening_balance(self, account_id, state, date_start_period):
-        opening_balance = 0.00
-        obj_account_period = self.pool.get("account.period")
-        obj_account_move_line = self.pool.get("account.move.line")
+    def _prepare_opening_balance(
+        self,
+        account_id,
+        state,
+        date_start_period
+    ):
+        obj_account_period =\
+            self.pool.get("account.period")
 
         kriteria_opening_balance = [
             ("date_start", "=", date_start_period),
@@ -48,6 +52,92 @@ class Parser(report_sxw.rml_parse):
         ]
         if state != "all":
             kriteria.append(("move_id.state", "=", state))
+
+        return kriteria
+
+    def _prepare_beginning_balance(
+        self,
+        account_id,
+        state,
+        period,
+        date_start_period,
+    ):
+        tahun = int(period.date_start[0:4])
+        bulan = int(period.date_start[5:7])
+        hari = int(period.date_start[8:10])
+
+        tanggal = date(tahun, bulan, hari)
+
+        ord_tanggal_awal = tanggal.toordinal() - 1
+        tanggal_awal = date.fromordinal(ord_tanggal_awal)
+
+        kriteria = [
+            ("account_id", "=", account_id),
+            ("date", ">=", date_start_period),
+            ("date", "<=", str(tanggal_awal))
+        ]
+        if state != "all":
+            kriteria.append(("move_id.state", "=", state))
+
+        return kriteria
+
+    def _prepare_line(
+        self,
+        account_id,
+    ):
+        data = self.localcontext["data"]["form"]
+        obj_account_period =\
+            self.pool.get("account.period")
+        obj_account_fiscalyear =\
+            self.pool.get("account.fiscalyear")
+
+        start_period_id = data["start_period_id"]\
+            and data["start_period_id"][0] or False
+        end_period_id = data["end_period_id"][0]\
+            and data["end_period_id"][0] or False
+        state = data["state"]
+
+        if start_period_id and end_period_id:
+            if start_period_id == end_period_id:
+                kriteria = [
+                    ("account_id", "=", account_id),
+                    ("period_id", "=", start_period_id),
+                ]
+            else:
+                kriteria = [
+                    ("account_id", "=", account_id),
+                    ("period_id", ">=", start_period_id),
+                    ("period_id", "<=", end_period_id),
+                ]
+        if state != "all":
+            kriteria.append(("move_id.state", "=", state))
+
+        if not start_period_id and end_period_id:
+            period = obj_account_period.browse(
+                self.cr, self.uid, end_period_id)
+            fiscalyear = obj_account_fiscalyear.browse(
+                self.cr, self.uid, period.fiscalyear_id.id)
+
+            period_kriteria = obj_account_period.find(
+                self.cr, self.uid, fiscalyear.date_start, {
+                    "account_period_prefer_normal": True
+                })
+
+            kriteria = [
+                ("account_id", "=", account_id),
+                ("period_id", ">=", int(period_kriteria[0])),
+                ("period_id", "<=", end_period_id),
+            ]
+        if state != "all":
+            kriteria.append(("move_id.state", "=", state))
+
+        return kriteria
+
+
+    def get_opening_balance(self, kriteria):
+        opening_balance = 0.00
+        obj_account_move_line =\
+            self.pool.get("account.move.line")
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -95,26 +185,13 @@ class Parser(report_sxw.rml_parse):
         beginning_balance = 0.0
 
         if period.date_start == fiscalyear.date_start or not start_period_id:
-            opening_balance = self.get_opening_balance(
+            kriteria = self._prepare_opening_balance(
                 account_id, state, fiscalyear.date_start)
+            opening_balance = self.get_opening_balance(kriteria)
             return opening_balance
         else:
-            tahun = int(period.date_start[0:4])
-            bulan = int(period.date_start[5:7])
-            hari = int(period.date_start[8:10])
-
-            tanggal = date(tahun, bulan, hari)
-
-            ord_tanggal_awal = tanggal.toordinal() - 1
-            tanggal_awal = date.fromordinal(ord_tanggal_awal)
-
-            kriteria = [
-                ("account_id", "=", account_id),
-                ("date", ">=", fiscalyear.date_start),
-                ("date", "<=", str(tanggal_awal))
-            ]
-            if state != "all":
-                kriteria.append(("move_id.state", "=", state))
+            kriteria = self._prepare_beginning_balance(
+                account_id, state, period, fiscalyear.date_start)
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria)
@@ -146,56 +223,14 @@ class Parser(report_sxw.rml_parse):
         running_balance = 0.00
         running_balance = self.beginning_balance(account_id)
         obj_account_move_line = self.pool.get("account.move.line")
-        obj_account_period = self.pool.get("account.period")
-        obj_account_fiscalyear = self.pool.get("account.fiscalyear")
         self.lines = []
-
-        data = self.localcontext["data"]["form"]
-
-        start_period_id = data["start_period_id"]\
-            and data["start_period_id"][0] or False
-        end_period_id = data["end_period_id"][0]\
-            and data["end_period_id"][0] or False
-        state = data["state"]
 
         debit = 0.0
         credit = 0.0
         self.total_debit = 0.0
         self.total_credit = 0.0
 
-        if start_period_id and end_period_id:
-            if start_period_id == end_period_id:
-                kriteria = [
-                    ("account_id", "=", account_id),
-                    ("period_id", "=", start_period_id),
-                ]
-            else:
-                kriteria = [
-                    ("account_id", "=", account_id),
-                    ("period_id", ">=", start_period_id),
-                    ("period_id", "<=", end_period_id),
-                ]
-        if state != "all":
-            kriteria.append(("move_id.state", "=", state))
-
-        if not start_period_id and end_period_id:
-            period = obj_account_period.browse(
-                self.cr, self.uid, end_period_id)
-            fiscalyear = obj_account_fiscalyear.browse(
-                self.cr, self.uid, period.fiscalyear_id.id)
-
-            period_kriteria = obj_account_period.find(
-                self.cr, self.uid, fiscalyear.date_start, {
-                    "account_period_prefer_normal": True
-                })
-
-            kriteria = [
-                ("account_id", "=", account_id),
-                ("period_id", ">=", int(period_kriteria[0])),
-                ("period_id", "<=", end_period_id),
-            ]
-        if state != "all":
-            kriteria.append(("move_id.state", "=", state))
+        kriteria = self._prepare_line(account_id)
 
         account_move_line_ids = obj_account_move_line.search(
             self.cr, self.uid, kriteria, order="date")
