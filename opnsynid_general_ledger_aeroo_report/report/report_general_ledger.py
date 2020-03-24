@@ -15,6 +15,8 @@ class Parser(report_sxw.rml_parse):
         self.lines = []
         self.total_debit = 0.0
         self.total_credit = 0.0
+        self.total_debit_currency = 0.0
+        self.total_credit_currency = 0.0
         self.localcontext.update({
             "time": time,
             "get_account": self.get_account,
@@ -23,6 +25,8 @@ class Parser(report_sxw.rml_parse):
             "get_company": self.get_company,
             "total_debit": self.get_total_debit,
             "total_credit": self.get_total_credit,
+            "total_debit_currency": self.get_total_debit_currency,
+            "total_credit_currency": self.get_total_credit_currency,
             "beginning_balance": self.get_beginning_balance,
         })
 
@@ -136,6 +140,7 @@ class Parser(report_sxw.rml_parse):
 
     def get_opening_balance(self, kriteria):
         opening_balance = 0.00
+        opening_balance_curr = 0.00
         obj_account_move_line =\
             self.pool.get("account.move.line")
 
@@ -150,11 +155,14 @@ class Parser(report_sxw.rml_parse):
                 debit = account_move_line.debit
                 credit = account_move_line.credit
                 opening_balance += (debit - credit)
+                opening_balance_curr +=\
+                    account_move_line.amount_currency
 
-        return opening_balance
+        return opening_balance, opening_balance_curr
 
     def beginning_balance(self, account_id):
         beginning_balance = 0.00
+        beginning_balance_curr = 0.00
         obj_account_move_line = self.pool.get("account.move.line")
         obj_account_period = self.pool.get("account.period")
         obj_account_fiscalyear = self.pool.get("account.fiscalyear")
@@ -182,13 +190,12 @@ class Parser(report_sxw.rml_parse):
         fiscalyear = obj_account_fiscalyear.browse(
             self.cr, self.uid, fiscalyear_id)
 
-        beginning_balance = 0.0
-
         if period.date_start == fiscalyear.date_start or not start_period_id:
             kriteria = self._prepare_opening_balance(
                 account_id, state, fiscalyear.date_start)
-            opening_balance = self.get_opening_balance(kriteria)
-            return opening_balance
+            opening_balance, opening_balance_curr =\
+                self.get_opening_balance(kriteria)
+            return opening_balance, opening_balance_curr
         else:
             kriteria = self._prepare_beginning_balance(
                 account_id, state, period, fiscalyear.date_start)
@@ -204,12 +211,14 @@ class Parser(report_sxw.rml_parse):
                 debit = account_move_line.debit
                 credit = account_move_line.credit
                 beginning_balance += (debit - credit)
+                beginning_balance_curr +=\
+                    account_move_line.amount_currency
 
-        return beginning_balance
+        return beginning_balance, beginning_balance_curr
 
     def get_beginning_balance(self, account_id):
-        beginning_balance = self.beginning_balance(account_id)
-        return Decimal(beginning_balance)
+        balance = self.beginning_balance(account_id)
+        return Decimal(balance[0]), Decimal(balance[1])
 
     def get_account(self, account_id):
         obj_account = self.pool.get("account.account")
@@ -221,7 +230,9 @@ class Parser(report_sxw.rml_parse):
 
     def get_general_ledger_line(self, account_id):
         running_balance = 0.00
-        running_balance = self.beginning_balance(account_id)
+        running_balance_curr = 0.00
+        running_balance, running_balance_curr =\
+            self.beginning_balance(account_id)
         obj_account_move_line = self.pool.get("account.move.line")
         self.lines = []
 
@@ -229,6 +240,9 @@ class Parser(report_sxw.rml_parse):
         credit = 0.0
         self.total_debit = 0.0
         self.total_credit = 0.0
+
+        self.total_debit_currency = 0.0
+        self.total_credit_currency = 0.0
 
         kriteria = self._prepare_line(account_id)
 
@@ -239,12 +253,25 @@ class Parser(report_sxw.rml_parse):
             account_move_line_id = obj_account_move_line.browse(
                 self.cr, self.uid, account_move_line_ids)
             for account_move_line in account_move_line_id:
+                debit_currency = 0.0
+                credit_currency = 0.0
                 debit = account_move_line.debit
                 credit = account_move_line.credit
 
+                if account_move_line.amount_currency > 0:
+                    debit_currency =\
+                        account_move_line.amount_currency
+                else:
+                    credit_currency =\
+                        account_move_line.amount_currency
+
                 self.total_debit += debit
                 self.total_credit += credit
+                self.total_debit_currency += debit_currency
+                self.total_credit_currency += credit_currency
                 running_balance += debit - credit
+                running_balance_curr +=\
+                    (debit_currency - credit_currency)
 
                 tahun = account_move_line.date[8:]
                 bulan = account_move_line.date[5:7]
@@ -257,7 +284,10 @@ class Parser(report_sxw.rml_parse):
                     "description": account_move_line.name,
                     "debit": debit,
                     "credit": credit,
-                    "running_balance": Decimal(running_balance)
+                    "debit_currency": debit_currency,
+                    "credit_currency": credit_currency,
+                    "running_balance": Decimal(running_balance),
+                    "running_balance_curr": Decimal(running_balance_curr),
                 }
                 self.lines.append(val)
 
@@ -268,6 +298,12 @@ class Parser(report_sxw.rml_parse):
 
     def get_total_credit(self):
         return self.total_credit
+
+    def get_total_debit_currency(self):
+        return self.total_debit_currency
+
+    def get_total_credit_currency(self):
+        return self.total_credit_currency
 
     def get_period(self):
         data = self.localcontext["data"]["form"]
