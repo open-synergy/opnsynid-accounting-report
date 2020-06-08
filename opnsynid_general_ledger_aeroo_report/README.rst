@@ -36,7 +36,6 @@ To use this module, you need to:
 Known issues / Roadmap
 ======================
 
-* No foreign currency
 * No multiple accounts print
 
 Bug Tracker
@@ -45,11 +44,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/open-synergy/opnsynid-accounting-report/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed `feedback
-<https://github.com/open-synergy/
-opnsynid-accounting-report/issues/new?body=module:%20
-opnsynid_general_ledger_aeroo_report%0Aversion:%20
-8.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
@@ -63,8 +58,8 @@ Contributors
 Maintainer
 ----------
 
-.. image:: https://opensynergy-indonesia.com/logo.png
-   :alt: OpenSynergy Indonesia
-   :target: https://opensynergy-indonesia.com
+.. image:: https://simetri-sinergi.id/logo.png
+   :alt: PT. Simetri Sinergi Indonesia
+   :target: https://simetri-sinergi.id.com
 
-This module is maintained by the OpenSynergy Indonesia
+This module is maintained by the PT. Simetri Sinergi Indonesia.

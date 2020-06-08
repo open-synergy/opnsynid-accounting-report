@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- © 2015 OpenSynergy Indonesia>
+<!-- Copyright 2015 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-<data>  
-    
+<data>
+
 <record id="form_account_wizardReportGeneralLedger" model="ir.ui.view">
     <field name="name">Report General Ledger</field>
     <field name="model">account.wizard_report_general_ledger</field>
@@ -15,7 +16,7 @@
                 <field name="fiscalyear_id" widget="selection" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
                 <field name="start_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
                 <field name="end_period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"/>
-                <field name="account_ids" domain="[('company_id','=',company_id),('type','in',['liquidity','receivable','payable','other'])]"/>
+                <field name="account_ids" domain="[('company_id','=',company_id),('type','in',['liquidity','receivable','payable','other'])]" widget="many2many_tags"/>
                 <field name="state"/>
                 <field name="output_format"/>
             </group>
@@ -34,7 +35,7 @@
     <field name="view_type">form</field>
     <field name="view_id" ref="form_account_wizardReportGeneralLedger"/>
     <field name="target">new</field>
-</record>        
-        
+</record>
+
 </data>
 </openerp>
