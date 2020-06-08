@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import time
 from datetime import date
 from openerp.report import report_sxw
@@ -260,10 +260,10 @@ class Parser(report_sxw.rml_parse):
 
                 if account_move_line.amount_currency > 0:
                     debit_currency =\
-                        account_move_line.amount_currency
+                        abs(account_move_line.amount_currency)
                 else:
                     credit_currency =\
-                        account_move_line.amount_currency
+                        abs(account_move_line.amount_currency)
 
                 self.total_debit += debit
                 self.total_credit += credit

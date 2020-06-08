@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "General Ledger Report",
-    "version": "8.0.1.2.0",
-    "author": "OpenSynergy Indonesia",
-    "category": "Accounting",
+    "version": "8.0.1.3.0",
     "summary": "Report General Ledger",
-    "website": "https://opensynergy-indonesia.com",
+    "category": "Accounting",
+    "website": "https://simetri-sinergi.id",
+    "author": "Eficent, Odoo Community Association (OCA), "
+              "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "depends": [
         "account_accountant",
         "report_aeroo"
