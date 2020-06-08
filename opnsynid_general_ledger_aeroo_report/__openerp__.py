@@ -8,8 +8,7 @@
     "summary": "Report General Ledger",
     "category": "Accounting",
     "website": "https://simetri-sinergi.id",
-    "author": "Eficent, Odoo Community Association (OCA), "
-              "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
+    "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "depends": [
         "account_accountant",
         "report_aeroo"
