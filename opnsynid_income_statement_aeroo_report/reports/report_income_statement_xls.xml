@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<!-- © 2015 OpenSynergy Indonesia>
+<!-- Copyright 2015 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
 <data>
-    
+
 <record id="report_account_incomeStatementXLS" model="ir.actions.report.xml">
     <field name="name">Income Statement XLS</field>
     <field name="type">ir.actions.report.xml</field>
@@ -20,4 +21,3 @@
 
 </data>
 </openerp>
-
