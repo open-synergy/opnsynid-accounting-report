@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- © 2015 OpenSynergy Indonesia>
+<!-- Copyright 2015 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-<data>  
-    
+<data>
+
 <record id="form_account_wizardReportTrialBalance" model="ir.ui.view">
     <field name="name">Report Trial Balance</field>
     <field name="model">account.wizard_report_trial_balance</field>
@@ -11,23 +12,23 @@
     <field name="arch" type="xml" >
         <form string="Report Trial Balance">
             <group col="2" colspan="2">
-                <field name="company_id" 
+                <field name="company_id"
                     options="{'create':false, 'create_edit':false, 'm2o_dialog':false, 'no_open':true}"
                     groups="base.group_multi_company"/>
-                <field name="fiscalyear_id" 
+                <field name="fiscalyear_id"
                     options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"
                     />
-                <field name="period_id" 
+                <field name="period_id"
                     options="{'create' : false, 'create_edit' : false, 'm2o_dialog' : false, 'no_open' : true}"
-                    domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]" 
+                    domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"
                     />
                 <field name="state"/>
                 <field name="output_format"/>
             </group>
             <footer>
-                <button name="button_print_report" 
-                    string="Print" 
-                    type="object" 
+                <button name="button_print_report"
+                    string="Print"
+                    type="object"
                     class="oe_highlight"
                     icon="gtk-print"/>
                 or
@@ -43,7 +44,7 @@
     <field name="view_type">form</field>
     <field name="view_id" ref="form_account_wizardReportTrialBalance"/>
     <field name="target">new</field>
-</record>        
-        
+</record>
+
 </data>
 </openerp>

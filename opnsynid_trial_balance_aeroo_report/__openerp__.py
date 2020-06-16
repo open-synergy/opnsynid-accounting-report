@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Trial Balance Report",
-    "version": "8.0.2.0.2",
-    "author": "OpenSynergy Indonesia",
+    "version": "8.0.2.0.3",
     "category": "Accounting",
     "summary": "Report Trial Balance",
-    "website": "https://opensynergy-indonesia.com",
+    "website": "https://simetri-sinergi.id",
+    "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "depends": [
         "account_accountant",
         "report_aeroo",
@@ -18,6 +18,9 @@
         "report/report_trial_balance.xml",
         "wizard/wizard_trial_balance.xml",
         "menu_Accounting.xml"
+    ],
+    "images": [
+        "static/description/banner.png",
     ],
     "installable": True,
     "auto_install": False,
