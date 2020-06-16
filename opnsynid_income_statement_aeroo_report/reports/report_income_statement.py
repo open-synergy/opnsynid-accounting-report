@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from datetime import time
 from openerp.report import report_sxw
 
@@ -73,11 +73,8 @@ class Parser(report_sxw.rml_parse):
             if period_id == current_period_id:
                 previous_period_id = period_ids[list_index - 1]
 
-        # first_period_id = period_ids[0]
-
         ctx = {}
         ctx["period_to"] = previous_period_id
-        # ctx["period_from"] = first_period_id
         ctx["period_from"] = previous_period_id
         if state != "all":
             ctx["state"] = state
@@ -85,8 +82,14 @@ class Parser(report_sxw.rml_parse):
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
 
+        report_type = account.user_type.report_type
+        if report_type in ["income"]:
+            factor = -1
+        else:
+            factor = 1
+
         if account:
-            previous_period = account.balance
+            previous_period = (account.balance * factor)
 
         return previous_period
 
@@ -108,8 +111,14 @@ class Parser(report_sxw.rml_parse):
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
 
+        report_type = account.user_type.report_type
+        if report_type in ["income"]:
+            factor = -1
+        else:
+            factor = 1
+
         if account:
-            current_period = account.balance
+            current_period = (account.balance * factor)
 
         return current_period
 
@@ -131,22 +140,24 @@ class Parser(report_sxw.rml_parse):
 
         period_id = form["period_id"][0]
         first_period_id = period_ids[0]
-        # year_date_start = fiscalyear.date_start
-        # date_now = datetime.now().strftime("%Y-%m-%d")
 
         ctx = {}
         ctx["period_to"] = period_id
         ctx["period_from"] = first_period_id
-        # ctx["date_to"] = date_now
-        # ctx["date_from"] = year_date_start
         if state != "all":
             ctx["state"] = state
 
         account = obj_account_account.browse(
             self.cr, self.uid, account_id, ctx)
 
+        report_type = account.user_type.report_type
+        if report_type in ["income"]:
+            factor = -1
+        else:
+            factor = 1
+
         if account:
-            year_to_date = account.balance
+            year_to_date = (account.balance * factor)
 
         return year_to_date
 
@@ -213,7 +224,7 @@ class Parser(report_sxw.rml_parse):
 
         account_fields = [
             "type", "code", "name", "debit", "credit",
-            "balance", "parent_id", "child_id",
+            "balance", "parent_id", "child_id", "user_type",
         ]
         accounts = obj_account_account.read(
             self.cr, self.uid, ids, account_fields, ctx)

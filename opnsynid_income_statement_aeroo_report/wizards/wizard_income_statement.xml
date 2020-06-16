@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- © 2015 OpenSynergy Indonesia>
+<!-- Copyright 2015 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-<data>  
+<data>
 
 <record id="form_account_wizardIncomeStatement" model="ir.ui.view">
     <field name="name">Print Income Statement</field>
@@ -13,7 +14,7 @@
             <group col="2" colspan="2">
                 <field name="company_id"/>
                 <field name="fiscalyear_id"/>
-                <field name="period_id" 
+                <field name="period_id"
                     domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"/>
                 <field name="state"/>
                 <field name="output_format"/>
@@ -33,7 +34,7 @@
     <field name="view_type">form</field>
     <field name="view_id" ref="form_account_wizardIncomeStatement"/>
     <field name="target">new</field>
-</record>          
+</record>
 
 <menuitem
     id="menu_account_reportIncomeStatement"
