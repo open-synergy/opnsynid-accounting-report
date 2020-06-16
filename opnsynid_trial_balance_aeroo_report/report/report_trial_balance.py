@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import time
 from openerp.report import report_sxw
 from decimal import Decimal
@@ -84,10 +84,12 @@ class Parser(report_sxw.rml_parse):
         res = {
             "beginning_debit": 0.0,
             "beginning_credit": 0.0,
+            "beginning_balance": 0.0,
             "debit": 0.0,
             "credit": 0.0,
             "ending_debit": 0.0,
             "ending_credit": 0.0,
+            "ending_balance": 0.0,
         }
 
         if period_id:
@@ -119,9 +121,17 @@ class Parser(report_sxw.rml_parse):
                 self.cr, self.uid, [account_id], context=context_now)[0]
 
             if type_balance == "beginning":
+                report_type = account_beginning.user_type.report_type
+                if report_type in ["income", "liability"]:
+                    beginning_balance =\
+                        (account_beginning.credit - account_beginning.debit)
+                else:
+                    beginning_balance =\
+                        (account_beginning.debit - account_beginning.credit)
                 res = {
                     "beginning_debit": account_beginning.debit,
-                    "beginning_credit": account_beginning.credit
+                    "beginning_credit": account_beginning.credit,
+                    "beginning_balance": beginning_balance,
                 }
             if type_balance == "now":
                 res = {
@@ -129,9 +139,17 @@ class Parser(report_sxw.rml_parse):
                     "credit": account_now.credit
                 }
             if type_balance == "ending":
+                report_type = account_ending.user_type.report_type
+                if report_type in ["income", "liability"]:
+                    ending_balance =\
+                        (account_ending.credit - account_ending.debit)
+                else:
+                    ending_balance =\
+                        (account_ending.debit - account_ending.credit)
                 res = {
                     "ending_debit": account_ending.debit,
-                    "ending_credit": account_ending.credit
+                    "ending_credit": account_ending.credit,
+                    "ending_balance": ending_balance,
                 }
 
         return res
@@ -191,6 +209,9 @@ class Parser(report_sxw.rml_parse):
                     "beginning_credit": Decimal(
                         abs(beginning["beginning_credit"])
                     ),
+                    "beginning_balance": Decimal(
+                        abs(beginning["beginning_balance"])
+                    ),
                     "debit": Decimal(abs(now["debit"])),
                     "credit": Decimal(abs(now["credit"])),
                     "ending_debit": Decimal(
@@ -199,10 +220,10 @@ class Parser(report_sxw.rml_parse):
                     "ending_credit": Decimal(
                         abs(ending_debit["ending_credit"])
                     ),
+                    "ending_balance": Decimal(
+                        abs(ending_debit["ending_balance"])
+                    ),
                     "balance": Decimal(abs(account_rec["balance"])),
-                    "ending_balance":
-                    Decimal(abs(ending_debit["ending_debit"])) -
-                    Decimal(abs(ending_debit["ending_credit"])),
                     "parent_id": account_rec["parent_id"],
                 }
 
