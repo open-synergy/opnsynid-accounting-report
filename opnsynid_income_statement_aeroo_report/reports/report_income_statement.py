@@ -11,11 +11,8 @@ class Parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
-        self.sub_total_account_current = 0.0
         self.total_account_current = 0.0
-        self.sub_total_account_previous = 0.0
         self.total_account_previous = 0.0
-        self.sub_total_account_ytd = 0.0
         self.total_account_ytd = 0.0
         self.localcontext.update({
             "time": time,
@@ -23,15 +20,12 @@ class Parser(report_sxw.rml_parse):
             "get_company": self.get_company,
             "get_income_statement": self.get_income_statement,
             "line": self.get_income_statement_line,
-            "total_previous": self.get_total_previous,
-            "total_current": self.get_total_current,
-            "total_ytd": self.get_total_ytd,
-            "sub_total_account_current": self.get_sub_total_account_current,
             "total_account_current": self.get_total_account_current,
-            "sub_total_account_previous": self.get_sub_total_account_previous,
             "total_account_previous": self.get_total_account_previous,
-            "sub_total_account_ytd": self.get_sub_total_account_ytd,
             "total_account_ytd": self.get_total_account_ytd,
+            "get_previous": self.get_previous_period,
+            "get_current": self.get_current_period,
+            "get_ytd": self.get_ytd,
         })
 
     def get_company(self):
@@ -52,7 +46,7 @@ class Parser(report_sxw.rml_parse):
 
         return user.company_id.income_statement_ids
 
-    def get_previous_period(self, account_id):
+    def get_previous_period(self, account_id, type=None):
         previous_period = 0.0
         obj_account_account = self.pool.get("account.account")
         obj_account_period = self.pool.get("account.period")
@@ -90,10 +84,11 @@ class Parser(report_sxw.rml_parse):
 
         if account:
             previous_period = (account.balance * factor)
-
+        if type == "total":
+            self.total_account_previous += previous_period
         return previous_period
 
-    def get_current_period(self, account_id):
+    def get_current_period(self, account_id, type=None):
         current_period = 0.0
         obj_account_account = self.pool.get("account.account")
 
@@ -119,10 +114,12 @@ class Parser(report_sxw.rml_parse):
 
         if account:
             current_period = (account.balance * factor)
+        if type == "total":
+            self.total_account_current += current_period
 
         return current_period
 
-    def get_ytd(self, account_id):
+    def get_ytd(self, account_id, type=None):
         year_to_date = 0.0
         obj_account_account = self.pool.get("account.account")
         obj_account_period = self.pool.get("account.period")
@@ -158,6 +155,8 @@ class Parser(report_sxw.rml_parse):
 
         if account:
             year_to_date = (account.balance * factor)
+        if type == "total":
+            self.total_account_ytd += year_to_date
 
         return year_to_date
 
@@ -235,42 +234,11 @@ class Parser(report_sxw.rml_parse):
 
         return self.lines
 
-    def get_total_previous(self):
-        return self.total_previous
-
-    def get_total_current(self):
-        return self.total_current
-
-    def get_total_ytd(self):
-        return self.total_ytd
-
-    def get_sub_total_account_current(self, amount):
-        self.sub_total_account_current += amount
-        return True
-
     def get_total_account_current(self):
-
-        self.total_account_current = self.sub_total_account_current
-        self.sub_total_account_current = 0.0
-
         return self.total_account_current
 
-    def get_sub_total_account_previous(self, amount):
-        self.sub_total_account_previous += amount
-        return True
-
     def get_total_account_previous(self):
-        self.total_account_previous = self.sub_total_account_previous
-        self.sub_total_account_previous = 0.0
-
         return self.total_account_previous
 
-    def get_sub_total_account_ytd(self, amount):
-        self.sub_total_account_ytd += amount
-        return True
-
     def get_total_account_ytd(self):
-        self.total_account_ytd = self.sub_total_account_ytd
-        self.sub_total_account_ytd = 0.0
-
         return self.total_account_ytd
