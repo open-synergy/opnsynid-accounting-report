@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Income statement report",
-    "version": "8.0.1.0.3",
+    "version": "8.0.1.0.4",
     "summary": "Income statement report",
     "category": "Accounting",
     "website": "https://simetri-sinergi.id",
