@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-# © 2016 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2016 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import time
 from datetime import datetime
@@ -156,7 +157,7 @@ class Parser(report_sxw.rml_parse):
             no = 1
             for line in obj_line.browse(
                     self.cr, self.uid, line_ids, context=context):
-                if line.amount_residual > 0:
+                if line.amount_residual == 0.0 or line.amount_residual != 0.0:
                     conv_date = datetime.strptime(
                         line.date, '%Y-%m-%d').strftime('%d-%m-%Y')
                     conv_date_due = datetime.strptime(
