@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-# © 2016 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2016 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api
 from openerp.tools import drop_view_if_exists
@@ -17,7 +18,7 @@ class QueryPayableAging(models.Model):
     def function_aging(self):
         res = {}
         residual = 0.0
-        obj_move_line = self.env["account.move.line"]
+        obj_move_line = reconcile_lines = self.env["account.move.line"]
         period_length = self._context.get("period_length", False)
         date_as_of = self._context.get("date_as_of", False)
 
@@ -42,28 +43,30 @@ class QueryPayableAging(models.Model):
             direction = (ord_date_due - ord_date_as_of)
             move_line = obj_move_line.browse(self.ids)[0]
 
-            if move_line.amount_residual:
-                partial_ids = move_line.reconcile_partial_id.line_partial_ids
+            if move_line.reconcile_id:
+                reconcile_lines = move_line.reconcile_id.line_id
+            elif move_line.reconcile_partial_id:
+                reconcile_lines = \
+                    move_line.reconcile_partial_id.line_partial_ids
+            else:
+                reconcile_lines += move_line
 
-                if move_line.reconcile_partial_id:
-                    for payment_line in partial_ids:
-                        if payment_line.date <= date_as_of:
-                            residual += (
-                                payment_line.debit - payment_line.credit)
-                else:
-                    residual = move_line.amount_residual
+            for reconcile_line in reconcile_lines:
+                if reconcile_line.date <= date_as_of:
+                    residual += (
+                        reconcile_line.credit - reconcile_line.debit)
 
-                self.amount_residual = abs(residual)
+            res["amount_residual"] = residual
 
-                for interval in range(1, 6):
-                    st_if_1 = period_length * (interval - 1)
-                    st_if_2 = period_length * (interval)
-                    if (st_if_1) <= abs(direction) < (st_if_2):
-                        res["aging%s" % (interval)] = abs(residual)
+            for interval in range(1, 6):
+                st_if_1 = period_length * (interval - 1)
+                st_if_2 = period_length * (interval)
+                if (st_if_1) <= abs(direction) < (st_if_2):
+                    res["aging%s" % (interval)] = residual
 
-                    if interval == 5:
-                        if abs(direction) >= (period_length * 4):
-                            res["aging5"] = abs(residual)
+                if interval == 5:
+                    if abs(direction) >= (period_length * 4):
+                        res["aging5"] = residual
 
             if move_line.amount_residual_currency:
                 residual_currency = move_line.amount_residual_currency
