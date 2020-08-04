@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-# © 2016 OpenSynergy Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2016 OpenSynergy Indonesia
+# Copyright 2020 PT. Simetri Sinergi Indonesia
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     "name": "Receivable Aging Report",
-    "version": "8.0.1.2.0",
-    "author": "OpenSynergy Indonesia",
+    "version": "8.0.1.3.0",
+    "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report Receivable Aging",
     "website": "https://opensynergy-indonesia.com",
@@ -19,6 +20,9 @@
         "report/report_receivable_aging_xls.xml",
         "wizard/wizard_receivable_aging.xml",
         "menu_Accounting.xml"
+    ],
+    "images": [
+        "static/description/banner.png",
     ],
     "installable": True,
     "auto_install": False,
