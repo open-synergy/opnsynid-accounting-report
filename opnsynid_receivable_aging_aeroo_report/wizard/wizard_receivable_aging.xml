@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <openerp>
-<data>  
-    
+<data>
+
 <record id="form_account_wizardReportReceivableAging" model="ir.ui.view">
     <field name="name">Report Receivable Aging</field>
     <field name="model">account.wizard_report_receivable_aging</field>
@@ -33,7 +36,7 @@
     <field name="view_type">form</field>
     <field name="view_id" ref="form_account_wizardReportReceivableAging"/>
     <field name="target">new</field>
-</record>        
-        
+</record>
+
 </data>
 </openerp>
