@@ -282,6 +282,7 @@ class Parser(report_sxw.rml_parse):
                     "ref": account_move_line.ref,
                     "doc": account_move_line.move_id.name,
                     "description": account_move_line.name,
+                    "partner": account_move_line.partner_id.name,
                     "debit": debit,
                     "credit": credit,
                     "debit_currency": debit_currency,
