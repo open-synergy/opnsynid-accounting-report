@@ -156,7 +156,7 @@ class Parser(report_sxw.rml_parse):
             if account_rec["id"] != account_id:
                 if account_rec["type"] == "view":
                     res = {
-                        "name": ("  " * level) + account_rec["name"],
+                        "name": ("  " * level) + account_rec["code"] + " " + account_rec["name"],
                         "previous_period": False,
                         "current_period": False,
                         "ytd_period": False,
@@ -169,7 +169,7 @@ class Parser(report_sxw.rml_parse):
                     self.total_current += current_period
                     self.total_ytd += ytd_period
                     res = {
-                        "name": ("  " * level) + account_rec["name"],
+                        "name": ("  " * level) + account_rec["code"] + " " + account_rec["name"],
                         "previous_period": previous_period,
                         "current_period": current_period,
                         "ytd_period": ytd_period,
