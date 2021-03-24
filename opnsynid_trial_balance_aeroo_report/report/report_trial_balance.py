@@ -181,7 +181,7 @@ class Parser(report_sxw.rml_parse):
                 acct for acct in accounts if acct["id"] == parent
             ][0]
 
-            if account_rec["type"] not in ["view", "consolidation"]:
+            if account_rec["type"] not in ["view"]:
 
                 beginning = self.get_balance("beginning", account_rec["id"])
                 now = self.get_balance("now", account_rec["id"])
@@ -210,7 +210,7 @@ class Parser(report_sxw.rml_parse):
                         abs(beginning["beginning_credit"])
                     ),
                     "beginning_balance": Decimal(
-                        abs(beginning["beginning_balance"])
+                        beginning["beginning_balance"]
                     ),
                     "debit": Decimal(abs(now["debit"])),
                     "credit": Decimal(abs(now["credit"])),
@@ -221,7 +221,7 @@ class Parser(report_sxw.rml_parse):
                         abs(ending_debit["ending_credit"])
                     ),
                     "ending_balance": Decimal(
-                        abs(ending_debit["ending_balance"])
+                        ending_debit["ending_balance"]
                     ),
                     "balance": Decimal(abs(account_rec["balance"])),
                     "parent_id": account_rec["parent_id"],
@@ -229,14 +229,9 @@ class Parser(report_sxw.rml_parse):
 
                 self.lines.append(res)
 
-            if account_rec["child_id"]:
-                level += 1
-                for child in account_rec["child_id"]:
-                    _process_child(accounts, child, level)
-
         obj_account_account = self.pool.get("account.account")
 
-        kriteria = [("type", "not in", ["view", "consolidation"])]
+        kriteria = [("type", "not in", ["view"])]
 
         account_ids = obj_account_account.search(self.cr, self.uid, kriteria)
 
@@ -249,12 +244,6 @@ class Parser(report_sxw.rml_parse):
         ids = account_ids
 
         parents = ids
-
-        child_ids = obj_account_account._get_children_and_consol(
-            self.cr, self.uid, ids, ctx)
-
-        if child_ids:
-            ids = child_ids
 
         account_fields = [
             "type",
