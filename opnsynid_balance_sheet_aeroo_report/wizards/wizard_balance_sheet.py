@@ -50,6 +50,10 @@ class WizardBalanceSheet(models.TransientModel):
             ('xls', 'XLS'),
             ('ods', 'ODS')
         ])
+    show_zero = fields.Boolean(
+        string="Show Zero Balance",
+        default=True,
+    )
     state = fields.Selection(
         string='State',
         selection=[

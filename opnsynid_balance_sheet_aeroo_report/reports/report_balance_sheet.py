@@ -12,12 +12,12 @@ class Parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
-        self.sub_total_account_current = 0.0
-        self.sub_total_second_current = 0.0
-        self.total_account_current = 0.0
-        self.sub_total_account_previous = 0.0
-        self.sub_total_second_previous = 0.0
-        self.total_account_previous = 0.0
+        self.sub_total_account_current = Decimal(0.0)
+        self.sub_total_second_current = Decimal(0.0)
+        self.total_account_current = Decimal(0.0)
+        self.sub_total_account_previous = Decimal(0.0)
+        self.sub_total_second_previous = Decimal(0.0)
+        self.total_account_previous = Decimal(0.0)
         self.localcontext.update({
             "time": time,
             "get_asset": self.get_asset,
@@ -236,6 +236,7 @@ class Parser(report_sxw.rml_parse):
                 else:
 
                     currency_id = account_rec["currency_id"]
+                    currency = currency_id and currency_id[1] or False
                     previous_period, second_previous_period =\
                         self.get_previous_period(
                             account_rec["id"],
@@ -249,26 +250,37 @@ class Parser(report_sxw.rml_parse):
                             account_rec["user_type"],
                         )
 
-                    self.total_previous += previous_period
-                    self.total_second_previous_period += second_previous_period
-                    self.total_current += current_period
-                    self.total_second_current_period += second_current_period
+                    self.total_previous += Decimal(previous_period)
+                    self.total_second_previous_period += Decimal(second_previous_period)
+                    self.total_current += Decimal(current_period)
+                    self.total_second_current_period += Decimal(second_current_period)
 
-                    res = {
-                        "name": ("  " * level) + account_rec["name"],
-                        "code": account_rec["code"],
-                        "previous_period": Decimal(previous_period),
-                        "second_previous_period": Decimal(
-                            second_previous_period
-                        ),
-                        "current_period": Decimal(current_period),
-                        "second_current_period": Decimal(
-                            second_current_period
-                        ),
-                        "second_curr": currency_id and currency_id[1] or False,
-                    }
+                    show_zero = \
+                        self.localcontext["data"]["form"]["show_zero"]
 
-                    self.lines.append(res)
+                    if show_zero:
+                        res = {
+                            "name": ("  " * level) + account_rec["name"],
+                            "code": account_rec["code"],
+                            "previous_period": Decimal(previous_period),
+                            "second_previous_period": Decimal(second_previous_period),
+                            "current_period": Decimal(current_period),
+                            "second_current_period": Decimal(second_current_period),
+                            "second_curr": currency,
+                        }
+                        self.lines.append(res)
+                    else:
+                        if previous_period != 0.0 and current_period != 0.0:
+                            res = {
+                                "name": ("  " * level) + account_rec["name"],
+                                "code": account_rec["code"],
+                                "previous_period": Decimal(previous_period),
+                                "second_previous_period": Decimal(second_previous_period),
+                                "current_period": Decimal(current_period),
+                                "second_current_period": Decimal(second_current_period),
+                                "second_curr": currency,
+                            }
+                            self.lines.append(res)
 
             if account_rec["child_id"] \
                     and account_rec["type"] != "consolidation":
@@ -277,10 +289,10 @@ class Parser(report_sxw.rml_parse):
                 for child in account_rec["child_id"]:
                     _process_child(accounts, child, level)
 
-        self.total_previous = 0.0
-        self.total_second_previous_period = 0.0
-        self.total_current = 0.0
-        self.total_second_current_period = 0.0
+        self.total_previous = Decimal(0.0)
+        self.total_second_previous_period = Decimal(0.0)
+        self.total_current = Decimal(0.0)
+        self.total_second_current_period = Decimal(0.0)
 
         obj_account_account = self.pool.get("account.account")
 
@@ -340,15 +352,15 @@ class Parser(report_sxw.rml_parse):
 
     def get_total_account_current(self):
 
-        self.total_account_current = self.sub_total_account_current
-        self.sub_total_account_current = 0.0
+        self.total_account_current = Decimal(self.sub_total_account_current)
+        self.sub_total_account_current = Decimal(0.0)
 
         return self.total_account_current
 
     def get_total_acc_second_current(self):
 
-        self.total_acc_second_current = self.sub_total_second_current
-        self.sub_total_second_current = 0.0
+        self.total_acc_second_current = Decimal(self.sub_total_second_current)
+        self.sub_total_second_current = Decimal(0.0)
 
         return self.total_acc_second_current
 
@@ -362,14 +374,14 @@ class Parser(report_sxw.rml_parse):
 
     def get_total_account_previous(self):
 
-        self.total_account_previous = self.sub_total_account_previous
-        self.sub_total_account_previous = 0.0
+        self.total_account_previous = Decimal(self.sub_total_account_previous)
+        self.sub_total_account_previous = Decimal(0.0)
 
         return self.total_account_previous
 
     def get_total_acc_second_previous(self):
 
-        self.total_acc_second_previous = self.sub_total_second_previous
-        self.sub_total_second_previous = 0.0
+        self.total_acc_second_previous = Decimal(self.sub_total_second_previous)
+        self.sub_total_second_previous = Decimal(0.0)
 
         return self.total_acc_second_previous
