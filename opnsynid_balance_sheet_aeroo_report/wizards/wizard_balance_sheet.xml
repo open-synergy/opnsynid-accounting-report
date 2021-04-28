@@ -2,7 +2,7 @@
 <!-- © 2015 OpenSynergy Indonesia>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
-    <data>  
+    <data>
 
         <record id="form_account_wizardBalanceSheet" model="ir.ui.view">
             <field name="name">Print Balance Sheet</field>
@@ -13,8 +13,9 @@
                     <group col="2" colspan="2">
                         <field name="company_id"/>
                         <field name="fiscalyear_id"/>
-                        <field name="period_id" 
+                        <field name="period_id"
                             domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"/>
+                        <field name="show_zero"/>
                         <field name="state"/>
                         <field name="output_format"/>
                     </group>
@@ -26,15 +27,15 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="waction_account_wizardBalanceSheet" model="ir.actions.act_window">
             <field name="name">Print Balance Sheet</field>
             <field name="res_model">account.wizard_balance_sheet</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="form_account_wizardBalanceSheet"/>
             <field name="target">new</field>
-        </record>          
-        
+        </record>
+
         <menuitem
             id="menu_account_reportBalanceSheet"
             name="Balance Sheet"
