@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from datetime import time
 from openerp.report import report_sxw
+from decimal import Decimal
 
 
 class Parser(report_sxw.rml_parse):
@@ -11,12 +12,12 @@ class Parser(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
-        self.sub_total_account_current = 0.0
-        self.total_account_current = 0.0
-        self.sub_total_account_previous = 0.0
-        self.total_account_previous = 0.0
-        self.sub_total_account_ytd = 0.0
-        self.total_account_ytd = 0.0
+        self.sub_total_account_current = Decimal(0.0)
+        self.total_account_current = Decimal(0.0)
+        self.sub_total_account_previous = Decimal(0.0)
+        self.total_account_previous = Decimal(0.0)
+        self.sub_total_account_ytd = Decimal(0.0)
+        self.total_account_ytd = Decimal(0.0)
         self.localcontext.update({
             "time": time,
             "get_period": self.get_period,
@@ -153,10 +154,20 @@ class Parser(report_sxw.rml_parse):
             current_period = self.get_current_period(account_rec["id"])
             ytd_period = self.get_ytd(account_rec["id"])
 
+            code = account_rec["code"]
+            name = account_rec["name"]
+
             if account_rec["id"] != account_id:
+                show_zero = \
+                    self.localcontext["data"]["form"]["show_zero"]
+
+                if not show_zero:
+                    if previous_period == 0 and current_period == 0:
+                        return
+
                 if account_rec["type"] == "view":
                     res = {
-                        "name": ("  " * level) + account_rec["code"] + " " + account_rec["name"],
+                        "name": ("  " * level) + code + " " + name,
                         "previous_period": False,
                         "current_period": False,
                         "ytd_period": False,
@@ -165,13 +176,14 @@ class Parser(report_sxw.rml_parse):
                     self.lines.append(res)
 
                 else:
-                    self.total_previous += previous_period
-                    self.total_current += current_period
-                    self.total_ytd += ytd_period
+                    self.total_previous += Decimal(previous_period)
+                    self.total_current += Decimal(current_period)
+                    self.total_ytd += Decimal(ytd_period)
+
                     res = {
-                        "name": ("  " * level) + account_rec["code"] + " " + account_rec["name"],
-                        "previous_period": previous_period,
-                        "current_period": current_period,
+                        "name": ("  " * level) + code + " " + name,
+                        "previous_period": Decimal(previous_period),
+                        "current_period": Decimal(current_period),
                         "ytd_period": ytd_period,
                     }
 
@@ -183,9 +195,9 @@ class Parser(report_sxw.rml_parse):
                 for child in account_rec["child_id"]:
                     _process_child(accounts, child, level)
 
-        self.total_previous = 0.0
-        self.total_current = 0.0
-        self.total_ytd = 0.0
+        self.total_previous = Decimal(0.0)
+        self.total_current = Decimal(0.0)
+        self.total_ytd = Decimal(0.0)
 
         obj_account_account = self.pool.get("account.account")
 
@@ -233,8 +245,8 @@ class Parser(report_sxw.rml_parse):
 
     def get_total_account_current(self):
 
-        self.total_account_current = self.sub_total_account_current
-        self.sub_total_account_current = 0.0
+        self.total_account_current = Decimal(self.sub_total_account_current)
+        self.sub_total_account_current = Decimal(0.0)
 
         return self.total_account_current
 
@@ -243,8 +255,8 @@ class Parser(report_sxw.rml_parse):
         return True
 
     def get_total_account_previous(self):
-        self.total_account_previous = self.sub_total_account_previous
-        self.sub_total_account_previous = 0.0
+        self.total_account_previous = Decimal(self.sub_total_account_previous)
+        self.sub_total_account_previous = Decimal(0.0)
 
         return self.total_account_previous
 
@@ -253,7 +265,7 @@ class Parser(report_sxw.rml_parse):
         return True
 
     def get_total_account_ytd(self):
-        self.total_account_ytd = self.sub_total_account_ytd
-        self.sub_total_account_ytd = 0.0
+        self.total_account_ytd = Decimal(self.sub_total_account_ytd)
+        self.sub_total_account_ytd = Decimal(0.0)
 
         return self.total_account_ytd

@@ -16,6 +16,7 @@
                 <field name="fiscalyear_id"/>
                 <field name="period_id"
                     domain="[('fiscalyear_id', '=', fiscalyear_id),('special', '=', 0)]"/>
+                <field name="show_zero"/>
                 <field name="state"/>
                 <field name="output_format"/>
             </group>
