@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "General Ledger Report",
-    "version": "8.0.1.4.0",
+    "version": "8.0.1.4.1",
     "summary": "Report General Ledger",
     "category": "Accounting",
     "website": "https://simetri-sinergi.id",

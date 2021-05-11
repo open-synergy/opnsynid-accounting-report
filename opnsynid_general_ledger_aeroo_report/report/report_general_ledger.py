@@ -92,51 +92,36 @@ class Parser(report_sxw.rml_parse):
         data = self.localcontext["data"]["form"]
         obj_account_period =\
             self.pool.get("account.period")
-        obj_account_fiscalyear =\
-            self.pool.get("account.fiscalyear")
-
         start_period_id = data["start_period_id"]\
             and data["start_period_id"][0] or False
+        start_period = obj_account_period.browse(
+            self.cr, self.uid, start_period_id)
+
         end_period_id = data["end_period_id"][0]\
             and data["end_period_id"][0] or False
+        end_period = obj_account_period.browse(
+            self.cr, self.uid, end_period_id)
         state = data["state"]
 
-        if start_period_id and end_period_id:
-            if start_period_id == end_period_id:
-                kriteria = [
-                    ("account_id", "=", account_id),
-                    ("period_id", "=", start_period_id),
-                ]
-            else:
-                kriteria = [
-                    ("account_id", "=", account_id),
-                    ("period_id", ">=", start_period_id),
-                    ("period_id", "<=", end_period_id),
-                ]
-        if state != "all":
-            kriteria.append(("move_id.state", "=", state))
-
-        if not start_period_id and end_period_id:
-            period = obj_account_period.browse(
-                self.cr, self.uid, end_period_id)
-            fiscalyear = obj_account_fiscalyear.browse(
-                self.cr, self.uid, period.fiscalyear_id.id)
-
-            period_kriteria = obj_account_period.find(
-                self.cr, self.uid, fiscalyear.date_start, {
-                    "account_period_prefer_normal": True
-                })
-
+        if start_period_id == end_period_id:
             kriteria = [
                 ("account_id", "=", account_id),
-                ("period_id", ">=", int(period_kriteria[0])),
-                ("period_id", "<=", end_period_id),
+                ("date", ">=", start_period.date_start),
+                ("date", "<=", start_period.date_stop),
+                ("period_id.special", "=", False),
             ]
+        else:
+            kriteria = [
+                ("account_id", "=", account_id),
+                ("date", ">=", start_period.date_start),
+                ("date", "<=", end_period.date_stop),
+                ("period_id.special", "=", False),
+            ]
+
         if state != "all":
             kriteria.append(("move_id.state", "=", state))
 
         return kriteria
-
 
     def get_opening_balance(self, kriteria):
         opening_balance = 0.00
