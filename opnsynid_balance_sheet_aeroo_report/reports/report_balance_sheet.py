@@ -275,9 +275,11 @@ class Parser(report_sxw.rml_parse):
                                 "name": ("  " * level) + account_rec["name"],
                                 "code": account_rec["code"],
                                 "previous_period": Decimal(previous_period),
-                                "second_previous_period": Decimal(second_previous_period),
+                                "second_previous_period":
+                                    Decimal(second_previous_period),
                                 "current_period": Decimal(current_period),
-                                "second_current_period": Decimal(second_current_period),
+                                "second_current_period":
+                                    Decimal(second_current_period),
                                 "second_curr": currency,
                             }
                             self.lines.append(res)
