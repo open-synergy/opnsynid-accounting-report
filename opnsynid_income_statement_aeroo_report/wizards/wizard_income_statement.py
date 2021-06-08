@@ -88,3 +88,10 @@ class WizardIncomeStatement(models.TransientModel):
             "report_name": output_format,
             "datas": datas,
         }
+
+    @api.onchange(
+        "fiscalyear_id",
+    )
+    def onchange_period_id(self):
+        if self.fiscalyear_id:
+            self.period_id = False
