@@ -162,7 +162,11 @@ class Parser(report_sxw.rml_parse):
                     self.localcontext["data"]["form"]["show_zero"]
 
                 if not show_zero:
-                    if previous_period == 0 and current_period == 0:
+                    if (
+                        previous_period == 0 and
+                        current_period == 0 and
+                        ytd_period == 0
+                    ):
                         return
 
                 if account_rec["type"] == "view":
@@ -171,6 +175,7 @@ class Parser(report_sxw.rml_parse):
                         "previous_period": False,
                         "current_period": False,
                         "ytd_period": False,
+                        "parent": True,
                     }
 
                     self.lines.append(res)
@@ -184,7 +189,8 @@ class Parser(report_sxw.rml_parse):
                         "name": ("  " * level) + code + " " + name,
                         "previous_period": Decimal(previous_period),
                         "current_period": Decimal(current_period),
-                        "ytd_period": ytd_period,
+                        "ytd_period": Decimal(ytd_period),
+                        "parent": False,
                     }
 
                     self.lines.append(res)
