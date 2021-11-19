@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 OpenSynergy Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
 
@@ -11,24 +10,29 @@
     <field name="arch" type="xml">
         <form string="Print Payment Order Summary">
             <group name="group_1" colspan="4" col="2">
-                <field name="company_id"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
-                <field name="mode_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]"/>
-                <field name="state_draft"/>
-                <field name="state_open"/>
-                <field name="state_done"/>
-                <field name="state_cancel"/>
-                <field name="output_format"/>
+                <field name="company_id" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field
+                            name="mode_ids"
+                            widget="many2many_tags"
+                            domain="[('company_id','=',company_id)]"
+                        />
+                <field name="state_draft" />
+                <field name="state_open" />
+                <field name="state_done" />
+                <field name="state_cancel" />
+                <field name="output_format" />
             </group>
             <footer>
-                <button name="action_print"
-                        type="object"
-                        string="Print"
-                        class="oe_highlight"/>
+                <button
+                            name="action_print"
+                            type="object"
+                            string="Print"
+                            class="oe_highlight"
+                        />
                 or
-                <button special="cancel"
-                        string="Cancel"/>
+                <button special="cancel" string="Cancel" />
             </footer>
         </form>
     </field>
@@ -43,12 +47,12 @@
 </record>
 
 <menuitem
-    id="print_payment_order_summary_menu"
-    name="Payment Order Summary"
-    parent="account.menu_finance_reports"
-    action="print_payment_order_summary_action"
-    sequence="1000"
-/>
+            id="print_payment_order_summary_menu"
+            name="Payment Order Summary"
+            parent="account.menu_finance_reports"
+            action="print_payment_order_summary_action"
+            sequence="1000"
+        />
 
 </data>
 </openerp>

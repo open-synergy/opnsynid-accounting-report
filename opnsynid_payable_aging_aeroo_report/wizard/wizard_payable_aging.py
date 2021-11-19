@@ -4,9 +4,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 
-from openerp import api, models, fields, _
-from openerp.exceptions import except_orm
 from datetime import datetime
+
+from openerp import _, api, fields, models
+from openerp.exceptions import except_orm
 
 
 class WizardReportPayableAging(models.TransientModel):
@@ -27,8 +28,7 @@ class WizardReportPayableAging(models.TransientModel):
 
     @api.model
     def _default_journal(self):
-        company_id = self._context.get(
-            "company_id", self.env.user.company_id.id)
+        company_id = self._context.get("company_id", self.env.user.company_id.id)
         domain = [
             ("type", "=", "purchase"),
             ("company_id", "=", company_id),
@@ -83,10 +83,7 @@ class WizardReportPayableAging(models.TransientModel):
     output_format = fields.Selection(
         string="Output Format",
         required=True,
-        selection=[
-            ("xls", "XLS"),
-            ("ods", "ODS")
-        ],
+        selection=[("xls", "XLS"), ("ods", "ODS")],
         default="ods",
     )
 

@@ -3,9 +3,10 @@
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
-from openerp.tools import drop_view_if_exists
 from datetime import datetime
+
+from openerp import api, fields, models
+from openerp.tools import drop_view_if_exists
 
 
 class QueryPayableAging(models.Model):
@@ -14,8 +15,9 @@ class QueryPayableAging(models.Model):
     _description = "Query Payable Aging"
     _auto = False
 
-    @api.one
+    @api.multi
     def function_aging(self):
+        self.ensure_one()
         res = {}
         residual = 0.0
         obj_move_line = reconcile_lines = self.env["account.move.line"]
@@ -23,8 +25,7 @@ class QueryPayableAging(models.Model):
         date_as_of = self._context.get("date_as_of", False)
 
         if date_as_of:
-            ord_date_as_of = datetime.strptime(
-                date_as_of, "%Y-%m-%d").toordinal()
+            ord_date_as_of = datetime.strptime(date_as_of, "%Y-%m-%d").toordinal()
 
         res = {
             "aging1": 0.0,
@@ -37,24 +38,21 @@ class QueryPayableAging(models.Model):
         }
 
         if self.date_due:
-            ord_date_due = datetime.strptime(
-                self.date_due, "%Y-%m-%d").toordinal()
+            ord_date_due = datetime.strptime(self.date_due, "%Y-%m-%d").toordinal()
 
-            direction = (ord_date_due - ord_date_as_of)
+            direction = ord_date_due - ord_date_as_of
             move_line = obj_move_line.browse(self.ids)[0]
 
             if move_line.reconcile_id:
                 reconcile_lines = move_line.reconcile_id.line_id
             elif move_line.reconcile_partial_id:
-                reconcile_lines = \
-                    move_line.reconcile_partial_id.line_partial_ids
+                reconcile_lines = move_line.reconcile_partial_id.line_partial_ids
             else:
                 reconcile_lines += move_line
 
             for reconcile_line in reconcile_lines:
                 if reconcile_line.date <= date_as_of:
-                    residual += (
-                        reconcile_line.credit - reconcile_line.debit)
+                    residual += reconcile_line.credit - reconcile_line.debit
 
             res["amount_residual"] = residual
 
@@ -85,107 +83,65 @@ class QueryPayableAging(models.Model):
 
     name = fields.Char(string="Description", size=64)
 
-    move_id = fields.Many2one(
-        string="# Move",
-        comodel_name="account.move"
-    )
+    move_id = fields.Many2one(string="# Move", comodel_name="account.move")
 
-    account_id = fields.Many2one(
-        string="Account",
-        comodel_name="account.account"
-    )
+    account_id = fields.Many2one(string="Account", comodel_name="account.account")
 
-    company_id = fields.Many2one(
-        string="Company",
-        comodel_name="res.company"
-    )
+    company_id = fields.Many2one(string="Company", comodel_name="res.company")
 
     date = fields.Date(string="Date")
     date_due = fields.Date(string="Date Due")
 
-    journal_id = fields.Many2one(
-        string="Journal",
-        comodel_name="account.journal"
-    )
+    journal_id = fields.Many2one(string="Journal", comodel_name="account.journal")
 
-    partner_id = fields.Many2one(
-        string="Partner",
-        comodel_name="res.partner"
-    )
+    partner_id = fields.Many2one(string="Partner", comodel_name="res.partner")
 
-    period_id = fields.Many2one(
-        string="Period",
-        comodel_name="account.period"
-    )
+    period_id = fields.Many2one(string="Period", comodel_name="account.period")
 
     respective_currency_id = fields.Many2one(
-        string="Respective Currency",
-        comodel_name="res.currency"
+        string="Respective Currency", comodel_name="res.currency"
     )
 
     base_currency_id = fields.Many2one(
-        string="Base Currency",
-        comodel_name="res.currency"
+        string="Base Currency", comodel_name="res.currency"
     )
 
     reconcile_id = fields.Many2one(
-        string="Reconcile",
-        comodel_name="account.move.reconcile"
+        string="Reconcile", comodel_name="account.move.reconcile"
     )
 
     reconcile_partial_id = fields.Many2one(
-        string="Partial Reconcile",
-        comodel_name="account.move.reconcile"
+        string="Partial Reconcile", comodel_name="account.move.reconcile"
     )
 
     debit = fields.Float(string="Debit")
     credit = fields.Float(string="Credit")
     amount_currency = fields.Float(string="Amount Currency")
 
-    amount_residual = fields.Float(
-        string="Amount Residual",
-        compute=function_aging
-    )
+    amount_residual = fields.Float(string="Amount Residual", compute=function_aging)
 
     amount_residual_currency = fields.Float(
-        string="Amount Residual Currency",
-        compute=function_aging
+        string="Amount Residual Currency", compute=function_aging
     )
 
-    aging1 = fields.Float(
-        string="Aging1",
-        compute=function_aging
-    )
+    aging1 = fields.Float(string="Aging1", compute=function_aging)
 
-    aging2 = fields.Float(
-        string="Aging2",
-        compute=function_aging
-    )
+    aging2 = fields.Float(string="Aging2", compute=function_aging)
 
-    aging3 = fields.Float(
-        string="Aging3",
-        compute=function_aging
-    )
+    aging3 = fields.Float(string="Aging3", compute=function_aging)
 
-    aging4 = fields.Float(
-        string="Aging4",
-        compute=function_aging
-    )
+    aging4 = fields.Float(string="Aging4", compute=function_aging)
 
-    aging5 = fields.Float(
-        string="Aging5",
-        compute=function_aging
-    )
+    aging5 = fields.Float(string="Aging5", compute=function_aging)
 
     direction = fields.Selection(
         string="Direction",
         selection=[("past", "Past"), ("future", "Future")],
-        compute=function_aging
+        compute=function_aging,
     )
 
     state = fields.Selection(
-        string="State",
-        selection=[("draft", "Unposted"), ("posted", "Posted")]
+        string="State", selection=[("draft", "Unposted"), ("posted", "Posted")]
     )
 
     def init(self, cr):

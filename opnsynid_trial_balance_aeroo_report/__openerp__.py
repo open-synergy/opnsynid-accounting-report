@@ -17,7 +17,7 @@
     "data": [
         "report/report_trial_balance.xml",
         "wizard/wizard_trial_balance.xml",
-        "menu_Accounting.xml"
+        "menu_Accounting.xml",
     ],
     "images": [
         "static/description/banner.png",
@@ -25,5 +25,5 @@
     "installable": True,
     "auto_install": False,
     "application": True,
-    "license": "AGPL-3"
+    "license": "AGPL-3",
 }

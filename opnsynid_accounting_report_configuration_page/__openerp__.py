@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-# © 2015 OpenSynergy Indonesia
+# Copyright 2015 OpenSynergy Indonesia
+# Copyright 2021 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Accounting report configuration page",
     "version": "8.0.1.0.0",
-    "author": "OpenSynergy Indonesia",
-    "website": "https://opensynergy-indonesia.com",
+    "website": "https://simetri-sinergi.id",
+    "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "AGPL-3",
     "category": "Financial Management/Configuration",
     "depends": [
@@ -15,6 +16,5 @@
     "data": [
         "views/res_company_view.xml",
     ],
-    "active": False,
-    'installable': True
+    "installable": True,
 }

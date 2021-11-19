@@ -2,24 +2,18 @@
 # © 2015 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.addons.opnsynid_general_ledger_aeroo_report.report \
-    import report_general_ledger
+from openerp.addons.opnsynid_general_ledger_aeroo_report.report import (
+    report_general_ledger,
+)
 
 
 class Parser(report_general_ledger.Parser):
-
-    def __init__(self, cr, uid, name, context):
+    def __init__(self, cr, uid, name, context):  # pylint: disable=R8110
         super(Parser, self).__init__(cr, uid, name, context)
 
-    def _prepare_opening_balance(
-        self,
-        account_id,
-        state,
-        date_start_period
-    ):
+    def _prepare_opening_balance(self, account_id, state, date_start_period):
         _super = super(Parser, self)
-        res = _super._prepare_opening_balance(
-            account_id, state, date_start_period)
+        res = _super._prepare_opening_balance(account_id, state, date_start_period)
 
         data = self.localcontext["data"]["form"]
         operating_unit_ids = data["operating_unit_ids"]
@@ -38,7 +32,8 @@ class Parser(report_general_ledger.Parser):
     ):
         _super = super(Parser, self)
         res = _super._prepare_beginning_balance(
-            account_id, state, period, date_start_period)
+            account_id, state, period, date_start_period
+        )
 
         data = self.localcontext["data"]["form"]
         operating_unit_ids = data["operating_unit_ids"]

@@ -3,13 +3,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from datetime import time
-from openerp.report import report_sxw
 from decimal import Decimal
+
+from openerp.report import report_sxw
 
 
 class Parser(report_sxw.rml_parse):
-
-    def __init__(self, cr, uid, name, context):
+    def __init__(self, cr, uid, name, context):  # pylint: disable=R8110
         super(Parser, self).__init__(cr, uid, name, context)
         self.lines = []
         self.sub_total_account_current = Decimal(0.0)
@@ -18,26 +18,28 @@ class Parser(report_sxw.rml_parse):
         self.sub_total_account_previous = Decimal(0.0)
         self.sub_total_second_previous = Decimal(0.0)
         self.total_account_previous = Decimal(0.0)
-        self.localcontext.update({
-            "time": time,
-            "get_asset": self.get_asset,
-            "get_liability": self.get_liability,
-            "get_period": self.get_period,
-            "get_company": self.get_company,
-            "line": self.get_balance_sheet_line,
-            "total_previous": self.get_total_previous,
-            "total_second_previous": self.get_total_second_previous,
-            "total_current": self.get_total_current,
-            "total_second_current": self.get_total_second_current,
-            "sub_total_account_current": self.get_sub_total_account_current,
-            "sub_total_second_current": self.get_sub_total_second_current,
-            "total_account_current": self.get_total_account_current,
-            "total_acc_second_current": self.get_total_acc_second_current,
-            "sub_total_account_previous": self.get_sub_total_account_previous,
-            "sub_total_second_previous": self.get_sub_total_second_previous,
-            "total_account_previous": self.get_total_account_previous,
-            "total_acc_second_previous": self.get_total_acc_second_previous,
-        })
+        self.localcontext.update(
+            {
+                "time": time,
+                "get_asset": self.get_asset,
+                "get_liability": self.get_liability,
+                "get_period": self.get_period,
+                "get_company": self.get_company,
+                "line": self.get_balance_sheet_line,
+                "total_previous": self.get_total_previous,
+                "total_second_previous": self.get_total_second_previous,
+                "total_current": self.get_total_current,
+                "total_second_current": self.get_total_second_current,
+                "sub_total_account_current": self.get_sub_total_account_current,
+                "sub_total_second_current": self.get_sub_total_second_current,
+                "total_account_current": self.get_total_account_current,
+                "total_acc_second_current": self.get_total_acc_second_current,
+                "sub_total_account_previous": self.get_sub_total_account_previous,
+                "sub_total_second_previous": self.get_sub_total_second_previous,
+                "total_account_previous": self.get_total_account_previous,
+                "total_acc_second_previous": self.get_total_acc_second_previous,
+            }
+        )
 
     def get_asset(self):
         obj_user = self.pool.get("res.users")
@@ -52,16 +54,20 @@ class Parser(report_sxw.rml_parse):
         return user.company_id.liability_ids
 
     def get_period(self):
-        period_name = self.localcontext["data"]["form"]["period_id"] \
-            and self.localcontext["data"]["form"]["period_id"][1] \
+        period_name = (
+            self.localcontext["data"]["form"]["period_id"]
+            and self.localcontext["data"]["form"]["period_id"][1]
             or False
+        )
 
         return period_name
 
     def get_company(self):
-        company_name = self.localcontext["data"]["form"]["company_id"] \
-            and self.localcontext["data"]["form"]["company_id"][1] \
+        company_name = (
+            self.localcontext["data"]["form"]["company_id"]
+            and self.localcontext["data"]["form"]["company_id"][1]
             or False
+        )
 
         return company_name
 
@@ -73,20 +79,10 @@ class Parser(report_sxw.rml_parse):
         obj_account_period = self.pool.get("account.period")
         obj_account_type = self.pool.get("account.account.type")
 
-        criteria_type = [(
-            "id", "=", user_type[0]
-        )]
+        criteria_type = [("id", "=", user_type[0])]
 
-        account_type_ids = obj_account_type.search(
-            self.cr,
-            self.uid,
-            criteria_type
-        )
-        account_type = obj_account_type.browse(
-            self.cr,
-            self.uid,
-            account_type_ids
-        )
+        account_type_ids = obj_account_type.search(self.cr, self.uid, criteria_type)
+        account_type = obj_account_type.browse(self.cr, self.uid, account_type_ids)
 
         report_type = account_type.report_type
         if report_type in ["income", "liability"]:
@@ -102,20 +98,13 @@ class Parser(report_sxw.rml_parse):
             ("fiscalyear_id", "=", fiscalyear_id),
         ]
 
-        period_ids = obj_account_period.search(
-            self.cr,
-            self.uid,
-            criteria
-        )
+        period_ids = obj_account_period.search(self.cr, self.uid, criteria)
 
         for list_index, period_id in enumerate(period_ids):
             if period_id == current_period_id:
                 previous_period_id = period_ids[list_index - 1]
 
-        criteria = [
-            ("fiscalyear_id", "=", fiscalyear_id),
-            ("special", "=", True)
-        ]
+        criteria = [("fiscalyear_id", "=", fiscalyear_id), ("special", "=", True)]
 
         first_period_ids = obj_account_period.search(
             self.cr,
@@ -130,17 +119,12 @@ class Parser(report_sxw.rml_parse):
         if state != "all":
             ctx["state"] = state
 
-        account = obj_account_account.browse(
-            self.cr,
-            self.uid,
-            account_id,
-            ctx)
+        account = obj_account_account.browse(self.cr, self.uid, account_id, ctx)
 
         if account:
-            previous_period = (account.balance * factor)
+            previous_period = account.balance * factor
             if currency_id:
-                second_previous_period =\
-                    (account.foreign_balance * factor)
+                second_previous_period = account.foreign_balance * factor
             else:
                 second_previous_period = False
 
@@ -153,20 +137,10 @@ class Parser(report_sxw.rml_parse):
         obj_account_period = self.pool.get("account.period")
         obj_account_type = self.pool.get("account.account.type")
 
-        criteria_type = [(
-            "id", "=", user_type[0]
-        )]
+        criteria_type = [("id", "=", user_type[0])]
 
-        account_type_ids = obj_account_type.search(
-            self.cr,
-            self.uid,
-            criteria_type
-        )
-        account_type = obj_account_type.browse(
-            self.cr,
-            self.uid,
-            account_type_ids
-        )
+        account_type_ids = obj_account_type.search(self.cr, self.uid, criteria_type)
+        account_type = obj_account_type.browse(self.cr, self.uid, account_type_ids)
 
         report_type = account_type.report_type
         if report_type in ["income", "liability"]:
@@ -197,17 +171,12 @@ class Parser(report_sxw.rml_parse):
         if state != "all":
             ctx["state"] = state
 
-        account = obj_account_account.browse(
-            self.cr,
-            self.uid,
-            account_id,
-            ctx)
+        account = obj_account_account.browse(self.cr, self.uid, account_id, ctx)
 
         if account:
-            current_period = (account.balance * factor)
+            current_period = account.balance * factor
             if currency_id:
-                second_current_period =\
-                    (account.foreign_balance * factor)
+                second_current_period = account.foreign_balance * factor
             else:
                 second_current_period = False
 
@@ -215,8 +184,7 @@ class Parser(report_sxw.rml_parse):
 
     def get_balance_sheet_line(self, account_id):
         def _process_child(accounts, parent, level):
-            account_rec = \
-                [acct for acct in accounts if acct["id"] == parent][0]
+            account_rec = [acct for acct in accounts if acct["id"] == parent][0]
 
             if account_rec["id"] != account_id:
 
@@ -237,26 +205,23 @@ class Parser(report_sxw.rml_parse):
 
                     currency_id = account_rec["currency_id"]
                     currency = currency_id and currency_id[1] or False
-                    previous_period, second_previous_period =\
-                        self.get_previous_period(
-                            account_rec["id"],
-                            currency_id,
-                            account_rec["user_type"],
-                        )
-                    current_period, second_current_period =\
-                        self.get_current_period(
-                            account_rec["id"],
-                            currency_id,
-                            account_rec["user_type"],
-                        )
+                    previous_period, second_previous_period = self.get_previous_period(
+                        account_rec["id"],
+                        currency_id,
+                        account_rec["user_type"],
+                    )
+                    current_period, second_current_period = self.get_current_period(
+                        account_rec["id"],
+                        currency_id,
+                        account_rec["user_type"],
+                    )
 
                     self.total_previous += Decimal(previous_period)
                     self.total_second_previous_period += Decimal(second_previous_period)
                     self.total_current += Decimal(current_period)
                     self.total_second_current_period += Decimal(second_current_period)
 
-                    show_zero = \
-                        self.localcontext["data"]["form"]["show_zero"]
+                    show_zero = self.localcontext["data"]["form"]["show_zero"]
 
                     if show_zero:
                         res = {
@@ -275,17 +240,16 @@ class Parser(report_sxw.rml_parse):
                                 "name": ("  " * level) + account_rec["name"],
                                 "code": account_rec["code"],
                                 "previous_period": Decimal(previous_period),
-                                "second_previous_period":
-                                    Decimal(second_previous_period),
+                                "second_previous_period": Decimal(
+                                    second_previous_period
+                                ),
                                 "current_period": Decimal(current_period),
-                                "second_current_period":
-                                    Decimal(second_current_period),
+                                "second_current_period": Decimal(second_current_period),
                                 "second_curr": currency,
                             }
                             self.lines.append(res)
 
-            if account_rec["child_id"] \
-                    and account_rec["type"] != "consolidation":
+            if account_rec["child_id"] and account_rec["type"] != "consolidation":
 
                 level += 1
                 for child in account_rec["child_id"]:
@@ -309,22 +273,26 @@ class Parser(report_sxw.rml_parse):
         parents = ids
 
         child_ids = obj_account_account._get_children_and_consol(
-            self.cr,
-            self.uid,
-            ids,
-            ctx
+            self.cr, self.uid, ids, ctx
         )
 
         if child_ids:
             ids = child_ids
 
         account_fields = [
-            "type", "user_type", "code", "name", "debit",
-            "currency_id", "credit", "balance",
-            "parent_id", "child_id"]
+            "type",
+            "user_type",
+            "code",
+            "name",
+            "debit",
+            "currency_id",
+            "credit",
+            "balance",
+            "parent_id",
+            "child_id",
+        ]
 
-        accounts = obj_account_account.read(
-            self.cr, self.uid, ids, account_fields, ctx)
+        accounts = obj_account_account.read(self.cr, self.uid, ids, account_fields, ctx)
 
         for parent in parents:
             level = 1

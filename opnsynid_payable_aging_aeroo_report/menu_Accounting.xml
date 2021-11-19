@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
@@ -6,12 +6,12 @@
 <data>
 
 <menuitem
-    id="menu_account_reportPayableAging"
-    name="Payable Aging"
-    parent="account.menu_finance_reports"
-    action="waction_account_wizardReportPayableAging"
-    sequence="1000"
-/>
+            id="menu_account_reportPayableAging"
+            name="Payable Aging"
+            parent="account.menu_finance_reports"
+            action="waction_account_wizardReportPayableAging"
+            sequence="1000"
+        />
 
 </data>
 </openerp>

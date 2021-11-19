@@ -9,17 +9,14 @@
     "category": "Accounting",
     "website": "https://simetri-sinergi.id",
     "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
-    "depends": [
-        "account_accountant",
-        "report_aeroo"
-    ],
+    "depends": ["account_accountant", "report_aeroo"],
     "data": [
         "report/report_general_ledger.xml",
         "wizard/wizard_general_ledger.xml",
-        "menu_Accounting.xml"
+        "menu_Accounting.xml",
     ],
     "installable": True,
     "auto_install": False,
     "application": True,
-    "license": "AGPL-3"
+    "license": "AGPL-3",
 }

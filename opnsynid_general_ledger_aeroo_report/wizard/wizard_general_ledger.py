@@ -2,7 +2,7 @@
 # Copyright 2015 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from openerp import api, models, fields
+from openerp import api, fields, models
 
 
 class WizardReportGeneralLedger(models.TransientModel):
@@ -63,8 +63,9 @@ class WizardReportGeneralLedger(models.TransientModel):
         domain=[
             ("type", "!=", "view"),
             ("type", "!=", "consollidation"),
-            ("type", "!=", "closed")
-        ])
+            ("type", "!=", "closed"),
+        ],
+    )
 
     account_ids = fields.Many2many(
         string="Accounts",
@@ -75,43 +76,34 @@ class WizardReportGeneralLedger(models.TransientModel):
         domain=[
             ("type", "!=", "view"),
             ("type", "!=", "consollidation"),
-            ("type", "!=", "closed")
-        ])
+            ("type", "!=", "closed"),
+        ],
+    )
 
-    in_foreign = fields.Boolean(
-        string="In Foreign")
+    in_foreign = fields.Boolean(string="In Foreign")
 
     output_format = fields.Selection(
         string="Output Format",
         required=True,
-        selection=[
-            ("pdf", "PDF"),
-            ("xls", "XLS"),
-            ("ods", "ODS")
-        ],
+        selection=[("pdf", "PDF"), ("xls", "XLS"), ("ods", "ODS")],
         default="ods",
     )
 
     state = fields.Selection(
         string="State",
-        selection=[
-            ("all", "All"),
-            ("draft", "Draft"),
-            ("posted", "Posted")
-        ],
+        selection=[("all", "All"), ("draft", "Draft"), ("posted", "Posted")],
         required=True,
         default="posted",
     )
 
-    def button_print_report(self, cr, uid, ids, context=None):
+    def button_print_report(self, cr, uid, ids, context=None):  # pylint: disable=R8110
         if context is None:
             context = {}
 
         datas = {}
         output_format = ""
 
-        datas["form"] = self.read(
-            cr, uid, ids)[0]
+        datas["form"] = self.read(cr, uid, ids)[0]
 
         if datas["form"]["output_format"] == "xls":
             output_format = "report_general_ledger_xls"

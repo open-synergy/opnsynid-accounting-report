@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
 <data>
     <record id="form_account_wizardReportGeneralLedger" model="ir.ui.view">
         <field name="name">account.wizard_report_general_ledger.operating.unit</field>
         <field name="model">account.wizard_report_general_ledger</field>
-        <field name="inherit_id" ref="opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger"/>
+        <field
+                name="inherit_id"
+                ref="opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger"
+            />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='account_ids']" position="after">
-                <field name="operating_unit_ids" widget="many2many_tags"/>
+                <field name="operating_unit_ids" widget="many2many_tags" />
             </xpath>
         </field>
     </record>
