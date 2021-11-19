@@ -1,0 +1,234 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* opnsynid_payable_aging_aeroo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,move_id:0
+msgid "# Move"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,account_id:0
+msgid "Account"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,amount_currency:0
+msgid "Amount Currency"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,base_currency_id:0
+msgid "Base Currency"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,company_id:0
+#: field:account.wizard_report_payable_aging,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,credit:0
+msgid "Credit"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,date:0
+msgid "Date"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,date_as_of:0
+msgid "Date As Of"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,date_due:0
+msgid "Date Due"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,date_from:0
+msgid "Date From"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,date_to:0
+msgid "Date To"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,debit:0
+msgid "Debit"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,name:0
+msgid "Description"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,id:0
+#: field:account.wizard_report_payable_aging,id:0
+msgid "ID"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,journal_id:0
+msgid "Journal"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,journal_ids:0
+msgid "Journals"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: selection:account.wizard_report_payable_aging,output_format:0
+msgid "ODS"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,output_format:0
+msgid "Output Format"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,reconcile_partial_id:0
+msgid "Partial Reconcile"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: model:ir.ui.menu,name:opnsynid_payable_aging_aeroo_report.menu_account_reportPayableAging
+msgid "Payable Aging"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_payable_aging_aeroo_report.report_account_payableAgingODS
+msgid "Payable Aging ODS"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_payable_aging_aeroo_report.report_account_payableAgingXLS
+msgid "Payable Aging XLS"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.wizard_report_payable_aging,period_length:0
+msgid "Period Legth(days)"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: selection:account.query_payable_aging,state:0
+msgid "Posted"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: view:account.wizard_report_payable_aging:opnsynid_payable_aging_aeroo_report.form_account_wizardReportPayableAging
+msgid "Print Payable Aging"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: model:ir.model,name:opnsynid_payable_aging_aeroo_report.model_account_query_payable_aging
+msgid "Query Payable Aging"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,reconcile_id:0
+msgid "Reconcile"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: view:account.wizard_report_payable_aging:opnsynid_payable_aging_aeroo_report.form_account_wizardReportPayableAging
+#: model:ir.actions.act_window,name:opnsynid_payable_aging_aeroo_report.waction_account_wizardReportPayableAging
+msgid "Report Payable Aging"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,respective_currency_id:0
+msgid "Respective Currency"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: field:account.query_payable_aging,state:0
+msgid "State"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: selection:account.query_payable_aging,state:0
+msgid "Unposted"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: code:addons/opnsynid_payable_aging_aeroo_report/wizard/wizard_payable_aging.py:109
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: model:ir.model,name:opnsynid_payable_aging_aeroo_report.model_account_wizard_report_payable_aging
+msgid "Wizard Report Payable Aging"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: selection:account.wizard_report_payable_aging,output_format:0
+msgid "XLS"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: view:account.wizard_report_payable_aging:opnsynid_payable_aging_aeroo_report.form_account_wizardReportPayableAging
+msgid "_Cancel"
+msgstr ""
+
+#. module: opnsynid_payable_aging_aeroo_report
+#: view:account.wizard_report_payable_aging:opnsynid_payable_aging_aeroo_report.form_account_wizardReportPayableAging
+msgid "or"
+msgstr ""
+
