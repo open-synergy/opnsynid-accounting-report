@@ -1,0 +1,141 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* opnsynid_income_statement_bydate_aeroo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: selection:account.wizard_income_statement_bydate,state:0
+msgid "All"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,date_end:0
+msgid "Date End"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,date_start:0
+msgid "Date Start"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: selection:account.wizard_income_statement_bydate,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,id:0
+msgid "ID"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: model:ir.ui.menu,name:opnsynid_income_statement_bydate_aeroo_report.menu_account_reportIncomeStatementBydate
+msgid "Income Statement Based on Date Range"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_income_statement_bydate_aeroo_report.report_account_incomeStatementBydateODS
+msgid "Income Statement Based on Date Range ODS"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_income_statement_bydate_aeroo_report.report_account_incomeStatementBydateXLS
+msgid "Income Statement Based on Date Range XLS"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: selection:account.wizard_income_statement_bydate,output_format:0
+msgid "ODS"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,output_format:0
+msgid "Output Format"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: selection:account.wizard_income_statement_bydate,state:0
+msgid "Posted"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: view:account.wizard_income_statement_bydate:opnsynid_income_statement_bydate_aeroo_report.form_account_wizardIncomeStatementBydate
+msgid "Print"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: view:account.wizard_income_statement_bydate:opnsynid_income_statement_bydate_aeroo_report.form_account_wizardIncomeStatementBydate
+msgid "Print Income Statement"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: model:ir.actions.act_window,name:opnsynid_income_statement_bydate_aeroo_report.waction_account_wizardIncomeStatementBydate
+msgid "Print Income Statement Base on Date Range"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: model:ir.model,name:opnsynid_income_statement_bydate_aeroo_report.model_account_wizard_income_statement_bydate
+msgid "Print Income Statement Based on Date Range"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: field:account.wizard_income_statement_bydate,state:0
+msgid "State"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: code:addons/opnsynid_income_statement_bydate_aeroo_report/wizards/wizard_income_statement_bydate.py:61
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: selection:account.wizard_income_statement_bydate,output_format:0
+msgid "XLS"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: view:account.wizard_income_statement_bydate:opnsynid_income_statement_bydate_aeroo_report.form_account_wizardIncomeStatementBydate
+msgid "_Cancel"
+msgstr ""
+
+#. module: opnsynid_income_statement_bydate_aeroo_report
+#: view:account.wizard_income_statement_bydate:opnsynid_income_statement_bydate_aeroo_report.form_account_wizardIncomeStatementBydate
+msgid "or"
+msgstr ""
+
