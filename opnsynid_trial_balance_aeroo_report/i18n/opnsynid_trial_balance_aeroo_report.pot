@@ -1,0 +1,151 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* opnsynid_trial_balance_aeroo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,state:0
+msgid "All"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,id:0
+msgid "ID"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,output_format:0
+msgid "ODS"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,output_format:0
+msgid "Output Format"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,output_format:0
+msgid "PDF"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,state:0
+msgid "Posted"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: view:account.wizard_report_trial_balance:opnsynid_trial_balance_aeroo_report.form_account_wizardReportTrialBalance
+msgid "Print"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: view:account.wizard_report_trial_balance:opnsynid_trial_balance_aeroo_report.form_account_wizardReportTrialBalance
+msgid "Report Trial Balance"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: field:account.wizard_report_trial_balance,state:0
+msgid "State"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.ui.menu,name:opnsynid_trial_balance_aeroo_report.menu_account_reportTrialBalance
+msgid "Trial Balance"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_trial_balance_aeroo_report.report_account_trialBalanceODS
+msgid "Trial Balance ODS"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_trial_balance_aeroo_report.report_account_trialBalancePDF
+msgid "Trial Balance PDF"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.actions.act_window,name:opnsynid_trial_balance_aeroo_report.waction_account_wizardReportTrialBalance
+msgid "Trial Balance Report"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_trial_balance_aeroo_report.report_account_trialBalanceXLS
+msgid "Trial Balance XLS"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: code:addons/opnsynid_trial_balance_aeroo_report/wizard/wizard_trial_balance.py:89
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: model:ir.model,name:opnsynid_trial_balance_aeroo_report.model_account_wizard_report_trial_balance
+msgid "Wizard Report Trial Balance"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: selection:account.wizard_report_trial_balance,output_format:0
+msgid "XLS"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: view:account.wizard_report_trial_balance:opnsynid_trial_balance_aeroo_report.form_account_wizardReportTrialBalance
+msgid "_Cancel"
+msgstr ""
+
+#. module: opnsynid_trial_balance_aeroo_report
+#: view:account.wizard_report_trial_balance:opnsynid_trial_balance_aeroo_report.form_account_wizardReportTrialBalance
+msgid "or"
+msgstr ""
+
