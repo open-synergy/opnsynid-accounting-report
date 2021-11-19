@@ -1,0 +1,161 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* opnsynid_general_ledger_aeroo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,account_id:0
+msgid "Account"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,account_ids:0
+msgid "Accounts"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,state:0
+msgid "All"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,end_period_id:0
+msgid "End Period"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: model:ir.ui.menu,name:opnsynid_general_ledger_aeroo_report.menu_account_reportGeneralLedger
+msgid "General Ledger"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_general_ledger_aeroo_report.report_account_generalLedgerODS
+msgid "General Ledger ODS"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_general_ledger_aeroo_report.report_account_generalLedgerPDF
+msgid "General Ledger PDF"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: model:ir.actions.report.xml,name:opnsynid_general_ledger_aeroo_report.report_account_generalLedgerXLS
+msgid "General Ledger XLS"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,id:0
+msgid "ID"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,in_foreign:0
+msgid "In Foreign"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,output_format:0
+msgid "ODS"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,output_format:0
+msgid "Output Format"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,output_format:0
+msgid "PDF"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,state:0
+msgid "Posted"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: view:account.wizard_report_general_ledger:opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger
+msgid "Print General Ledger"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: view:account.wizard_report_general_ledger:opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger
+#: model:ir.actions.act_window,name:opnsynid_general_ledger_aeroo_report.waction_account_wizardReportGeneralLedger
+msgid "Report General Ledger"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,start_period_id:0
+msgid "Start Period"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: field:account.wizard_report_general_ledger,state:0
+msgid "State"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: model:ir.model,name:opnsynid_general_ledger_aeroo_report.model_account_wizard_report_general_ledger
+msgid "Wizard Report General Ledger"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: selection:account.wizard_report_general_ledger,output_format:0
+msgid "XLS"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: view:account.wizard_report_general_ledger:opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger
+msgid "_Cancel"
+msgstr ""
+
+#. module: opnsynid_general_ledger_aeroo_report
+#: view:account.wizard_report_general_ledger:opnsynid_general_ledger_aeroo_report.form_account_wizardReportGeneralLedger
+msgid "or"
+msgstr ""
+
