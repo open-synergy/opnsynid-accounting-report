@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!-- © 2016 OpenSynergy Indonesia>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <openerp>
@@ -10,9 +10,13 @@
             <field name="report_name">bank_statement_mutation_ods</field>
             <field name="report_type">aeroo</field>
             <field name="in_format">oo-ods</field>
-            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
-            <field name="parser_loc">opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.py</field>
-            <field name="report_rml">opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods" />
+            <field
+                name="parser_loc"
+            >opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.py</field>
+            <field
+                name="report_rml"
+            >opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.ods</field>
             <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>
@@ -23,12 +27,15 @@
             <field name="report_name">bank_statement_mutation_xls</field>
             <field name="report_type">aeroo</field>
             <field name="in_format">oo-ods</field>
-            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
-            <field name="parser_loc">opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.py</field>
-            <field name="report_rml">opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt" />
+            <field
+                name="parser_loc"
+            >opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.py</field>
+            <field
+                name="report_rml"
+            >opnsynid_bank_statement_mutation_aeroo_report/reports/bank_statement_mutation.ods</field>
             <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>
     </data>
 </openerp>
-

@@ -5,10 +5,10 @@
 {
     "name": "General Ledger Report",
     "version": "8.0.1.0.0",
-    "author": "OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report General Ledger",
-    "website": "https://opensynergy-indonesia.com",
+    "website": "https://simetri-sinergi.id",
+    "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "depends": [
         "opnsynid_general_ledger_aeroo_report",
         "account_operating_unit",
@@ -20,5 +20,5 @@
     "installable": True,
     "auto_install": True,
     "application": True,
-    "license": "AGPL-3"
+    "license": "AGPL-3",
 }

@@ -2,7 +2,7 @@
 # Copyright 2015 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp import models, fields, api, osv
+from openerp import api, fields, models, osv
 from openerp.tools.translate import _
 
 
@@ -46,10 +46,7 @@ class WizardIncomeStatement(models.TransientModel):
         string="Output Format",
         required=True,
         default="ods",
-        selection=[
-            ("xls", "XLS"),
-            ("ods", "ODS")
-        ]
+        selection=[("xls", "XLS"), ("ods", "ODS")],
     )
     show_zero = fields.Boolean(
         string="Show Zero Balance",
@@ -57,16 +54,14 @@ class WizardIncomeStatement(models.TransientModel):
     )
     state = fields.Selection(
         string="State",
-        selection=[
-            ("all", "All"),
-            ("draft", "Draft"),
-            ("posted", "Posted")
-        ],
+        selection=[("all", "All"), ("draft", "Draft"), ("posted", "Posted")],
         required=True,
         default="posted",
     )
 
-    def button_print_report(self, cr, uid, ids, data, context=None):
+    def button_print_report(
+        self, cr, uid, ids, data, context=None
+    ):  # pylint: disable=R8110
         datas = {}
         output_format = ""
 

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 OpenSynergy Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
 
@@ -11,23 +10,28 @@
     <field name="arch" type="xml">
         <form string="Print Bank Statement Mutation">
             <group name="group_1" colspan="4" col="2">
-                <field name="company_id"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
-                <field name="journal_ids" widget="many2many_tags" domain="[('company_id','=',company_id),('type','=','bank')]"/>
-                <field name="state_draft"/>
-                <field name="state_open"/>
-                <field name="state_confirm"/>
-                <field name="output_format"/>
+                <field name="company_id" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field
+                            name="journal_ids"
+                            widget="many2many_tags"
+                            domain="[('company_id','=',company_id),('type','=','bank')]"
+                        />
+                <field name="state_draft" />
+                <field name="state_open" />
+                <field name="state_confirm" />
+                <field name="output_format" />
             </group>
             <footer>
-                <button name="action_print"
-                        type="object"
-                        string="Print"
-                        class="oe_highlight"/>
+                <button
+                            name="action_print"
+                            type="object"
+                            string="Print"
+                            class="oe_highlight"
+                        />
                 or
-                <button special="cancel"
-                        string="Cancel"/>
+                <button special="cancel" string="Cancel" />
             </footer>
         </form>
     </field>
@@ -42,12 +46,12 @@
 </record>
 
 <menuitem
-    id="print_bank_statement_mutation_menu"
-    name="Bank Statement Mutation"
-    parent="account.menu_finance_reports"
-    action="print_bank_statement_mutation_action"
-    sequence="1000"
-/>
+            id="print_bank_statement_mutation_menu"
+            name="Bank Statement Mutation"
+            parent="account.menu_finance_reports"
+            action="print_bank_statement_mutation_action"
+            sequence="1000"
+        />
 
 </data>
 </openerp>

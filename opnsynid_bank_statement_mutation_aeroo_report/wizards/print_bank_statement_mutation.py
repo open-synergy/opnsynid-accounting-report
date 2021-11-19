@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
-from openerp import api, models, fields
+
+from openerp import api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
 
@@ -44,20 +45,15 @@ class PrintBankStatementMutation(models.TransientModel):
         string="Closed",
     )
     output_format = fields.Selection(
-        string='Output Format',
+        string="Output Format",
         required=True,
-        selection=[
-            ('xls', 'XLS'),
-            ('ods', 'ODS')
-        ],
-        default='ods',
+        selection=[("xls", "XLS"), ("ods", "ODS")],
+        default="ods",
     )
 
-    @api.constrains(
-        "date_start", "date_end")
+    @api.constrains("date_start", "date_end")
     def _check_date(self):
-        strWarning = _(
-            "Date start must be greater than date end")
+        strWarning = _("Date start must be greater than date end")
         if self.date_start and self.date_end:
             if self.date_start > self.date_end:
                 raise UserError(strWarning)
@@ -67,17 +63,17 @@ class PrintBankStatementMutation(models.TransientModel):
         self.ensure_one()
 
         datas = {}
-        output_format = ''
+        output_format = ""
 
-        datas['form'] = self.read()[0]
+        datas["form"] = self.read()[0]
 
-        if self.output_format == 'xls':
-            output_format = 'bank_statement_mutation_xls'
-        elif self.output_format == 'ods':
-            output_format = 'bank_statement_mutation_ods'
+        if self.output_format == "xls":
+            output_format = "bank_statement_mutation_xls"
+        elif self.output_format == "ods":
+            output_format = "bank_statement_mutation_ods"
 
         return {
-            'type': 'ir.actions.report.xml',
-            'report_name': output_format,
-            'datas': datas,
+            "type": "ir.actions.report.xml",
+            "report_name": output_format,
+            "datas": datas,
         }

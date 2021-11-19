@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!-- Copyright 2016 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
@@ -11,9 +11,13 @@
             <field name="report_name">report_payable_aging_xls</field>
             <field name="report_type">aeroo</field>
             <field name="in_format">oo-ods</field>
-            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
-            <field name="parser_loc">opnsynid_payable_aging_aeroo_report/report/report_payable_aging.py</field>
-            <field name="report_rml">opnsynid_payable_aging_aeroo_report/report/report_payable_aging.ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt" />
+            <field
+                name="parser_loc"
+            >opnsynid_payable_aging_aeroo_report/report/report_payable_aging.py</field>
+            <field
+                name="report_rml"
+            >opnsynid_payable_aging_aeroo_report/report/report_payable_aging.ods</field>
             <field name="parser_state">loc</field>
             <field name="tml_source">file</field>
         </record>

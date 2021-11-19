@@ -1,16 +1,31 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <openerp>
 <data>
-  <record id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerXLS" model="ir.actions.report.xml">
-      <field name="parser_loc">opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
+  <record
+            id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerXLS"
+            model="ir.actions.report.xml"
+        >
+      <field
+                name="parser_loc"
+            >opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
   </record>
 
-  <record id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerPDF" model="ir.actions.report.xml">
-      <field name="parser_loc">opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
+  <record
+            id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerPDF"
+            model="ir.actions.report.xml"
+        >
+      <field
+                name="parser_loc"
+            >opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
   </record>
 
-  <record id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerODS" model="ir.actions.report.xml">
-      <field name="parser_loc">opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
+  <record
+            id="opnsynid_general_ledger_aeroo_report.report_account_generalLedgerODS"
+            model="ir.actions.report.xml"
+        >
+      <field
+                name="parser_loc"
+            >opnsynid_general_ledger_with_ou/report/report_general_ledger.py</field>
   </record>
 </data>
 </openerp>

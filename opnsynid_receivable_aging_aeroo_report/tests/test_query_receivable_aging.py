@@ -3,107 +3,113 @@
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from datetime import date, datetime
+
 from openerp.tests.common import TransactionCase
-from datetime import datetime, date
 
 
 class TestQueryReceivableAging(TransactionCase):
-
     def setUp(self, *args, **kwargs):
         super(TestQueryReceivableAging, self).setUp(*args, **kwargs)
 
-        self.obj_query = self.env['account.query_receivable_aging']
-        self.obj_invoice = self.env['account.invoice']
-        self.obj_move = self.env['account.move']
-        self.obj_move_line = self.env['account.move.line']
-        self.obj_bank_stmt = self.env['account.bank.statement']
-        self.obj_bank_stmt_line = self.registry('account.bank.statement.line')
+        self.obj_query = self.env["account.query_receivable_aging"]
+        self.obj_invoice = self.env["account.invoice"]
+        self.obj_move = self.env["account.move"]
+        self.obj_move_line = self.env["account.move.line"]
+        self.obj_bank_stmt = self.env["account.bank.statement"]
+        self.obj_bank_stmt_line = self.registry("account.bank.statement.line")
 
-        self.journal_1 = self.env.ref('account.sales_journal')
-        self.bank_journal_1 = self.env.ref('account.bank_journal')
-        self.partner_1 = self.env.ref('base.res_partner_2')
-        self.currency_1 = self.env.ref('base.EUR')
+        self.journal_1 = self.env.ref("account.sales_journal")
+        self.bank_journal_1 = self.env.ref("account.bank_journal")
+        self.partner_1 = self.env.ref("base.res_partner_2")
+        self.currency_1 = self.env.ref("base.EUR")
         self.company = self.env.user.company_id.id
-        self.account = self.env.ref('account.a_recv')
-        self.product_1 = self.env.ref('product.product_product_3')
-        self.product_2 = self.env.ref('product.product_product_5')
+        self.account = self.env.ref("account.a_recv")
+        self.product_1 = self.env.ref("product.product_product_3")
+        self.product_2 = self.env.ref("product.product_product_5")
 
-        self.period = self.env.ref('account.period_2')
+        self.period = self.env.ref("account.period_2")
         self.date_now = self.period.date_start
 
         self.date_payment = date.fromordinal(
-            datetime.strptime(
-                self.date_now, '%Y-%m-%d').toordinal() + 3)
+            datetime.strptime(self.date_now, "%Y-%m-%d").toordinal() + 3
+        )
 
         self.date_payment_2 = date.fromordinal(
-            datetime.strptime(
-                self.date_now, '%Y-%m-%d').toordinal() + 40)
+            datetime.strptime(self.date_now, "%Y-%m-%d").toordinal() + 40
+        )
 
         self.date_due = date.fromordinal(
-            datetime.strptime(
-                self.date_now, '%Y-%m-%d').toordinal() + 7)
+            datetime.strptime(self.date_now, "%Y-%m-%d").toordinal() + 7
+        )
 
     def _prepare_invoice(self):
         data = {
-            'name': 'Customer Invoice - A',
-            'journal_id': self.journal_1.id,
-            'partner_id': self.partner_1.id,
-            'currency_id': self.currency_1.id,
-            'company_id': self.company,
-            'account_id': self.account.id,
-            'date_invoice': self.date_now,
-            'date_due': self.date_due,
-            'type': 'out_invoice',
-            'invoice_line': [
-                (0, 0, {'product_id': self.product_1.id,
-                        'uos_id': 1,
-                        'quantity': 1.0,
-                        'price_unit': 10.0,
-                        'name': 'Basic PC',
-                        'account_id': self.account.id}),
-                (0, 0, {'product_id': self.product_2.id,
-                        'uos_id': 1,
-                        'quantity': 5.0,
-                        'price_unit': 100.0,
-                        'name': 'PC On Demand',
-                        'account_id': self.account.id})
-            ]
+            "name": "Customer Invoice - A",
+            "journal_id": self.journal_1.id,
+            "partner_id": self.partner_1.id,
+            "currency_id": self.currency_1.id,
+            "company_id": self.company,
+            "account_id": self.account.id,
+            "date_invoice": self.date_now,
+            "date_due": self.date_due,
+            "type": "out_invoice",
+            "invoice_line": [
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": self.product_1.id,
+                        "uos_id": 1,
+                        "quantity": 1.0,
+                        "price_unit": 10.0,
+                        "name": "Basic PC",
+                        "account_id": self.account.id,
+                    },
+                ),
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": self.product_2.id,
+                        "uos_id": 1,
+                        "quantity": 5.0,
+                        "price_unit": 100.0,
+                        "name": "PC On Demand",
+                        "account_id": self.account.id,
+                    },
+                ),
+            ],
         }
         return data
 
     def _prepare_bank_statement(self):
-        data = {
-            'journal_id': self.bank_journal_1.id,
-            'date': self.date_payment
-        }
+        data = {"journal_id": self.bank_journal_1.id, "date": self.date_payment}
         return data
 
     def _prepare_bank_statement_line(self, bank_stmt_id):
         data = {
-            'name': 'First Payment',
-            'statement_id': bank_stmt_id,
-            'partner_id': self.partner_1.id,
-            'amount': 150,
-            'currency_id': self.currency_1.id,
-            'date': self.date_payment
+            "name": "First Payment",
+            "statement_id": bank_stmt_id,
+            "partner_id": self.partner_1.id,
+            "amount": 150,
+            "currency_id": self.currency_1.id,
+            "date": self.date_payment,
         }
         return data
 
     def _prepare_bank_statement_2(self):
-        data = {
-            'journal_id': self.bank_journal_1.id,
-            'date': self.date_payment_2
-        }
+        data = {"journal_id": self.bank_journal_1.id, "date": self.date_payment_2}
         return data
 
     def _prepare_bank_statement_line_2(self, bank_stmt_id):
         data = {
-            'name': 'Second Payment',
-            'statement_id': bank_stmt_id,
-            'partner_id': self.partner_1.id,
-            'amount': 70,
-            'currency_id': self.currency_1.id,
-            'date': self.date_payment_2
+            "name": "Second Payment",
+            "statement_id": bank_stmt_id,
+            "partner_id": self.partner_1.id,
+            "amount": 70,
+            "currency_id": self.currency_1.id,
+            "date": self.date_payment_2,
         }
         return data
 
@@ -113,20 +119,16 @@ class TestQueryReceivableAging(TransactionCase):
         # Create Invoice
         data = self._prepare_invoice()
         inv = self.obj_invoice.create(data)
-        inv.signal_workflow('invoice_open')
+        inv.signal_workflow("invoice_open")
 
         # Search Move
-        move_id = self.obj_move.search(
-            [('ref', '=', 'Customer Invoice - A')]
-        )
+        move_id = self.obj_move.search([("ref", "=", "Customer Invoice - A")])
         # Check Move
         self.assertIsNotNone(move_id)
 
         # Search Query
 
-        query_id = self.obj_query.search(
-            [('move_id', '=', move_id.id)]
-        )
+        query_id = self.obj_query.search([("move_id", "=", move_id.id)])
         # Check Query
         self.assertEqual(query_id.move_id.name, move_id.name)
 
@@ -134,8 +136,7 @@ class TestQueryReceivableAging(TransactionCase):
         # Condition : Period Length = 30
 
         # Aging1 0-30
-        date_as_of_1 = date.fromordinal(
-            self.date_due.toordinal() + 1)
+        date_as_of_1 = date.fromordinal(self.date_due.toordinal() + 1)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_1)
@@ -147,8 +148,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging2 31-60
-        date_as_of_2 = date.fromordinal(
-            self.date_due.toordinal() + 31)
+        date_as_of_2 = date.fromordinal(self.date_due.toordinal() + 31)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_2)
@@ -160,8 +160,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging3 61-90
-        date_as_of_3 = date.fromordinal(
-            self.date_due.toordinal() + 61)
+        date_as_of_3 = date.fromordinal(self.date_due.toordinal() + 61)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_3)
@@ -173,8 +172,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging4 91-120
-        date_as_of_4 = date.fromordinal(
-            self.date_due.toordinal() + 91)
+        date_as_of_4 = date.fromordinal(self.date_due.toordinal() + 91)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_4)
@@ -186,8 +184,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging5 +120
-        date_as_of_5 = date.fromordinal(
-            self.date_due.toordinal() + 121)
+        date_as_of_5 = date.fromordinal(self.date_due.toordinal() + 121)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_5)
@@ -206,20 +203,16 @@ class TestQueryReceivableAging(TransactionCase):
         data_invoice = self._prepare_invoice()
         inv = self.obj_invoice.create(data_invoice)
 
-        inv.signal_workflow('invoice_open')
+        inv.signal_workflow("invoice_open")
 
         # Search Move
-        move_id = self.obj_move.search(
-            [('ref', '=', 'Customer Invoice - A')]
-        )
+        move_id = self.obj_move.search([("ref", "=", "Customer Invoice - A")])
         # Check Move
         self.assertIsNotNone(move_id)
 
         # Search Query
 
-        query_id = self.obj_query.search(
-            [('move_id', '=', move_id.id)]
-        )
+        query_id = self.obj_query.search([("move_id", "=", move_id.id)])
         # Check Query
         self.assertEqual(query_id.move_id.name, move_id.name)
 
@@ -232,24 +225,30 @@ class TestQueryReceivableAging(TransactionCase):
 
         # Create Payment Line
         data_bank_stmt_line = self._prepare_bank_statement_line(bank_stmt_id)
-        bank_stmt_line_id = self.obj_bank_stmt_line.create(
-            cr, uid, data_bank_stmt_line)
+        bank_stmt_line_id = self.obj_bank_stmt_line.create(cr, uid, data_bank_stmt_line)
 
         # Check Payment Line
         self.assertIsNotNone(bank_stmt_line_id)
 
         # Create reconcile the payment with the invoice
-        for l in inv.move_id.line_id:
-            if l.account_id.id == self.account.id:
-                line_id = l
+        for line in inv.move_id.line_id:
+            if line.account_id.id == self.account.id:
+                line_id = line
                 break
 
         self.obj_bank_stmt_line.process_reconciliation(
-            cr, uid, bank_stmt_line_id, [{
-                'counterpart_move_line_id': line_id.id,
-                'credit': 150,
-                'debit': 0,
-                'name': line_id.name, }])
+            cr,
+            uid,
+            bank_stmt_line_id,
+            [
+                {
+                    "counterpart_move_line_id": line_id.id,
+                    "credit": 150,
+                    "debit": 0,
+                    "name": line_id.name,
+                }
+            ],
+        )
 
         # Create Payment 2
         data_bank_stmt_2 = self._prepare_bank_statement_2()
@@ -259,26 +258,33 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertIsNotNone(bank_stmt_id_2)
 
         # Create Payment Line 2
-        data_bank_stmt_line_2 = self._prepare_bank_statement_line_2(
-            bank_stmt_id_2)
+        data_bank_stmt_line_2 = self._prepare_bank_statement_line_2(bank_stmt_id_2)
         bank_stmt_line_id_2 = self.obj_bank_stmt_line.create(
-            cr, uid, data_bank_stmt_line_2)
+            cr, uid, data_bank_stmt_line_2
+        )
 
         # Check Payment Line
         self.assertIsNotNone(bank_stmt_line_id_2)
 
         # Create reconcile the payment with the invoice
-        for l in inv.move_id.line_id:
-            if l.account_id.id == self.account.id:
-                line_id = l
+        for line in inv.move_id.line_id:
+            if line.account_id.id == self.account.id:
+                line_id = line
                 break
 
         self.obj_bank_stmt_line.process_reconciliation(
-            cr, uid, bank_stmt_line_id_2, [{
-                'counterpart_move_line_id': line_id.id,
-                'credit': 70,
-                'debit': 0,
-                'name': line_id.name, }])
+            cr,
+            uid,
+            bank_stmt_line_id_2,
+            [
+                {
+                    "counterpart_move_line_id": line_id.id,
+                    "credit": 70,
+                    "debit": 0,
+                    "name": line_id.name,
+                }
+            ],
+        )
 
         # Check Query
         self.assertEqual(query_id.move_id.name, move_id.name)
@@ -287,8 +293,7 @@ class TestQueryReceivableAging(TransactionCase):
         # Condition : Period Length = 30
 
         # Aging1 0-30
-        date_as_of_1 = date.fromordinal(
-            self.date_due.toordinal() + 1)
+        date_as_of_1 = date.fromordinal(self.date_due.toordinal() + 1)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_1)
@@ -300,8 +305,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging2 31-60
-        date_as_of_2 = date.fromordinal(
-            self.date_due.toordinal() + 31)
+        date_as_of_2 = date.fromordinal(self.date_due.toordinal() + 31)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_2)
@@ -313,8 +317,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging3 61-90
-        date_as_of_3 = date.fromordinal(
-            self.date_due.toordinal() + 61)
+        date_as_of_3 = date.fromordinal(self.date_due.toordinal() + 61)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_3)
@@ -326,8 +329,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging4 91-120
-        date_as_of_4 = date.fromordinal(
-            self.date_due.toordinal() + 91)
+        date_as_of_4 = date.fromordinal(self.date_due.toordinal() + 91)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_4)
@@ -339,8 +341,7 @@ class TestQueryReceivableAging(TransactionCase):
         self.assertEqual(query.aging5, 0.0)
 
         # Aging5 +120
-        date_as_of_5 = date.fromordinal(
-            self.date_due.toordinal() + 121)
+        date_as_of_5 = date.fromordinal(self.date_due.toordinal() + 121)
 
         query = self.obj_query.with_context(
             period_length=30, date_as_of=str(date_as_of_5)

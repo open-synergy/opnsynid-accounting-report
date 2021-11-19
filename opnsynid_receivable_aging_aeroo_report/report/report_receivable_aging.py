@@ -5,23 +5,25 @@
 
 import time
 from datetime import datetime
+
 from openerp.report import report_sxw
 
 
 class Parser(report_sxw.rml_parse):
-
-    def __init__(self, cr, uid, name, context):
+    def __init__(self, cr, uid, name, context):  # pylint: disable=R8110
         super(Parser, self).__init__(cr, uid, name, context)
         self.journal_list = []
         self.total_amount = 0.0
-        self.localcontext.update({
-            "time": time,
-            "get_company": self.get_company,
-            "get_date": self.get_date,
-            "get_date_as_of": self.get_date_as_of,
-            "get_period_length": self.get_period_length,
-            "get_journals": self.get_journals,
-        })
+        self.localcontext.update(
+            {
+                "time": time,
+                "get_company": self.get_company,
+                "get_date": self.get_date,
+                "get_date_as_of": self.get_date_as_of,
+                "get_period_length": self.get_period_length,
+                "get_journals": self.get_journals,
+            }
+        )
 
     def get_company(self):
         data = self.localcontext["data"]["form"]
@@ -33,8 +35,9 @@ class Parser(report_sxw.rml_parse):
         data = self.localcontext["data"]["form"]
         date_from = data["date_from"] or False
         if date_from:
-            conv_date_from = datetime.strptime(
-                date_from, "%Y-%m-%d").strftime("%d/%m/%Y")
+            conv_date_from = datetime.strptime(date_from, "%Y-%m-%d").strftime(
+                "%d/%m/%Y"
+            )
             return conv_date_from
         else:
             return False
@@ -43,8 +46,7 @@ class Parser(report_sxw.rml_parse):
         data = self.localcontext["data"]["form"]
         date_to = data["date_to"] or False
         if date_to:
-            conv_date_to = datetime.strptime(
-                date_to, "%Y-%m-%d").strftime("%d/%m/%Y")
+            conv_date_to = datetime.strptime(date_to, "%Y-%m-%d").strftime("%d/%m/%Y")
             return conv_date_to
         else:
             return False
@@ -65,8 +67,7 @@ class Parser(report_sxw.rml_parse):
     def get_date_as_of(self):
         data = self.localcontext["data"]["form"]
         date_as_of = data["date_as_of"] or False
-        conv_date_as_of = datetime.strptime(
-            date_as_of, "%Y-%m-%d").strftime("%d/%m/%Y")
+        conv_date_as_of = datetime.strptime(date_as_of, "%Y-%m-%d").strftime("%d/%m/%Y")
 
         return conv_date_as_of
 
@@ -90,12 +91,10 @@ class Parser(report_sxw.rml_parse):
                 for interval in range(1, 6):
                     label1 = str(period_length * (interval - 1))
                     label2 = str(period_length * (interval))
-                    aging_label["aging%s" % interval] = "%s - %s" % (
-                        label1, label2)
+                    aging_label["aging%s" % interval] = "{} - {}".format(label1, label2)
 
                     if interval == 5:
-                        aging_label["aging5"] = "+%s" % (
-                            str(period_length * (4)))
+                        aging_label["aging5"] = "+%s" % (str(period_length * (4)))
 
                 result = {
                     "id": journal.id,
@@ -133,7 +132,7 @@ class Parser(report_sxw.rml_parse):
             ("company_id.id", "=", company_id),
             ("move_id.period_id.fiscalyear_id", "=", fiscalyear_id),
             ("journal_id.id", "=", journal_id),
-            ("state", "=", "posted")
+            ("state", "=", "posted"),
         ]
 
         if date_from and not date_to:
@@ -155,13 +154,14 @@ class Parser(report_sxw.rml_parse):
 
         if line_ids:
             no = 1
-            for line in obj_line.browse(
-                    self.cr, self.uid, line_ids, context=context):
+            for line in obj_line.browse(self.cr, self.uid, line_ids, context=context):
                 if line.amount_residual > 0:
-                    conv_date = datetime.strptime(
-                        line.date, "%Y-%m-%d").strftime("%d-%m-%Y")
+                    conv_date = datetime.strptime(line.date, "%Y-%m-%d").strftime(
+                        "%d-%m-%Y"
+                    )
                     conv_date_due = datetime.strptime(
-                        line.date_due, "%Y-%m-%d").strftime("%d-%m-%Y")
+                        line.date_due, "%Y-%m-%d"
+                    ).strftime("%d-%m-%Y")
                     if line.direction == "past":
                         res = {
                             "no": no,
@@ -209,6 +209,6 @@ class Parser(report_sxw.rml_parse):
             "aging3": aging3,
             "aging4": aging4,
             "aging5": aging5,
-            "current": current
+            "current": current,
         }
         return result
