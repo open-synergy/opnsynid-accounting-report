@@ -16,71 +16,73 @@ class QueryReceivableAging(models.Model):
 
     @api.multi
     def function_aging(self):
-        self.ensure_one()
-        res = {}
-        residual = 0.0
-        obj_move_line = reconcile_lines = self.env["account.move.line"]
-        period_length = self._context.get("period_length", False)
-        date_as_of = self._context.get("date_as_of", False)
+        for record in self:
+            res = {}
+            residual = 0.0
+            obj_move_line = reconcile_lines = self.env["account.move.line"]
+            period_length = self._context.get("period_length", False)
+            date_as_of = self._context.get("date_as_of", False)
 
-        if date_as_of:
-            ord_date_as_of = datetime.strptime(date_as_of, "%Y-%m-%d").toordinal()
+            if date_as_of:
+                ord_date_as_of = datetime.strptime(date_as_of, "%Y-%m-%d").toordinal()
 
-        res = {
-            "aging1": 0.0,
-            "aging2": 0.0,
-            "aging3": 0.0,
-            "aging4": 0.0,
-            "aging5": 0.0,
-            "amount_residual": 0.0,
-            "amount_residual_currency": 0.0,
-        }
+            res = {
+                "aging1": 0.0,
+                "aging2": 0.0,
+                "aging3": 0.0,
+                "aging4": 0.0,
+                "aging5": 0.0,
+                "amount_residual": 0.0,
+                "amount_residual_currency": 0.0,
+            }
 
-        if self.date_due:
-            ord_date_due = datetime.strptime(self.date_due, "%Y-%m-%d").toordinal()
+            if record.date_due:
+                ord_date_due = datetime.strptime(
+                    record.date_due, "%Y-%m-%d"
+                ).toordinal()
 
-            direction = ord_date_due - ord_date_as_of
-            move_line = obj_move_line.browse(self.ids)[0]
+                direction = ord_date_due - ord_date_as_of
+                move_line = obj_move_line.browse(self.ids)[0]
 
-            if move_line.reconcile_id:
-                reconcile_lines = move_line.reconcile_id.line_id
-            elif move_line.reconcile_partial_id:
-                reconcile_lines = move_line.reconcile_partial_id.line_partial_ids
+                if move_line.reconcile_id:
+                    reconcile_lines = move_line.reconcile_id.line_id
+                elif move_line.reconcile_partial_id:
+                    reconcile_lines = move_line.reconcile_partial_id.line_partial_ids
+                else:
+                    reconcile_lines += move_line
+
+                for reconcile_line in reconcile_lines:
+                    if reconcile_line.date <= date_as_of:
+                        residual += reconcile_line.debit - reconcile_line.credit
+
+                res["amount_residual"] = residual
+
+                for interval in range(1, 6):
+                    st_if_1 = period_length * (interval - 1)
+                    st_if_2 = period_length * (interval)
+                    if (st_if_1) <= abs(direction) < (st_if_2):
+                        res["aging%s" % (interval)] = residual
+
+                    if interval == 5:
+                        if abs(direction) >= (period_length * 4):
+                            res["aging5"] = residual
+
+                if move_line.amount_residual_currency:
+                    residual_currency = move_line.amount_residual_currency
+                    res["amount_residual_currency"] = residual_currency
+
+            record.aging1 = res["aging1"]
+            record.aging2 = res["aging2"]
+            record.aging3 = res["aging3"]
+            record.aging4 = res["aging4"]
+            record.aging5 = res["aging5"]
+            record.amount_residual = res["amount_residual"]
+            record.amount_residual_currency = res["amount_residual_currency"]
+
+            if direction < 0:
+                record.direction = "past"
             else:
-                reconcile_lines += move_line
-
-            for reconcile_line in reconcile_lines:
-                if reconcile_line.date <= date_as_of:
-                    residual += reconcile_line.debit - reconcile_line.credit
-
-            res["amount_residual"] = residual
-
-            for interval in range(1, 6):
-                st_if_1 = period_length * (interval - 1)
-                st_if_2 = period_length * (interval)
-                if (st_if_1) <= abs(direction) < (st_if_2):
-                    res["aging%s" % (interval)] = residual
-
-                if interval == 5:
-                    if abs(direction) >= (period_length * 4):
-                        res["aging5"] = residual
-
-            if move_line.amount_residual_currency:
-                residual_currency = move_line.amount_residual_currency
-                res["amount_residual_currency"] = residual_currency
-
-        self.aging1 = res["aging1"]
-        self.aging2 = res["aging2"]
-        self.aging3 = res["aging3"]
-        self.aging4 = res["aging4"]
-        self.aging5 = res["aging5"]
-        self.amount_residual = res["amount_residual"]
-        self.amount_residual_currency = res["amount_residual_currency"]
-
-        if direction < 0:
-            self.direction = "past"
-        else:
-            self.direction = "future"
+                record.direction = "future"
 
     name = fields.Char(string="Description", size=64)
 

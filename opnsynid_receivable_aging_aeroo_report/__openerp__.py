@@ -5,7 +5,7 @@
 
 {
     "name": "Receivable Aging Report",
-    "version": "8.0.1.3.0",
+    "version": "8.0.1.3.1",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Accounting",
     "summary": "Report Receivable Aging",
