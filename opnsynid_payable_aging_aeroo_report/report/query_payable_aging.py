@@ -38,7 +38,7 @@ class QueryPayableAging(models.Model):
             }
 
             if record.date_due:
-                ord_date_due = datetime.strptime(self.date_due, "%Y-%m-%d").toordinal()
+                ord_date_due = datetime.strptime(record.date_due, "%Y-%m-%d").toordinal()
 
                 direction = ord_date_due - ord_date_as_of
                 move_line = obj_move_line.browse(record.id)
